@@ -13,12 +13,13 @@ next-env.d.ts
 # One-time code challenge store
 /.data/
 
-# Confidential documents: never commit. Provide them on the server through DOCUMENTS_DIR.
+# PDFs are ignored everywhere except the documents emailed on request, which are committed by decision of the owner.
 *.pdf
 /private/*
 !/private/documents/
 /private/documents/*
 !/private/documents/README.md
+!/private/documents/*.pdf
 
 # Credentials and keys
 *.key

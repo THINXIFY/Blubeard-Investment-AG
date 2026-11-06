@@ -23,7 +23,7 @@ The site runs as one always-on Node.js process behind Nginx on a VPS shared with
   acme/                 Let's Encrypt validation files
 ```
 
-Secrets and PDFs are never in Git. They exist only on the server.
+Secrets are never in Git. The private PDFs are in the public repository at `private/documents`, by decision of the owner, so they can be downloaded by anyone without email verification. The app reads the server's own copy.
 
 ## Initial setup
 
@@ -43,13 +43,7 @@ Run these as the user that owns the existing PM2 apps. Node.js 20.9 or newer, PM
    nano /var/www/blubeard-investment/shared/.env.local    # fill in RESEND_API_KEY
    ```
 
-3. **Upload the private PDFs** from your computer, over the encrypted connection:
-
-   ```bash
-   scp private/documents/*.pdf <user>@2.25.169.72:/srv/blubeard-private/documents/
-   ```
-
-4. **Finish.** This builds the first release, adds the Nginx site, obtains the certificate, saves the PM2 list for reboots, confirms the other PM2 apps are unchanged, and verifies the live site.
+3. **Finish.** This copies the private PDFs from the repository to `/srv/blubeard-private/documents` if that folder is empty, builds the first release, adds the Nginx site, obtains the certificate, saves the PM2 list for reboots, confirms the other PM2 apps are unchanged, and verifies the live site.
 
    ```bash
    bash /tmp/blubeard-setup/deploy/server-setup.sh install
@@ -57,7 +51,7 @@ Run these as the user that owns the existing PM2 apps. Node.js 20.9 or newer, PM
 
    If it prints a `pm2 startup` command to run, run it. Then remove the setup copy: `rm -rf /tmp/blubeard-setup`.
 
-5. **Test by hand:** on `/contact`, click **Request Private Documents** and complete the flow with a real inbox. Confirm all the PDFs arrive and the email is not in spam. `blubeard-investment.com` must show **Verified** under Domains in Resend.
+4. **Test by hand:** on `/contact`, click **Request Private Documents** and complete the flow with a real inbox. Confirm all the PDFs arrive and the email is not in spam. `blubeard-investment.com` must show **Verified** under Domains in Resend.
 
 ## Future updates
 

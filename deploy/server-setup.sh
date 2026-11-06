@@ -185,8 +185,13 @@ cmd_install() {
     ok "created $env with a new one-time-code secret"
   fi
   chmod 600 "$env"
-  grep -qE '^RESEND_API_KEY=.+' "$env" || die "Add RESEND_API_KEY to $env and upload the PDFs to $DOCS_DIR, then run this again. See docs/deploy-vps.md."
-  [ -n "$(find "$DOCS_DIR" -maxdepth 1 -iname '*.pdf' -print -quit)" ] || die "No PDFs in $DOCS_DIR yet. See docs/deploy-vps.md, then run this again."
+  grep -qE '^RESEND_API_KEY=.+' "$env" || die "Add RESEND_API_KEY to $env, then run this again. See docs/deploy-vps.md."
+  # Only fills an empty folder, so documents changed on the server are never overwritten.
+  if [ -z "$(find "$DOCS_DIR" -maxdepth 1 -iname '*.pdf' -print -quit)" ]; then
+    find "$SRC/private/documents" -maxdepth 1 -iname '*.pdf' -exec cp -t "$DOCS_DIR" {} +
+    ok "copied the documents from the repository to $DOCS_DIR"
+  fi
+  [ -n "$(find "$DOCS_DIR" -maxdepth 1 -iname '*.pdf' -print -quit)" ] || die "No PDFs in $DOCS_DIR. See docs/deploy-vps.md, then run this again."
   find "$DOCS_DIR" -maxdepth 1 -iname '*.pdf' -exec chmod 600 {} +
   ok "settings and documents are in place"
 
