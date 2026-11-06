@@ -45,3 +45,16 @@ Thumbs.db
 
 # Unused logo marked unverified by its filename: not for a public repository or the live site.
 /public/media/partners/unverified-*
+
+# Internal-only notes: kept locally, not for a public repository.
+/docs/legal-review-checklist.md
+/docs/media-sources.md
+/docs/privacy-audit.md
+
+# Retired hero photographs, no longer used by the site.
+/src/assets/images/heroBg.jpg
+/src/assets/images/heroBgMobile.jpg
+/src/assets/images/hfFloor.jpg
+/src/assets/images/hfSkyline.jpg
+/src/assets/images/hfTowers.jpg
+/src/assets/images/hfPort.jpg

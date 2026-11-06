@@ -167,22 +167,6 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Blur-chart-data-69760.jpg",
     "modified": true
   },
-  "heroBg": {
-    "title": "Paradeplatz Zürich",
-    "creator": "SISHION",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=32622514",
-    "modified": true
-  },
-  "heroBgMobile": {
-    "title": "Paradeplatz Zürich",
-    "creator": "SISHION",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=32622514",
-    "modified": true
-  },
   "aboutHero": {
     "title": "Paradeplatz Zürich",
     "creator": "SISHION",
@@ -1013,6 +997,46 @@
     "license": "CC0 1.0",
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Conference_room_table_(Unsplash).jpg",
+    "modified": true
+  },
+  "heroSkyline": {
+    "title": "Figure at a window overlooking a city skyline",
+    "creator": null,
+    "license": "Supplied by Blubeard Investment AG",
+    "licenseUrl": null,
+    "sourceUrl": null,
+    "modified": true
+  },
+  "heroSkylineMobile": {
+    "title": "Figure at a window overlooking a city skyline",
+    "creator": null,
+    "license": "Supplied by Blubeard Investment AG",
+    "licenseUrl": null,
+    "sourceUrl": null,
+    "modified": true
+  },
+  "heroTowers": {
+    "title": "Office towers with illustrative chart graphic",
+    "creator": null,
+    "license": "Supplied by Blubeard Investment AG",
+    "licenseUrl": null,
+    "sourceUrl": null,
+    "modified": true
+  },
+  "heroBoardroom": {
+    "title": "Business meeting with illustrative chart graphic",
+    "creator": null,
+    "license": "Supplied by Blubeard Investment AG",
+    "licenseUrl": null,
+    "sourceUrl": null,
+    "modified": true
+  },
+  "heroHandshake": {
+    "title": "Handshake with illustrative chart graphic",
+    "creator": null,
+    "license": "Supplied by Blubeard Investment AG",
+    "licenseUrl": null,
+    "sourceUrl": null,
     "modified": true
   }
 }

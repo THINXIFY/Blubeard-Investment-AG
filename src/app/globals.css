@@ -656,3 +656,142 @@ a:focus-visible > .pm-logo {
     transform: none;
   }
 }
+
+/* ==========================================================================
+   Homepage hero film: slow camera moves and long dissolves (see HeroFilm.tsx)
+   ========================================================================== */
+@keyframes hero-camera {
+  from {
+    transform: translate3d(var(--x0), var(--y0), 0) scale(var(--s0));
+  }
+  to {
+    transform: translate3d(var(--x1), var(--y1), 0) scale(var(--s1));
+  }
+}
+
+.hero-shot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1800ms var(--ease-smooth);
+}
+
+.hero-shot[data-on] {
+  opacity: 1;
+}
+
+.hero-shot-camera {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(var(--x0), var(--y0), 0) scale(var(--s0));
+  will-change: transform;
+}
+
+/* Hold (7s) plus a dissolve at each end, so the camera never stops on screen. */
+.hero-shot[data-run] .hero-shot-camera {
+  animation: hero-camera 10600ms linear both;
+}
+
+[data-paused] .hero-shot-camera {
+  animation-play-state: paused !important;
+}
+
+/* Opening bars: closed until the script runs, with a failsafe if it never arrives. */
+@keyframes hero-intro-failsafe {
+  to {
+    clip-path: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .hero-intro:not([data-intro-run]) {
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+    animation: hero-intro-failsafe 1ms 2600ms forwards;
+  }
+}
+
+/* One colour treatment across the sector photographs, so they read as a single series. */
+.hero-grade {
+  filter: grayscale(0.35) saturate(0.85) brightness(0.86) contrast(1.04);
+}
+
+@keyframes hero-preview-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.hero-preview {
+  animation: hero-preview-in 400ms var(--ease-smooth) both;
+}
+
+/* Pinned sector stage on larger screens; the static strip everywhere else. */
+.hero-stage-grid {
+  display: none;
+}
+
+@media (min-width: 768px) and (min-height: 640px) and (prefers-reduced-motion: no-preference) {
+  html.js .hero-stage-grid {
+    display: grid;
+  }
+  html.js .hero-strip {
+    display: none;
+  }
+  /* The hold: 1.5 screens of scrolling while the stage stays put. */
+  html.js .hero-track {
+    height: calc(100svh + 150vh);
+  }
+  html.js .hero-pin {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-shot {
+    transition: none;
+  }
+  .hero-shot[data-run] .hero-shot-camera {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   Site-wide motion motif: three bars, after the bars in the emblem
+   ========================================================================== */
+
+/* Inner-page hero opening (HeroBars.tsx) */
+.hero-bars {
+  display: none;
+}
+
+@keyframes hero-bar-lift {
+  to {
+    transform: scaleY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not([data-routed]) .hero-bars {
+    position: absolute;
+    inset: 0;
+    z-index: -5;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    pointer-events: none;
+  }
+  .hero-bars span {
+    margin-right: -1px;
+    background: var(--color-obsidian);
+    transform-origin: top;
+    will-change: transform;
+    animation: hero-bar-lift 900ms var(--ease-smooth) both;
+  }
+  .hero-bars span:nth-child(2) {
+    animation-delay: 110ms;
+  }
+  .hero-bars span:nth-child(3) {
+    animation-delay: 220ms;
+  }
+}

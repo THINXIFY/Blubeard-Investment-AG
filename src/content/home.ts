@@ -15,7 +15,9 @@ export const hero = {
     "Strategic investments across established industries and emerging technologies, guided by disciplined thinking and a long-term perspective.",
   primaryCta: { label: "Explore Investments", href: "#investments" },
   secondaryCta: { label: "Our Approach", href: "#approach" },
-  image: "heroBg" as ImageKey,
+  image: "heroSkyline" as ImageKey,
+  /** Shown as the twelve sectors assemble on scroll. */
+  industriesLine: ["Twelve industries.", "One discipline."],
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -53,6 +55,8 @@ export type Industry = {
   description: string;
   category: IndustryCategoryId;
   image: ImageKey;
+  /** Homepage card photograph, when it differs from `image`. */
+  cardImage?: ImageKey;
 };
 
 export const investments = {
@@ -60,7 +64,6 @@ export const investments = {
   heading: ["Investing Across Industries", "That Shape Tomorrow."],
   description:
     "Our investment focus spans established markets and emerging industries, reflecting a broad perspective on the sectors influencing economic growth, technological progress, and global development.",
-  allLabel: "All Industries",
   cta: { label: "Explore All Investment Sectors", href: "/investments" },
 } as const;
 
@@ -78,6 +81,7 @@ export const industries: readonly Industry[] = [
     description: "Innovation in life sciences, pharmaceutical research, and next-generation biological technologies.",
     category: "healthcare",
     image: "biotechnology",
+    cardImage: "bio1",
   },
   {
     id: "technology",
@@ -165,7 +169,7 @@ export const industries: readonly Industry[] = [
 
 export const philosophy = {
   eyebrow: "Our Philosophy",
-  heading: ["Discipline in Every Decision.", "Perspective in Every Investment."],
+  heading: ["Clear Thinking.", "Patient Capital."],
   description:
     "Successful investing requires more than identifying opportunity. It calls for thoughtful evaluation, a clear strategic direction, and the ability to see beyond immediate market movements.",
   intro: "Our investment philosophy is guided by three enduring principles.",

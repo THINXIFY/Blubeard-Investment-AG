@@ -8,6 +8,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { KenBurns } from "@/components/motion/KenBurns";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 /**
  * Cinematic photographic hero — dusk glass towers under a slow, seamless zoom and drift.
@@ -25,6 +26,7 @@ export function ServicesHero() {
       aria-labelledby="services-hero-title"
       className="relative isolate overflow-hidden bg-obsidian text-white"
     >
+      <HeroBars />
       <KenBurns className="-z-10">
         <Image
           src={img.src}

@@ -4,9 +4,9 @@ import { images } from "@/content/images";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { HeadingLines } from "@/components/ui/HeadingLines";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 /**
  * Company introduction — asymmetric editorial composition.
@@ -38,13 +38,12 @@ export function About() {
             <div data-reveal-item>
               <Eyebrow>{about.eyebrow}</Eyebrow>
             </div>
-            <h2
-              data-reveal-item
+            <MaskedHeading
               id="about-title"
+              lines={about.heading}
               className="mt-7 font-display text-[clamp(2.125rem,1.4rem+2.2vw,3.5rem)] leading-[1.05] font-medium tracking-[-0.035em] text-ink"
-            >
-              <HeadingLines lines={about.heading} muted={1} />
-            </h2>
+              lineClassNames={[undefined, "text-slate/80"]}
+            />
           </Reveal>
 
           {/* Photograph with Swiss inset */}

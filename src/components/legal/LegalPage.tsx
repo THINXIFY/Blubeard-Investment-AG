@@ -5,7 +5,7 @@ import { legalNav, site } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { LegalTocDesktop, LegalTocMobile } from "./LegalToc";
 
-/** Unique title/description and a self-referencing canonical; indexable after client approval. */
+/** Unique title/description and a self-referencing canonical. */
 export function legalMetadata(doc: LegalDocument): Metadata {
   return {
     title: doc.title,
@@ -56,9 +56,6 @@ export function Block({ block }: { block: LegalBlock }) {
           ))}
         </dl>
       );
-    case "review":
-      // Internal review notes are tracked in docs/legal-review-checklist.md and not rendered publicly.
-      return null;
   }
 }
 

@@ -5,8 +5,11 @@
  */
 import type { StaticImageData } from "next/image";
 
-import heroBg from "@/assets/images/heroBg.jpg";
-import heroBgMobile from "@/assets/images/heroBgMobile.jpg";
+import heroSkyline from "../../public/media/hero/2826.jpg";
+import heroSkylineMobile from "@/assets/images/heroSkylineMobile.jpg";
+import heroTowers from "../../public/media/hero/73923.jpg";
+import heroBoardroom from "../../public/media/hero/2152011780.jpg";
+import heroHandshake from "../../public/media/hero/2148755138.jpg";
 import about from "@/assets/images/about.jpg";
 import aboutHero from "@/assets/images/aboutHero.jpg";
 import aboutCompany from "@/assets/images/aboutCompany.jpg";
@@ -140,7 +143,7 @@ export type ImageCredit = {
   creator: string | null;
   license: string;
   licenseUrl: string | null;
-  sourceUrl: string;
+  sourceUrl: string | null;
   /** True when the image was cropped or tonally adjusted (required disclosure for CC BY / BY-SA). */
   modified: boolean;
 };
@@ -158,8 +161,11 @@ export type SiteImage = {
 };
 
 const files = {
-  heroBg,
-  heroBgMobile,
+  heroSkyline,
+  heroSkylineMobile,
+  heroTowers,
+  heroBoardroom,
+  heroHandshake,
   about,
   aboutHero,
   aboutCompany,
@@ -377,7 +383,8 @@ const meta: Record<ImageKey, Meta> = {
     alt: "Close-up of a lidar sensor mounted on a test vehicle",
   },
   bio1: {
-    usage: "Sector page — Biotechnology; Healthcare & Medical Technology — closing",
+    usage:
+      "Sector page — Biotechnology; Healthcare & Medical Technology — closing; Home — Biotechnology; Homepage hero sector grid",
     alt: "Scientists in protective suits working in a yellow-lit cleanroom laboratory",
   },
   bio2: {
@@ -527,7 +534,7 @@ const meta: Record<ImageKey, Meta> = {
   },
   peq1: {
     usage:
-      "Sector page — Private Equity; Our Team — closing; Services page — closing; Mergers & Acquisitions — contact",
+      "Sector page — Private Equity; Our Team — closing; Services page — closing; Mergers & Acquisitions — contact; Home — Connect with Blubeard",
     alt: "Canary Wharf skyline reflected in the Thames at blue hour",
   },
   peq2: {
@@ -535,8 +542,7 @@ const meta: Record<ImageKey, Meta> = {
     alt: "City skyline lit at night across dark water",
   },
   peq3: {
-    usage:
-      "Sector page — Private Equity; Services page — advisory philosophy; Investment Research & Risk Advisory — expertise",
+    usage: "Sector page — Private Equity; Investment Research & Risk Advisory — expertise",
     alt: "Illuminated office towers at night in Canary Wharf",
   },
   peq4: {
@@ -636,7 +642,7 @@ const meta: Record<ImageKey, Meta> = {
     caption: "St. Gallen, Switzerland",
   },
   aboutDetail: {
-    usage: "Home — Connect with Blubeard; Real Estate — perspective (detail)",
+    usage: "Real Estate — perspective (detail)",
     alt: "Close-up of a white façade composed of angled triangular panels",
   },
   aboutEngadin: {
@@ -644,13 +650,25 @@ const meta: Record<ImageKey, Meta> = {
     alt: "Alpine peaks and forested slopes of the Upper Engadin, photographed from Samedan",
     caption: "View from Samedan, Upper Engadin",
   },
-  heroBg: {
-    usage: "Homepage hero",
-    alt: "A tram passing the illuminated historic façades of Paradeplatz in Zürich's financial district at dusk",
+  heroSkyline: {
+    usage: "Homepage hero film (opening shot)",
+    alt: "A silhouetted figure at a tall window, looking out over a city skyline at dusk",
   },
-  heroBgMobile: {
-    usage: "Homepage hero (mobile crop)",
-    alt: "A tram passing the illuminated historic façades of Paradeplatz in Zürich's financial district at dusk",
+  heroSkylineMobile: {
+    usage: "Homepage hero film (mobile opening shot)",
+    alt: "A silhouetted figure at a tall window, looking out over a city skyline at dusk",
+  },
+  heroTowers: {
+    usage: "Homepage hero film",
+    alt: "Glass office towers seen from below, with an illustrative rising chart graphic in the foreground",
+  },
+  heroBoardroom: {
+    usage: "Homepage hero film",
+    alt: "Silhouetted business people meeting at a table by a city window, with an illustrative bar chart graphic in front",
+  },
+  heroHandshake: {
+    usage: "Homepage hero film",
+    alt: "A person in a dark suit offering a handshake, with an illustrative market chart graphic around them",
   },
   about: {
     usage: "Home — About Blubeard; About Us — closing; Real Estate — closing; Real Estate Management — hero",
@@ -698,7 +716,8 @@ const meta: Record<ImageKey, Meta> = {
     note: "Illustrative market data · Not Blubeard performance",
   },
   realEstate: {
-    usage: "Industry — Real Estate; Services page — hero; Mergers & Acquisitions — expertise",
+    usage:
+      "Industry — Real Estate; Services page — hero; Mergers & Acquisitions — expertise; Homepage hero sector grid",
     alt: "Two glass office towers linked by a skybridge, photographed from below at dusk with offices lit from within",
   },
   biotechnology: {
@@ -706,49 +725,51 @@ const meta: Record<ImageKey, Meta> = {
     alt: "Researcher pipetting samples at a laboratory bench lined with test-tube racks",
   },
   technology: {
-    usage: "Industry — Technology; Asset & Portfolio Management — capabilities",
+    usage: "Industry — Technology; Asset & Portfolio Management — capabilities; Homepage hero sector grid",
     alt: "Close-up of neatly labelled network cables and blue status lights in a data centre server rack",
   },
   ai: {
-    usage: "Industry — Artificial Intelligence; Investment Research & Risk Advisory — capabilities",
+    usage:
+      "Industry — Artificial Intelligence; Investment Research & Risk Advisory — capabilities; Homepage hero sector grid",
     alt: "Rows of high-performance computing cabinets with green status lights in a supercomputing facility",
   },
   oil: {
-    usage: "Industry — Petroleum & Oil",
+    usage: "Industry — Petroleum & Oil; Homepage hero sector grid",
     alt: "Oil refinery towers and processing units silhouetted against a dusk sky",
   },
   solar: {
-    usage: "Industry — Energy & Solar",
+    usage: "Industry — Energy & Solar; Homepage hero sector grid",
     alt: "Aerial view of concentric fields of solar mirrors focused on central solar power towers",
   },
   industrial: {
-    usage: "Industry — Industrial & Manufacturing; Mergers & Acquisitions — capabilities",
+    usage: "Industry — Industrial & Manufacturing; Mergers & Acquisitions — capabilities; Homepage hero sector grid",
     alt: "Automated vehicle body production line with industrial robots welding car body frames",
   },
   logistics: {
-    usage: "Industry — Logistics & Infrastructure; Corporate & Strategic Consulting — capabilities",
+    usage:
+      "Industry — Logistics & Infrastructure; Corporate & Strategic Consulting — capabilities; Homepage hero sector grid",
     alt: "Aerial view of a major container port with terminals, gantry cranes and stacked containers along a river",
   },
   healthcare: {
-    usage: "Industry — Healthcare & Medical Technology",
+    usage: "Industry — Healthcare & Medical Technology; Homepage hero sector grid",
     alt: "Magnetic resonance imaging scanner in a modern hospital imaging room",
   },
   privateEquity: {
     usage:
-      "Industry — Private Equity; Our Approach — closing; Private Equity & Capital Advisory — contact; Home — Our Perspective",
+      "Industry — Private Equity; Our Approach — closing; Private Equity & Capital Advisory — contact; Home — Our Perspective; Homepage hero sector grid",
     alt: "Aerial view of the City of London financial district and its office towers at sunset",
   },
   aerospace: {
     usage:
-      "Industry — Aerospace & Defense Technology; Venture Capital & Growth Investments — contact; Contact — closing",
+      "Industry — Aerospace & Defense Technology; Venture Capital & Growth Investments — contact; Contact — closing; Homepage hero sector grid",
     alt: "Technicians in clean-room suits preparing a satellite inside a spacecraft processing facility",
   },
   agriculture: {
-    usage: "Industry — Agriculture & Food Technology",
+    usage: "Industry — Agriculture & Food Technology; Homepage hero sector grid",
     alt: "Rows of green and red lettuce growing in a modern hydroponic greenhouse",
   },
   apHero: {
-    usage: "Our Approach — hero",
+    usage: "Our Approach — hero; Home — Our Philosophy",
     alt: "The columned façade of the New York Stock Exchange",
     caption: "New York Stock Exchange",
   },
@@ -767,7 +788,8 @@ const meta: Record<ImageKey, Meta> = {
     alt: "The sandstone façade of the Frankfurt Stock Exchange building",
   },
   tmUnited: {
-    usage: "Our Team — leadership philosophy; Our Partners — Long-Term Perspective",
+    usage:
+      "Our Team — leadership philosophy; Our Partners — Long-Term Perspective; Services page — advisory philosophy",
     alt: "A traditional wood-panelled boardroom with a long table and leather chairs",
   },
   ctSamedan: {

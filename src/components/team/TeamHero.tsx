@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 /**
  * Compact photographic banner: a glass prism under a directional Obsidian overlay, with a two-line
@@ -23,6 +24,7 @@ export function TeamHero() {
       aria-labelledby="team-hero-title"
       className="relative isolate overflow-hidden bg-obsidian text-white"
     >
+      <HeroBars />
       <Image
         src={img.src}
         alt=""

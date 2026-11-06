@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/motion/Reveal";
 import { ensureGsap, gsap, motion, MOTION_OK, useGSAP } from "@/lib/motion";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 ensureGsap();
 
@@ -55,9 +56,7 @@ export function InvestmentsDuality() {
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
           <Reveal className="lg:col-span-7">
             <Eyebrow>{duality.eyebrow}</Eyebrow>
-            <h2 id="duality-title" className="mt-6 max-w-[22ch] text-heading-lg">
-              {duality.heading}
-            </h2>
+            <MaskedHeading id="duality-title" lines={[duality.heading]} className="mt-6 max-w-[22ch] text-heading-lg" />
           </Reveal>
           <Reveal className="lg:col-span-4 lg:col-start-9" delay={0.1}>
             <p className="leading-relaxed text-slate">

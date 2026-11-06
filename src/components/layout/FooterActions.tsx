@@ -73,7 +73,7 @@ export function BackToTop() {
     <button
       type="button"
       onClick={onClick}
-      className="group/top inline-flex items-center gap-3 text-sm text-platinum transition-colors duration-300 outline-none hover:text-white focus-visible:text-white"
+      className="group/top inline-flex items-center gap-3 text-sm text-white outline-none"
     >
       Back to top
       <span className="relative grid size-10 place-items-center overflow-hidden rounded-full border border-white/15 transition-colors duration-500 group-hover/top:border-white group-hover/top:bg-white group-hover/top:text-obsidian group-focus-visible/top:ring-2 group-focus-visible/top:ring-imperial-300">

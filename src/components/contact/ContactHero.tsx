@@ -7,18 +7,19 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { KenBurns } from "@/components/motion/KenBurns";
-import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ContactHeroHeading } from "./ContactHeroHeading";
+import { RequestDocumentsButton } from "@/components/documents/RequestDocumentsButton";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 /**
- * Contact hero — the Engadin at blue hour under a slow drift. The statement holds the left;
- * on the right a layered "correspondence card" (frosted panel over an offset platinum frame)
- * carries the address of record and the email line.
+ * Contact hero: the statement and immediate actions on the left, the address of record and email on a
+ * correspondence card on the right. The Private Documents button opens the shared OTP dialog.
  */
 export function ContactHero() {
   const { hero } = contactPage;
   const img = images[hero.image];
-  const { address, coordinates } = site;
+  const { address } = site;
 
   return (
     <section
@@ -27,6 +28,7 @@ export function ContactHero() {
       aria-labelledby="contact-hero-title"
       className="relative isolate overflow-hidden bg-obsidian text-white"
     >
+      <HeroBars />
       <KenBurns className="-z-10">
         <Image
           src={img.src}
@@ -51,7 +53,7 @@ export function ContactHero() {
         className="absolute inset-0 -z-10 bg-[radial-gradient(35%_45%_at_78%_60%,rgb(18_72_216/0.25),transparent_70%)]"
       />
 
-      <Container className="flex min-h-[38rem] flex-col pt-[calc(var(--header-h)+1.75rem)] pb-12 md:min-h-[42rem] lg:min-h-[min(86svh,50rem)] lg:pb-16">
+      <Container className="flex min-h-[34rem] flex-col pt-[calc(var(--header-h)+1.5rem)] pb-10 md:min-h-[36rem] lg:min-h-[min(78svh,44rem)] lg:pb-14">
         <Reveal start="top bottom">
           <nav aria-label="Breadcrumb" className="text-sm text-platinum">
             <ol className="flex items-center gap-2">
@@ -70,25 +72,19 @@ export function ContactHero() {
           </nav>
         </Reveal>
 
-        <div className="mt-auto grid gap-12 pt-16 lg:grid-cols-12 lg:items-end lg:gap-8">
+        <div className="mt-auto grid gap-10 pt-12 lg:grid-cols-12 lg:items-end lg:gap-8">
           <div className="lg:col-span-7">
             <Reveal start="top bottom" delay={0.05}>
               <Eyebrow tone="dark">{hero.eyebrow}</Eyebrow>
             </Reveal>
-            <MaskedHeading
-              as="h1"
-              id="contact-hero-title"
-              lines={hero.heading}
-              className="mt-6 font-display text-[clamp(2.375rem,1.3rem+3.1vw,4.5rem)] leading-[1.02] font-medium tracking-[-0.042em]"
-              lineClassNames={[undefined, "text-platinum"]}
-              delay={0.2}
-            />
+            <ContactHeroHeading id="contact-hero-title" lines={hero.heading} />
             <Reveal start="top bottom" delay={0.5} stagger={0.14}>
               <p data-reveal-item className="mt-7 max-w-[46ch] text-lead text-white/80">
                 {hero.description}
               </p>
-              <div data-reveal-item className="mt-9">
-                <Button href={hero.cta.href} tone="dark" size="lg" arrow>
+              <div data-reveal-item className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <RequestDocumentsButton tone="dark" className="w-full px-5 sm:w-auto sm:px-7" />
+                <Button href={hero.cta.href} tone="dark" variant="secondary" size="lg" arrow className="bg-obsidian/30">
                   {hero.cta.label}
                 </Button>
               </div>
@@ -96,7 +92,7 @@ export function ContactHero() {
           </div>
 
           {/* Layered correspondence card */}
-          <Reveal start="top bottom" delay={0.75} className="lg:col-span-4 lg:col-start-9">
+          <Reveal start="top bottom" delay={0.75} className="lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9">
             <div className="relative">
               <div
                 aria-hidden
@@ -105,9 +101,6 @@ export function ContactHero() {
               <div className="relative rounded-md border border-white/15 bg-white/[0.07] p-7 backdrop-blur-xl">
                 <div className="flex items-center justify-between text-[0.6875rem] font-medium tracking-[0.2em] text-platinum uppercase">
                   <span>Correspondence</span>
-                  <span className="tabular-nums">
-                    {coordinates.lat} · {coordinates.lng}
-                  </span>
                 </div>
                 <span aria-hidden className="mt-5 block h-px w-full bg-white/15" />
                 <address className="mt-5 text-[0.9375rem] leading-relaxed text-white/85 not-italic">

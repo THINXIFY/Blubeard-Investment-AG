@@ -9,6 +9,7 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ArrowRightIcon } from "@/components/ui/Icons";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
 
@@ -64,9 +65,11 @@ export function SectorFocus({ data }: { data: SectorPageData }) {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <Reveal>
             <Eyebrow>{focus.eyebrow}</Eyebrow>
-            <h2 id="sector-focus-title" className="mt-6 max-w-[20ch] text-heading-lg">
-              {focus.heading}
-            </h2>
+            <MaskedHeading
+              id="sector-focus-title"
+              lines={[focus.heading]}
+              className="mt-6 max-w-[20ch] text-heading-lg"
+            />
             <p className="mt-4 max-w-md text-sm leading-relaxed text-slate">
               Areas of investment interest — not a list of holdings or transactions.
             </p>

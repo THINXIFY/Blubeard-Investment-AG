@@ -9,6 +9,7 @@ import { ArrowDownIcon } from "@/components/ui/Icons";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 /**
  * Compact inner-page hero (≈460px desktop): wide architectural banner with an Obsidian overlay,
@@ -26,6 +27,7 @@ export function AboutHero() {
       aria-labelledby="about-hero-title"
       className="relative isolate overflow-hidden bg-obsidian text-white"
     >
+      <HeroBars />
       <ImageReveal className="absolute inset-0 -z-10" mode="zoom" drift={10}>
         <Image src={img.src} alt="" fill priority sizes="100vw" className="object-cover" />
       </ImageReveal>

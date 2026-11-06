@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/Container";
 import { KenBurns } from "@/components/motion/KenBurns";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -27,6 +28,7 @@ export function ServiceBanner({ data }: { data: ServicePageData }) {
       aria-labelledby="service-hero-title"
       className="relative isolate overflow-hidden bg-obsidian text-white"
     >
+      <HeroBars />
       <KenBurns className="-z-10">
         <Image
           src={img.src}

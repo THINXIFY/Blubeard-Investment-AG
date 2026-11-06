@@ -16,7 +16,7 @@ export function ContactCorporate() {
   const columns = [corporate.rows.slice(0, half), corporate.rows.slice(half)];
 
   return (
-    <section data-tone="light" aria-labelledby="contact-corporate-title" className="bg-white py-20 md:py-24 lg:py-28">
+    <section data-tone="light" aria-labelledby="contact-corporate-title" className="bg-white py-14 md:py-16 lg:py-20">
       <Container>
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
@@ -34,7 +34,7 @@ export function ContactCorporate() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.15} className="relative mt-12 rounded-md border border-line-strong bg-porcelain lg:mt-14">
+        <Reveal delay={0.15} className="relative mt-8 rounded-md border border-line-strong bg-porcelain lg:mt-10">
           <span aria-hidden className="absolute top-0 left-8 h-0.5 w-16 bg-imperial" />
           <div className="grid lg:grid-cols-2 lg:divide-x lg:divide-line-strong">
             {columns.map((col, c) => (

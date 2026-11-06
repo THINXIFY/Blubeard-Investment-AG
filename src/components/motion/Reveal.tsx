@@ -47,6 +47,18 @@ export function Reveal({
       if (!el) return;
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
+        // Eyebrow rules draw in as their block arrives, the same small gesture on every page.
+        const rules = el.querySelectorAll("[data-eyebrow-rule]");
+        if (rules.length) {
+          gsap.from(rules, {
+            scaleX: 0,
+            delay: delay + 0.1,
+            duration: motion.duration.slow,
+            ease: motion.ease.inOut,
+            scrollTrigger: { trigger: el, start, once: true },
+          });
+        }
+
         const items = stagger ? el.querySelectorAll<HTMLElement>("[data-reveal-item]") : null;
         const targets = items && items.length > 0 ? items : el;
         if (targets !== el) gsap.set(el, { autoAlpha: 1 });

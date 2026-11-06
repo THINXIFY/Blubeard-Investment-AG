@@ -13,7 +13,6 @@ export const realEstateManagement: ServicePageData = {
     image: "about",
     position: "50% 38%",
     video: {
-      // Client-supplied clip; licensing pending confirmation — see docs/media-sources.md.
       src: "/media/real-estate/hero-1080.mp4",
       srcSmall: "/media/real-estate/hero-720.mp4",
       poster: "/media/real-estate/hero-poster.jpg",

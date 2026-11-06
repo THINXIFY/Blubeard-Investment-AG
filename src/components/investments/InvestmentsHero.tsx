@@ -7,6 +7,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { KenBurns } from "@/components/motion/KenBurns";
 import { Reveal } from "@/components/motion/Reveal";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 /** Cinematic hero — continuous Ken Burns photograph, layered Obsidian overlays, sector index panel. */
 export function InvestmentsHero() {
@@ -20,6 +21,7 @@ export function InvestmentsHero() {
       aria-labelledby="investments-hero-title"
       className="relative isolate overflow-hidden bg-obsidian text-white"
     >
+      <HeroBars />
       <KenBurns className="-z-10">
         <Image src={img.src} alt="" fill priority sizes="100vw" className="object-cover" />
       </KenBurns>

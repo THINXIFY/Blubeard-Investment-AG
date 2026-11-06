@@ -15,7 +15,7 @@ export const contactPage = {
   },
   hero: {
     eyebrow: "Contact Blubeard",
-    heading: ["Meaningful Connections.", "Enduring Opportunities."],
+    heading: ["Let’s Talk", "Capital."],
     description:
       "Connect with Blubeard Investment AG for investment-related inquiries, corporate discussions and strategic opportunities.",
     cta: { label: "Email Us", href: `mailto:${site.email}` },
@@ -37,7 +37,6 @@ export const contactPage = {
     imageCaption: "View from Samedan, Upper Engadin",
     detailImage: "ctAerial" as ImageKey,
     detailCaption: "Samedan and the Engadin valley",
-    note: "Photographs show the Samedan area and do not depict the company’s office.",
   },
   corporate: {
     eyebrow: "Official Information",

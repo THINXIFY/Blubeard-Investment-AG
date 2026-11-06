@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Eyebrow } from "./Eyebrow";
-import { HeadingLines } from "./HeadingLines";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 const isLines = (t: unknown): t is readonly string[] => Array.isArray(t);
 
@@ -44,9 +44,21 @@ export function SectionHeading({
           {eyebrow}
         </Eyebrow>
       ) : null}
-      <Heading id={id} className={cn(size === "display" ? "text-display" : "text-heading-lg", titleClassName)}>
-        {isLines(title) ? <HeadingLines lines={title} muted={mutedLine} tone={tone} /> : title}
-      </Heading>
+      {isLines(title) ? (
+        <MaskedHeading
+          as={Heading}
+          id={id}
+          lines={title}
+          className={cn(size === "display" ? "text-display" : "text-heading-lg", titleClassName)}
+          lineClassNames={title.map((_, i) =>
+            i === mutedLine ? (tone === "dark" ? "text-platinum/70" : "text-slate/80") : undefined,
+          )}
+        />
+      ) : (
+        <Heading id={id} className={cn(size === "display" ? "text-display" : "text-heading-lg", titleClassName)}>
+          {title}
+        </Heading>
+      )}
       {lead ? (
         <p className={cn("max-w-[46ch] text-lead", tone === "dark" ? "text-platinum" : "text-slate")}>{lead}</p>
       ) : null}

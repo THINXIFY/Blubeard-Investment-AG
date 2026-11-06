@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { ServicePageData } from "@/content/service-pages";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 const CHAR_DELAY = 24; // ms between characters
 const START = 250; // ms before the first character moves
@@ -76,6 +77,7 @@ export function ServiceVideoHero({ data }: { data: ServicePageData }) {
       aria-labelledby="service-hero-title"
       className="relative isolate flex min-h-svh flex-col overflow-hidden bg-black text-white"
     >
+      <HeroBars />
       {/* Poster: first paint, reduced motion, Save-Data and no-JS */}
       {/* eslint-disable-next-line @next/next/no-img-element -- static still in /public with art-directed srcset */}
       <img

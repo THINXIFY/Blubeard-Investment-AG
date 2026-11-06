@@ -7,6 +7,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { KenBurns } from "@/components/motion/KenBurns";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 /** Cinematic editorial hero: a Graubünden bridge in slow motion, an oversized headline and a quiet supporting column. */
 export function PartnersHero() {
@@ -20,6 +21,7 @@ export function PartnersHero() {
       aria-labelledby="partners-hero-title"
       className="relative isolate overflow-hidden bg-obsidian text-white"
     >
+      <HeroBars />
       <KenBurns className="-z-10">
         <Image src={img.src} alt="" fill priority sizes="100vw" placeholder="blur" className="object-cover" />
       </KenBurns>

@@ -31,9 +31,13 @@ export default function ImageCreditsPage() {
               <p className="text-sm font-medium text-imperial md:col-span-3">{usage}</p>
               <div className="md:col-span-9">
                 <p className="font-medium text-ink">
-                  <a href={credit.sourceUrl} className="link-underline" rel="noopener noreferrer" target="_blank">
-                    {credit.title}
-                  </a>
+                  {credit.sourceUrl ? (
+                    <a href={credit.sourceUrl} className="link-underline" rel="noopener noreferrer" target="_blank">
+                      {credit.title}
+                    </a>
+                  ) : (
+                    credit.title
+                  )}
                 </p>
                 <p className="mt-1 text-sm text-slate">
                   {credit.creator ? <>By {credit.creator} · </> : null}

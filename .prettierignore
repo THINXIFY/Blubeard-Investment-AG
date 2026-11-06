@@ -3,3 +3,5 @@ node_modules
 package-lock.json
 
 .data
+src/components/motion/LaserFlow.jsx
+src/components/motion/LaserFlow.css

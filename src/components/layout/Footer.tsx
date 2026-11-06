@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { legalNav, mainNav, partnersNav, site, type NavItem } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
-import { Reveal } from "@/components/motion/Reveal";
 import { BackToTop, CopyEmail } from "./FooterActions";
+import { FooterLaser } from "./FooterLaser";
 import { Logo } from "./Logo";
 
 const byHref = (href: string) => mainNav.find((i) => i.href === href) as NavItem;
@@ -18,7 +18,7 @@ const groups: { title: string; links: NavItem[] }[] = [
 ];
 
 const linkClass =
-  "group/l inline-flex items-center gap-2 py-1 text-[0.9375rem] text-platinum transition-colors duration-300 hover:text-white focus-visible:text-white focus-visible:outline-none";
+  "group/l inline-flex items-center gap-2 py-1 text-[0.9375rem] text-platinum transition-colors duration-300 hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-imperial-300";
 
 function FooterLink({ item }: { item: NavItem }) {
   return (
@@ -44,8 +44,8 @@ const label = "text-[0.6875rem] font-medium tracking-[0.22em] text-mist uppercas
  * 1. Statement and correspondence (headline + CTA left; email, copy and write action right).
  * 2. Headquarters beside three compact link groups: Company, Explore, Legal.
  * 3. Signature base: monogram and name, copyright, Back to top.
- * Depth comes from a faint light falloff, a hairline horizon with an Imperial highlight and
- * three architectural column rules in the upper band — static, so nothing distracts.
+ * Rendered entirely on the server with no scroll animation. The footer stays mounted across page changes, so
+ * scroll triggers created here would keep positions from the first page and could leave it hidden on shorter pages.
  */
 export function Footer() {
   const year = new Date().getFullYear();
@@ -54,6 +54,7 @@ export function Footer() {
 
   return (
     <footer id="site-footer" data-tone="dark" className="relative isolate overflow-hidden bg-obsidian text-white">
+      <FooterLaser />
       {/* Depth: soft light from the upper left and a lit hairline horizon */}
       <div
         aria-hidden
@@ -64,24 +65,17 @@ export function Footer() {
       </div>
 
       <Container className="relative">
-        {/* Architectural column rules, fading downward */}
-        <div aria-hidden className="pointer-events-none absolute inset-x-12 inset-y-0 hidden lg:block">
-          <span className="absolute inset-y-0 left-[50%] w-px bg-[linear-gradient(to_bottom,rgb(255_255_255/0.07),transparent_70%)]" />
-          <span className="absolute inset-y-0 left-[66.666%] w-px bg-[linear-gradient(to_bottom,rgb(255_255_255/0.04),transparent_55%)]" />
-          <span className="absolute inset-y-0 left-[83.333%] w-px bg-[linear-gradient(to_bottom,rgb(255_255_255/0.04),transparent_45%)]" />
-        </div>
-
         {/* 1 — Statement & correspondence */}
-        <div className="grid gap-12 pt-16 pb-14 md:pt-20 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pt-24 lg:pb-16">
-          <Reveal className="lg:col-span-7">
+        <div className="grid gap-9 pt-12 pb-10 md:pt-14 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pt-16 lg:pb-12">
+          <div className="lg:col-span-7">
             <p className={`${label} flex items-center gap-3 text-platinum`}>
               <span aria-hidden className="h-px w-8 bg-imperial-300" />
               {site.name}
             </p>
-            <p className="mt-6 font-display text-[clamp(2.25rem,1.35rem+3vw,4.25rem)] leading-[1.02] font-medium tracking-[-0.042em] text-balance">
+            <p className="mt-5 font-display text-[clamp(2rem,1.45rem+2vw,3.25rem)] leading-[1.05] font-medium tracking-[-0.042em] text-balance">
               A Perspective <span className="text-platinum">Beyond Today.</span>
             </p>
-            <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
+            <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7">
               <Link
                 href="/contact"
                 className="group/c relative isolate inline-flex h-[3.25rem] items-center gap-4 self-start overflow-hidden rounded-full bg-white pr-1.5 pl-6 text-[0.9375rem] font-medium text-obsidian transition-colors duration-500 outline-none before:absolute before:inset-0 before:-z-10 before:origin-left before:scale-x-0 before:bg-imperial before:transition-transform before:duration-700 before:ease-expo hover:text-white hover:before:scale-x-100 focus-visible:ring-2 focus-visible:ring-imperial-300 focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian sm:self-auto"
@@ -103,10 +97,10 @@ export function Footer() {
                 Meaningful opportunities begin with a conversation.
               </p>
             </div>
-          </Reveal>
+          </div>
 
-          <Reveal className="lg:col-span-5 lg:pl-10" delay={0.12}>
-            <div className="border-t border-white/12 pt-6 lg:border-t-0 lg:border-l lg:pt-1 lg:pl-8">
+          <div className="lg:col-span-5 lg:col-start-8">
+            <div className="border-t border-white/12 pt-6 lg:border-t-0 lg:pt-0">
               <p className={label}>Correspondence</p>
               <a
                 href={`mailto:${site.email}`}
@@ -133,52 +127,46 @@ export function Footer() {
                 </a>
               </div>
             </div>
-          </Reveal>
+          </div>
         </div>
 
         {/* 2 — Headquarters & link groups */}
-        <Reveal
-          stagger={0.07}
-          className="grid grid-cols-2 gap-x-8 gap-y-10 border-t border-white/10 py-12 sm:grid-cols-3 lg:grid-cols-12 lg:gap-8 lg:py-14"
-        >
-          <div data-reveal-item className="col-span-2 sm:col-span-3 lg:col-span-6">
+        <div className="grid gap-8 border-t border-white/10 py-9 lg:grid-cols-12 lg:gap-8 lg:py-10">
+          <div className="lg:col-span-7">
             <p className={label}>Headquarters</p>
-            <address className="mt-4 not-italic">
+            <address className="mt-3 not-italic">
               <span className="block font-display text-lg font-semibold tracking-[-0.015em] text-white">
                 {site.name}
               </span>
-              <span className="mt-1.5 block text-[0.9375rem] leading-relaxed text-platinum">
+              <span className="mt-1 block text-[0.9375rem] leading-relaxed text-platinum">
                 {address.street}, {address.postalCode} {address.locality}
                 <br />
                 {address.region}, {address.country}
               </span>
             </address>
           </div>
-          {groups.map((g, i) => (
-            <nav
-              key={g.title}
-              data-reveal-item
-              aria-label={g.title === "Legal" ? "Legal" : `Footer — ${g.title}`}
-              className={i === 0 ? "lg:col-span-2 lg:col-start-7" : "lg:col-span-2"}
-            >
-              <p className={label}>{g.title}</p>
-              <ul className="mt-3">
-                {g.links.map((item) => (
-                  <li key={item.href}>
-                    <FooterLink item={item} />
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
-        </Reveal>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:col-span-5 lg:col-start-8">
+            {groups.map((g) => (
+              <nav key={g.title} aria-label={g.title === "Legal" ? "Legal" : `Footer — ${g.title}`}>
+                <p className={label}>{g.title}</p>
+                <ul className="mt-2.5">
+                  {g.links.map((item) => (
+                    <li key={item.href}>
+                      <FooterLink item={item} />
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
+        </div>
 
         {/* 3 — Signature base */}
-        <div className="flex flex-col gap-5 border-t border-white/10 py-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 border-t border-white/10 py-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
             <Logo tone="dark" imageClassName="xl:h-9" />
-            <p className="text-sm text-mist">
-              <span className="text-platinum">{site.name}</span>
+            <p className="text-sm text-white">
+              <span>{site.name}</span>
               <span aria-hidden className="mx-2.5 text-white/20">
                 |
               </span>

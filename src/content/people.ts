@@ -3,12 +3,11 @@ import type { ImageKey } from "./images";
 /**
  * Single source of truth for team members: names, job titles, emails and introductions.
  * Homepage, About and Our Team all read from here; change a title once and it updates everywhere.
- * Introductions are client-supplied. No biographies, credentials or portraits are invented.
  */
 export type Person = {
   name: string;
   role: string;
-  /** Client-supplied address; mailbox activation not verified. */
+  /** Contact address. */
   email: string;
   intro: string;
   /** Official portrait, once supplied (add to the image registry). Layouts adapt automatically. */

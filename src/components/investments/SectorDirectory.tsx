@@ -13,6 +13,7 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ArrowRightIcon } from "@/components/ui/Icons";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 ensureGsap();
 if (typeof window !== "undefined") gsap.registerPlugin(Flip);
@@ -207,9 +208,7 @@ export function SectorDirectory() {
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
           <Reveal className="lg:col-span-6">
             <Eyebrow>{directory.eyebrow}</Eyebrow>
-            <h2 id="sectors-title" className="mt-6 text-heading-lg">
-              {directory.heading}
-            </h2>
+            <MaskedHeading id="sectors-title" lines={[directory.heading]} className="mt-6 text-heading-lg" />
           </Reveal>
           <Reveal className="lg:col-span-5 lg:col-start-8" delay={0.1}>
             <p className="leading-relaxed text-slate">{directory.description}</p>

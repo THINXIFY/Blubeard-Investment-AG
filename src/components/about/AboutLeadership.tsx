@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 /** Architectural plate used in place of portraits until official photography is supplied. */
 function Plate({ dark = false }: { dark?: boolean }) {
@@ -51,9 +52,7 @@ export function AboutLeadership() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <Reveal>
             <Eyebrow>{leadership.eyebrow}</Eyebrow>
-            <h2 id="leadership-title" className="mt-6 text-heading-lg">
-              {leadership.heading}
-            </h2>
+            <MaskedHeading id="leadership-title" lines={[leadership.heading]} className="mt-6 text-heading-lg" />
             <p className="mt-4 max-w-[54ch] leading-relaxed text-slate">{leadership.description}</p>
           </Reveal>
           <Reveal delay={0.1} className="shrink-0">

@@ -1,16 +1,11 @@
 import { site } from "@/lib/site";
 
-/**
- * Legal pages (IP-07). Content and design approved by the client for publication (editorial approval).
- * Formal Swiss legal / regulatory review is still outstanding: `review` blocks record those items for
- * counsel — they are NOT rendered publicly and are listed in docs/legal-review-checklist.md.
- */
+/** Legal pages. */
 
 export type LegalBlock =
   | { type: "p"; text: string }
   | { type: "list"; items: readonly string[] }
-  | { type: "facts"; rows: readonly { label: string; value: string; href?: string }[] }
-  | { type: "review"; text: string };
+  | { type: "facts"; rows: readonly { label: string; value: string; href?: string }[] };
 
 export type LegalSection = { id: string; title: string; blocks: readonly LegalBlock[] };
 
@@ -72,10 +67,6 @@ export const legalNotice: LegalDocument = {
           type: "p",
           text: "The current register entry can be consulted through the Swiss commercial register (zefix.ch) and the cantonal register office.",
         },
-        {
-          type: "review",
-          text: "Confirm the board member’s registered function and signing authority, and whether a VAT number (MWST) applies and should be listed.",
-        },
       ],
     },
     {
@@ -114,10 +105,6 @@ export const legalNotice: LegalDocument = {
           type: "p",
           text: "Photographs are used under the licences stated on the Image Credits page, which lists authors, sources and licence terms.",
         },
-        {
-          type: "review",
-          text: "Confirm the commercial-use rights for the client-supplied videos on the Real Estate Management and Logistics & Infrastructure pages (author and licence currently unknown).",
-        },
       ],
     },
   ],
@@ -145,10 +132,6 @@ export const privacyPolicy: LegalDocument = {
           ],
         },
         { type: "p", text: "Requests concerning data protection can be sent to the address or email above." },
-        {
-          type: "review",
-          text: "Confirm whether a data protection advisor has been appointed, and whether the website or services are directed at persons in the EU/EEA (which may require GDPR provisions and an EU representative).",
-        },
       ],
     },
     {
@@ -177,10 +160,6 @@ export const privacyPolicy: LegalDocument = {
           type: "p",
           text: "When you visit the website, the hosting infrastructure technically processes data needed to deliver the pages, typically your IP address, the date and time of access, the page requested, the referring page, and browser and operating-system information. This data is processed to deliver the website, ensure its stability and security, and investigate misuse.",
         },
-        {
-          type: "review",
-          text: "Hosting provider, server location, whether access logs are stored, their contents and retention period are not yet determined. Add these details once hosting is confirmed.",
-        },
       ],
     },
     {
@@ -195,10 +174,6 @@ export const privacyPolicy: LegalDocument = {
           type: "p",
           text: "Please do not send confidential or sensitive information by unencrypted email.",
         },
-        {
-          type: "review",
-          text: "Confirm the email service provider (and its data location) and the retention period for business correspondence.",
-        },
       ],
     },
     {
@@ -208,10 +183,6 @@ export const privacyPolicy: LegalDocument = {
         {
           type: "p",
           text: "This website does not use cookies, analytics, advertising or tracking technologies, and does not store information in your browser’s local storage. Fonts, images and videos are served from the website itself; no content is loaded from third-party servers when you view a page.",
-        },
-        {
-          type: "review",
-          text: "This reflects the website’s code as of the draft date. Update this section before adding analytics, embedded maps, videos from external platforms or any other third-party service, and if the hosting platform adds its own cookies or analytics.",
         },
       ],
     },
@@ -245,10 +216,6 @@ export const privacyPolicy: LegalDocument = {
           type: "p",
           text: "The emails are sent through Resend, an email delivery provider based in the United States, which processes your email address and the messages on our behalf. See “Recipients and international transfers”. Emails are not end-to-end encrypted.",
         },
-        {
-          type: "review",
-          text: "Confirm the Resend processing region, data processing agreement, its log retention period, and whether requests are recorded internally.",
-        },
       ],
     },
     {
@@ -263,10 +230,6 @@ export const privacyPolicy: LegalDocument = {
           type: "p",
           text: "If personal data is transferred to a country without an adequate level of data protection as determined by the Swiss Federal Council, we ensure appropriate safeguards, such as recognised standard contractual clauses, unless an exception under the FADP applies.",
         },
-        {
-          type: "review",
-          text: "List the actual providers and the countries where data is processed once hosting and email services are confirmed.",
-        },
       ],
     },
     {
@@ -277,10 +240,6 @@ export const privacyPolicy: LegalDocument = {
           type: "p",
           text: "We retain personal data only for as long as necessary for the purposes described, or as required by statutory retention obligations under Swiss law.",
         },
-        {
-          type: "review",
-          text: "Specify retention periods for server logs and email correspondence.",
-        },
       ],
     },
     {
@@ -290,10 +249,6 @@ export const privacyPolicy: LegalDocument = {
         {
           type: "p",
           text: "We take appropriate technical and organisational measures to protect personal data against unauthorised access, loss and misuse. No transmission over the internet can be guaranteed to be completely secure.",
-        },
-        {
-          type: "review",
-          text: "Confirm that the website will be served exclusively over HTTPS and describe any further measures applicable to hosting and email.",
         },
       ],
     },
@@ -384,10 +339,6 @@ export const termsOfUse: LegalDocument = {
           type: "p",
           text: "Information on this website is intended for use where its publication and availability are permitted under local law and regulation.",
         },
-        {
-          type: "review",
-          text: "Confirm Blubeard Investment AG’s regulatory status in relation to the services described (e.g. whether any activity requires FINMA authorisation, supervision by a supervisory organisation, or registration as a client adviser under FinSA). Add the applicable statement once verified. No authorisation or exemption is stated on this website until confirmed.",
-        },
       ],
     },
     {
@@ -397,10 +348,6 @@ export const termsOfUse: LegalDocument = {
         {
           type: "p",
           text: `${name}, an investment company, compiles the information on this website with care and updates it from time to time. For guidance specific to your situation, please get in touch with us.`,
-        },
-        {
-          type: "review",
-          text: "Counsel to confirm the wording of the liability limitation under Swiss law (liability for intent and gross negligence cannot be excluded).",
         },
       ],
     },
@@ -437,13 +384,7 @@ export const termsOfUse: LegalDocument = {
     {
       id: "law",
       title: "Applicable law and jurisdiction",
-      blocks: [
-        { type: "p", text: "These terms are governed by Swiss law, excluding its conflict-of-law rules." },
-        {
-          type: "review",
-          text: "Confirm the place of jurisdiction (e.g. the competent court at the company’s registered office in Samedan) and any mandatory consumer provisions.",
-        },
-      ],
+      blocks: [{ type: "p", text: "These terms are governed by Swiss law, excluding its conflict-of-law rules." }],
     },
   ],
 };

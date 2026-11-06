@@ -8,6 +8,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Parallax } from "@/components/motion/Parallax";
 import { Reveal } from "@/components/motion/Reveal";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 /** Where the staircase's eye sits within the frame — the dolly and the rings centre on it. */
 const EYE = { x: "58%", y: "46%" };
@@ -59,6 +60,7 @@ export function ApproachHero() {
       aria-labelledby="approach-hero-title"
       className="relative isolate overflow-hidden bg-obsidian text-white"
     >
+      <HeroBars />
       {/* Photograph: scroll drift (outer) + slow dolly toward the eye (inner) */}
       <Parallax className="absolute inset-x-0 -top-[8%] -bottom-[8%] -z-20" amount={10}>
         <div

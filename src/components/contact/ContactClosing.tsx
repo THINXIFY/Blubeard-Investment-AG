@@ -33,7 +33,7 @@ export function ContactClosing() {
         className="absolute inset-0 -z-10 bg-[radial-gradient(40%_60%_at_85%_50%,rgb(18_72_216/0.3),transparent_70%)]"
       />
 
-      <Container className="py-20 md:py-24 lg:py-28">
+      <Container className="py-16 md:py-20">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <MaskedHeading

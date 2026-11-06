@@ -114,7 +114,7 @@ Set `NEXT_PUBLIC_SITE_URL` before building, because it is compiled into the page
 
 The site runs as one persistent Node.js process under PM2, behind Nginx with HTTPS. Do not use serverless hosting or PM2 cluster mode: one-time codes are stored in a local file and rate limits in memory.
 
-Full steps, including how to transfer the PDFs securely, are in [docs/deploy-vps.md](docs/deploy-vps.md). The process and proxy configuration is in [deploy/](deploy/).
+Full steps, including how to transfer the PDFs securely, are in [docs/deploy-vps.md](docs/deploy-vps.md). The process and proxy configuration is in [deploy/](deploy/). Once set up, updates are one command on the server: `cd /var/www/blubeard-investment && ./deploy.sh`.
 
 ## Project structure
 
@@ -127,7 +127,7 @@ src/assets/       Photography processed by Next.js
 public/           Logos, videos and other static files
 private/          Local location for private documents (PDFs are ignored by Git)
 deploy/           PM2 and Nginx configuration
-docs/             Deployment, legal review, privacy and media notes
+docs/             Deployment guide
 ```
 
 ## Content and rights

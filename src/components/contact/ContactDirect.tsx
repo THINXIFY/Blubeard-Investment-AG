@@ -50,14 +50,12 @@ export function ContactDirect() {
     timer.current = setTimeout(() => setState("idle"), 2600);
   };
 
-  const { address } = site;
-
   return (
     <section
       id="direct-contact"
       data-tone="light"
       aria-labelledby="contact-direct-title"
-      className="bg-white py-20 md:py-24 lg:py-28"
+      className="bg-white py-14 md:py-16 lg:py-20"
     >
       <Container>
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
@@ -77,7 +75,7 @@ export function ContactDirect() {
         </div>
 
         {/* Email feature */}
-        <Reveal delay={0.15} className="mt-12 border-y border-line-strong py-10 lg:mt-14 lg:py-12">
+        <Reveal delay={0.15} className="mt-8 border-y border-line-strong py-8 lg:mt-10 lg:py-9">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="min-w-0">
               <p className="text-[0.6875rem] font-medium tracking-[0.22em] text-slate uppercase">
@@ -188,35 +186,16 @@ export function ContactDirect() {
         </Reveal>
 
         {/* Supporting details */}
-        <Reveal as="dl" stagger={0.08} className="mt-10 grid gap-8 sm:grid-cols-3 lg:mt-12">
-          <div data-reveal-item>
-            <dt className="text-[0.6875rem] font-medium tracking-[0.2em] text-slate uppercase">Write to us about</dt>
-            <dd className="mt-3">
-              <ul className="space-y-1.5 text-ink">
-                {direct.topics.map((t) => (
-                  <li key={t} className="flex items-center gap-3">
-                    <span aria-hidden className="size-1 rounded-full bg-imperial" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </dd>
-          </div>
-          <div data-reveal-item>
-            <dt className="text-[0.6875rem] font-medium tracking-[0.2em] text-slate uppercase">Company</dt>
-            <dd className="mt-3 text-ink">
-              <span className="block font-display text-lg font-semibold tracking-[-0.015em]">{site.name}</span>
-              <span className="text-slate">Swiss Aktiengesellschaft</span>
-            </dd>
-          </div>
-          <div data-reveal-item>
-            <dt className="text-[0.6875rem] font-medium tracking-[0.2em] text-slate uppercase">Headquarters</dt>
-            <dd className="mt-3 leading-relaxed text-ink">
-              {address.street}
-              <br />
-              {address.postalCode} {address.locality}, {address.country}
-            </dd>
-          </div>
+        <Reveal className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:gap-8 lg:mt-7">
+          <p className="text-[0.6875rem] font-medium tracking-[0.2em] text-slate uppercase">Write to us about</p>
+          <ul className="flex flex-col gap-1.5 text-ink md:flex-row md:flex-wrap md:gap-x-7">
+            {direct.topics.map((t) => (
+              <li key={t} className="flex items-center gap-2.5 text-[0.9375rem]">
+                <span aria-hidden className="size-1 rounded-full bg-imperial" />
+                {t}
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </Container>
     </section>

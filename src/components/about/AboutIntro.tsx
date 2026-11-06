@@ -5,10 +5,10 @@ import { site } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { HeadingLines } from "@/components/ui/HeadingLines";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { Parallax } from "@/components/motion/Parallax";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 /** Who we are — copy left; layered architectural photographs right with a floating location tag. */
 export function AboutIntro() {
@@ -29,9 +29,12 @@ export function AboutIntro() {
           <div className="lg:col-span-6 lg:pr-8">
             <Reveal>
               <Eyebrow>{intro.eyebrow}</Eyebrow>
-              <h2 id="intro-title" className="mt-6 text-heading-lg">
-                <HeadingLines lines={intro.heading} muted={1} />
-              </h2>
+              <MaskedHeading
+                id="intro-title"
+                lines={intro.heading}
+                className="mt-6 text-heading-lg"
+                lineClassNames={[undefined, "text-slate/80"]}
+              />
             </Reveal>
             <Reveal stagger className="mt-7 flex flex-col gap-5">
               <p data-reveal-item className="text-lead text-ink">

@@ -3,6 +3,7 @@ import { aboutPage } from "@/content/about";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 /* Fine line icons (stroke = currentColor). */
 const icons: Record<string, ReactNode> = {
@@ -48,9 +49,7 @@ export function AboutValues() {
         <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <Eyebrow>{values.eyebrow}</Eyebrow>
-            <h2 id="values-title" className="mt-6 max-w-[18ch] text-heading-lg">
-              {values.heading}
-            </h2>
+            <MaskedHeading id="values-title" lines={[values.heading]} className="mt-6 max-w-[18ch] text-heading-lg" />
           </div>
         </Reveal>
 

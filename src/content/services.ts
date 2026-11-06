@@ -86,7 +86,7 @@ export const servicesPage = {
   },
   philosophy: {
     eyebrow: "Advisory Philosophy",
-    heading: ["Insight.", "Discipline.", "Strategic Perspective."],
+    heading: ["Insight. Discipline.", "Direction."],
     lead: "Every perspective we offer rests on three principles — applied consistently, whatever the opportunity.",
     principles: [
       {
@@ -102,7 +102,7 @@ export const servicesPage = {
         text: "Considering every decision in the context of long-term objectives.",
       },
     ],
-    image: "peq3" as ImageKey,
+    image: "tmUnited" as ImageKey,
   },
   process: {
     eyebrow: "Engagement Process",

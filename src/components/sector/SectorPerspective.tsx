@@ -8,6 +8,7 @@ import { ImageReveal } from "@/components/motion/ImageReveal";
 import { LineDraw } from "@/components/motion/LineDraw";
 import { Parallax } from "@/components/motion/Parallax";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 const marks = [
   "top-0 left-0 border-t border-l",
@@ -37,12 +38,11 @@ export function SectorPerspective({ data }: { data: SectorPageData }) {
         <Reveal className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
           <div className="lg:col-span-8">
             <Eyebrow>{perspective.eyebrow}</Eyebrow>
-            <h2
+            <MaskedHeading
               id="sector-perspective-title"
+              lines={[perspective.heading]}
               className="mt-6 max-w-[22ch] font-display text-[clamp(2rem,1.5rem+2vw,3.25rem)] leading-[1.06] font-medium tracking-[-0.04em]"
-            >
-              {perspective.heading}
-            </h2>
+            />
           </div>
         </Reveal>
 

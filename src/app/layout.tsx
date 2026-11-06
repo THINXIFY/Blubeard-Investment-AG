@@ -66,7 +66,9 @@ export const viewport: Viewport = {
 };
 
 /** Flags JS availability before first paint so reveal animations never flash. */
-const jsFlag = "document.documentElement.classList.add('js')";
+// Also marks in-site navigation, so opening bars only ever play on a direct load or refresh.
+const jsFlag =
+  "document.documentElement.classList.add('js');var r=function(){document.documentElement.setAttribute('data-routed','')};document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('a[href]'))r()},true);addEventListener('popstate',r);";
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
@@ -74,7 +76,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <head>
         <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <div id="top" />
         <a
           href="#main"

@@ -136,7 +136,7 @@ export function ServicesProcess() {
           <Reveal delay={0.15} className="lg:col-span-6 lg:col-start-7">
             <div
               aria-hidden
-              className="relative mx-auto aspect-square w-full max-w-[22rem] md:max-w-[28rem] lg:max-w-[32rem]"
+              className="relative mx-auto aspect-square w-full max-w-[22rem] md:max-w-[28rem] lg:max-w-[min(32rem,calc(100%-8rem))]"
             >
               <svg viewBox="0 0 400 400" className="absolute inset-0 size-full overflow-visible">
                 <circle cx="200" cy="200" r={R + 34} fill="none" stroke="var(--color-line)" strokeDasharray="2 6" />

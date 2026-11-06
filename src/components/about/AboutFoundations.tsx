@@ -4,9 +4,9 @@ import { images } from "@/content/images";
 import { site } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { HeadingLines } from "@/components/ui/HeadingLines";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 /**
  * Swiss foundations — Engadin photograph (region only, not the office) beside a company
@@ -60,9 +60,12 @@ export function AboutFoundations() {
           <div className="flex flex-col p-8 sm:p-10 lg:col-span-5 lg:p-12">
             <Reveal>
               <Eyebrow>{foundations.eyebrow}</Eyebrow>
-              <h2 id="foundations-title" className="mt-6 text-heading-lg lg:text-[2.25rem]">
-                <HeadingLines lines={foundations.heading} muted={1} />
-              </h2>
+              <MaskedHeading
+                id="foundations-title"
+                lines={foundations.heading}
+                className="mt-6 text-heading-lg lg:text-[2.25rem]"
+                lineClassNames={[undefined, "text-slate/80"]}
+              />
             </Reveal>
             <Reveal stagger className="mt-6 flex flex-col gap-4">
               {foundations.body.map((para, i) => (

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 /**
  * Investment perspective — sector list (left) controls a large cross-fading photograph (right).
@@ -30,9 +31,7 @@ export function AboutPerspective() {
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
           <Reveal className="lg:col-span-6">
             <Eyebrow>{perspective.eyebrow}</Eyebrow>
-            <h2 id="perspective-title" className="mt-6 text-heading-lg">
-              {perspective.heading}
-            </h2>
+            <MaskedHeading id="perspective-title" lines={[perspective.heading]} className="mt-6 text-heading-lg" />
           </Reveal>
           <Reveal className="lg:col-span-5 lg:col-start-8" delay={0.1}>
             <p className="leading-relaxed text-slate">{perspective.description}</p>

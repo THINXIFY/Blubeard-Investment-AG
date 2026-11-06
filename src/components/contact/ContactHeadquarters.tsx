@@ -24,10 +24,10 @@ export function ContactHeadquarters() {
       id="headquarters"
       data-tone="light"
       aria-labelledby="contact-hq-title"
-      className="bg-porcelain py-20 md:py-24 lg:py-28"
+      className="bg-porcelain py-14 md:py-16 lg:py-20"
     >
       <Container>
-        <div className="grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-10">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-10">
           {/* Photographs */}
           <div className="relative pb-[18%] lg:col-span-7 lg:pb-[12%]">
             <figure>
@@ -78,7 +78,7 @@ export function ContactHeadquarters() {
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-[42ch] text-lg leading-relaxed text-slate">{hq.lead}</p>
 
-              <address className="mt-9 border-t border-line-strong pt-7 not-italic">
+              <address className="mt-7 border-t border-line-strong pt-6 not-italic">
                 <span className="block font-display text-[1.5rem] leading-snug font-semibold tracking-[-0.025em] text-ink">
                   {site.name}
                 </span>
@@ -108,7 +108,7 @@ export function ContactHeadquarters() {
                 href={hq.directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/dir mt-9 inline-flex h-12 items-center gap-3 rounded-sm border border-line-strong bg-white px-6 text-[0.9375rem] font-medium text-ink transition-colors duration-500 hover:border-ink hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-imperial"
+                className="group/dir mt-7 inline-flex h-12 items-center gap-3 rounded-sm border border-line-strong bg-white px-6 text-[0.9375rem] font-medium text-ink transition-colors duration-500 hover:border-ink hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-imperial"
               >
                 <svg aria-hidden viewBox="0 0 16 16" className="size-4">
                   <path
@@ -128,7 +128,6 @@ export function ContactHeadquarters() {
                 </span>
                 <span className="sr-only">(opens Google Maps in a new tab)</span>
               </a>
-              <p className="mt-6 max-w-[44ch] text-xs leading-relaxed text-slate">{hq.note}</p>
             </Reveal>
           </div>
         </div>

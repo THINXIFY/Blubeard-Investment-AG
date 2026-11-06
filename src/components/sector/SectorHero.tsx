@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { KenBurns } from "@/components/motion/KenBurns";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { HeroBars } from "@/components/motion/HeroBars";
 
 function Breadcrumb({ name }: { name: string }) {
   return (
@@ -53,6 +54,7 @@ export function SectorHero({ data }: { data: SectorPageData }) {
       aria-labelledby="sector-hero-title"
       className="relative isolate overflow-hidden bg-obsidian text-white"
     >
+      <HeroBars />
       <KenBurns className="-z-10">
         <Image
           src={img.src}

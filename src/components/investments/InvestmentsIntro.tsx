@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { LineDraw } from "@/components/motion/LineDraw";
 import { Reveal } from "@/components/motion/Reveal";
+import { MaskedHeading } from "@/components/motion/MaskedHeading";
 
 /**
  * Introduction — editorial statement wrapped around an arch-cropped tower photograph,
@@ -28,9 +29,7 @@ export function InvestmentsIntro() {
           <div className="lg:col-span-7">
             <Reveal>
               <Eyebrow>{intro.eyebrow}</Eyebrow>
-              <h2 id="intro-title" className="mt-6 text-heading-lg">
-                {intro.heading}
-              </h2>
+              <MaskedHeading id="intro-title" lines={[intro.heading]} className="mt-6 text-heading-lg" />
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-8 font-display text-[clamp(1.375rem,1.1rem+1vw,2rem)] leading-[1.3] font-medium tracking-[-0.02em] text-ink">
