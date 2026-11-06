@@ -1,0 +1,13 @@
+# Normalise text to LF so the Linux server gets the same files on any machine.
+* text=auto eol=lf
+
+# Never alter these.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.mp4 binary
+*.woff2 binary

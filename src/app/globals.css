@@ -1,0 +1,658 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens — Blubeard Investment AG
+   Brand palette is fixed; derived tones exist only for states and text
+   contrast (all text pairings meet WCAG 2.2 AA).
+   ========================================================================== */
+
+@theme {
+  /* Brand palette */
+  --color-imperial: #1248d8;
+  --color-imperial-700: #0d39b0; /* hover / pressed */
+  --color-imperial-300: #8aa6ef; /* accent on dark */
+  --color-imperial-50: #eef2fd; /* faint tint */
+  --color-obsidian: #101320;
+  --color-surface-dark: #1b2030;
+  --color-platinum: #c5cbd6;
+  --color-porcelain: #f7f8fb;
+  --color-white: #ffffff;
+
+  /* Functional neutrals */
+  --color-ink: #101320; /* primary text = Obsidian */
+  --color-slate: #4f5668; /* secondary text, 7.3:1 on white */
+  --color-mist: #8d94a5; /* tertiary text on dark, 6.4:1 on Obsidian */
+  --color-line: #e2e5ec; /* hairline on light */
+  --color-line-strong: #c5cbd6; /* = Platinum */
+  --color-line-dark: rgb(255 255 255 / 0.1);
+
+  /* Layout */
+  --container-site: 86rem;
+
+  /* Radii — restrained, institutional */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  /* Easing */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Breakpoint for very large screens */
+  --breakpoint-3xl: 112rem;
+}
+
+/* Font families come from next/font CSS variables at runtime. */
+@theme inline {
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ==========================================================================
+   Typography scale (fluid, clamp-based)
+   ========================================================================== */
+
+@utility text-display-xl {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.75rem, 1.55rem + 5.2vw, 6.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+@utility text-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 1.5rem + 3vw, 4.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+@utility text-heading-lg {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+}
+
+@utility text-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+@utility text-lead {
+  font-size: clamp(1.0625rem, 0.98rem + 0.35vw, 1.3125rem);
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+}
+
+@utility text-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --header-h: 4.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    :root {
+      --header-h: 5rem;
+    }
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    font-feature-settings: "cv11", "ss01", "ss03";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-balance;
+  }
+
+  p {
+    @apply text-pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-imperial);
+    color: var(--color-white);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-imperial);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  [data-tone="dark"] :focus-visible {
+    outline-color: var(--color-imperial-300);
+  }
+}
+
+/* ==========================================================================
+   Motion guards
+   Elements marked [data-animate] are hidden only when JS is running and the
+   user has not requested reduced motion; GSAP then reveals them. Without JS
+   or with reduced motion, content is visible immediately.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-animate] {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Components that are clearer in CSS than in utility strings
+   ========================================================================== */
+
+@layer components {
+  /* Animated underline for text links */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    transition: background-size 0.5s var(--ease-expo);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible,
+  .link-underline[aria-current="page"] {
+    background-size: 100% 1px;
+    background-position: 0% 100%;
+  }
+
+  /* Fine measurement grid used behind visual panels */
+  .bg-grid-fine {
+    background-image:
+      linear-gradient(to right, rgb(16 19 32 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(16 19 32 / 0.05) 1px, transparent 1px);
+    background-size: 2.5rem 2.5rem;
+  }
+  [data-tone="dark"] .bg-grid-fine {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  }
+}
+
+/* ==========================================================================
+   Keyframes
+   ========================================================================== */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-ring {
+  from {
+    transform: scale(0.3);
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Hero scroll cue: a short segment travels down a hairline. */
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+/* Hero Ken Burns loop (see Hero.tsx). Both layers alternate, so motion reverses smoothly — never resets. */
+@keyframes ken-burns-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1.14);
+  }
+}
+
+@keyframes ken-burns-pan {
+  from {
+    transform: translate3d(-1.5%, 1%, 0);
+  }
+  to {
+    transform: translate3d(1.5%, -1%, 0);
+  }
+}
+
+[data-offscreen] [data-kenburns] {
+  animation-play-state: paused;
+}
+
+/* Auto-advance progress rail (sector considerations). */
+@keyframes rail {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ==========================================================================
+   Scroll-scrubbed video hero (sector pages with hero.video)
+   Design frame 1280×800: u = min(100vh/800, 100vw/716).
+   ========================================================================== */
+
+.fh-track {
+  --u: min(0.125vh, 0.13966vw);
+  position: relative;
+  height: 420vh; /* replaced by JS */
+  background: #0a0b0c;
+  overflow-x: clip; /* contain the 1280u design frame without breaking position: sticky */
+}
+.fh-scene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100lvh;
+  overflow: hidden;
+}
+.fh-scene video,
+.fh-scene .fh-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.fh-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0.12),
+    rgb(0 0 0 / 0.02) 28%,
+    rgb(0 0 0 / 0.02) 72%,
+    rgb(0 0 0 / 0.12)
+  );
+}
+.fh-content {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: #f9f9f9;
+}
+.fh-content a {
+  pointer-events: auto;
+}
+.fh-intro {
+  position: absolute;
+  left: 50%;
+  width: calc(1280 * var(--u));
+  transform: translateX(-50%);
+  text-align: center;
+}
+.fh-crumb ol {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5em;
+  margin-bottom: calc(22 * var(--u));
+  font: 500 max(11px, calc(7.4 * var(--u))) / 1.2 var(--font-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(247 245 239 / 0.75);
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.6);
+}
+.fh-crumb a {
+  transition: color 0.3s;
+}
+.fh-crumb a:hover {
+  color: #fff;
+}
+.fh-crumb [aria-current] {
+  color: #f7f5ef;
+}
+.fh-eyebrow {
+  font: 700 max(11px, calc(7.4 * var(--u))) / 1.2 var(--font-sans);
+  letter-spacing: 0.304em;
+  text-transform: uppercase;
+  color: #f7f5ef;
+  text-shadow: 0 calc(2 * var(--u)) calc(10 * var(--u)) rgb(0 0 0 / 0.55);
+}
+.fh-headline {
+  margin-top: calc(18 * var(--u));
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(56 * var(--u));
+  line-height: calc(62 * var(--u));
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #f7f5ef;
+  text-shadow: 0 calc(12 * var(--u)) calc(32 * var(--u)) rgb(0 0 0 / 0.5);
+}
+.fh-headline span {
+  display: block;
+  white-space: nowrap;
+}
+.fh-headline .fh-muted {
+  color: #c5cbd6;
+}
+.fh-block {
+  position: absolute;
+  width: calc(300 * var(--u));
+  text-shadow: 0 calc(4 * var(--u)) calc(16 * var(--u)) rgb(0 0 0 / 0.6);
+}
+.fh-left {
+  right: calc(50% + var(--off));
+  text-align: right;
+}
+.fh-right {
+  left: calc(50% + var(--off));
+  text-align: left;
+}
+.fh-icon {
+  display: block;
+  width: calc(34 * var(--u));
+  height: calc(34 * var(--u));
+  margin-bottom: calc(22 * var(--u));
+  color: #f9f9f9;
+  filter: drop-shadow(0 2px 8px rgb(0 0 0 / 0.5));
+}
+.fh-left .fh-icon {
+  margin-left: auto;
+}
+.fh-title {
+  font: 700 calc(19.6 * var(--u)) / calc(22 * var(--u)) var(--font-sans);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #f9f9f9;
+}
+.fh-body {
+  margin-top: calc(10 * var(--u));
+  font: 400 max(13px, calc(12.3 * var(--u))) / 1.45 var(--font-sans);
+  color: rgb(255 255 255 / 0.88);
+}
+.fh-lead {
+  font: 400 max(14px, calc(14.2 * var(--u))) / 1.55 var(--font-sans);
+  color: rgb(255 255 255 / 0.92);
+}
+.fh-handoff {
+  position: relative;
+  z-index: 1;
+  margin-top: -34vh;
+  height: 34vh;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0), #fff);
+}
+
+/* Portrait: one centred column */
+@media (max-width: 609px), (orientation: portrait) {
+  .fh-track {
+    --u: min(0.2564vw, 1.6px);
+  }
+  .fh-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 112vh 22px 0;
+  }
+  .fh-intro,
+  .fh-block {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+  }
+  .fh-headline {
+    font-size: clamp(34px, calc(46 * var(--u)), 72px);
+    line-height: 1.06;
+  }
+  .fh-block {
+    margin-top: 16vh;
+  }
+  .fh-block.fh-first {
+    margin-top: 24vh;
+  }
+  .fh-left .fh-icon,
+  .fh-icon {
+    margin: 0 auto calc(14 * var(--u));
+  }
+  .fh-title {
+    font-size: max(18px, calc(19.6 * var(--u)));
+    line-height: 1.15;
+  }
+  .fh-body {
+    font-size: max(14px, calc(13 * var(--u)));
+  }
+}
+
+/* Our Approach hero: slow dolly into the spiral (origin set inline at the stair's eye). */
+@keyframes ap-dolly {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1.16);
+  }
+}
+
+/* Liquid glass (service video hero). */
+.liquid-glass {
+  background: rgba(0, 0, 0, 0.4);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.1) 80%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Video hero entrance: characters slide in, supporting copy fades. Hidden only with JS and motion allowed. */
+[data-vh] .vh-char {
+  display: inline-block;
+  transition:
+    opacity 600ms var(--ease-smooth),
+    transform 800ms var(--ease-expo);
+}
+[data-vh] .vh-fade {
+  transition-property: opacity, transform;
+  transition-timing-function: var(--ease-expo);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-vh]:not([data-in]) .vh-char {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  html.js [data-vh]:not([data-in]) .vh-fade {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* ==========================================================================
+   Partner logo marquee: identical copies travel left by exactly one copy.
+   ========================================================================== */
+
+@keyframes pm-marquee {
+  to {
+    transform: translate3d(calc(-100% / var(--pm-copies)), 0, 0);
+  }
+}
+
+.pm-root {
+  overflow-x: clip;
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+
+.pm-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: pm-marquee var(--pm-duration) linear infinite;
+}
+
+.pm-copy {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: clamp(3rem, 2rem + 4vw, 6.5rem);
+  padding-right: clamp(3rem, 2rem + 4vw, 6.5rem);
+}
+
+.pm-root[data-paused] .pm-track,
+.pm-root:active .pm-track {
+  animation-play-state: paused;
+}
+
+@media (hover: hover) {
+  .pm-root:hover .pm-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Keyboard focus: stop the motion and let the row scroll to the focused link. */
+.pm-root:has(a:focus-visible) {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pm-root:has(a:focus-visible) .pm-track {
+  animation: none;
+}
+
+.pm-logo {
+  --pm-scale: 0.7;
+  display: block;
+  width: calc(var(--pm-w) * var(--pm-scale));
+  height: calc(var(--pm-h) * var(--pm-scale));
+  max-width: none;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.72;
+  transition:
+    filter 500ms var(--ease-smooth),
+    opacity 500ms var(--ease-smooth);
+}
+@media (min-width: 640px) {
+  .pm-logo {
+    --pm-scale: 0.85;
+  }
+}
+@media (min-width: 1024px) {
+  .pm-logo {
+    --pm-scale: 1;
+  }
+}
+
+a:hover > .pm-logo,
+a:focus-visible > .pm-logo {
+  filter: none;
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .pm-logo:hover {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* Touch screens have no hover to reveal colour. */
+@media (hover: none) {
+  .pm-logo {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Homepage — Approach stage panel entrance
+   ========================================================================== */
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

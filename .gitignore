@@ -1,0 +1,47 @@
+/node_modules
+/.next/
+/out/
+/build
+.DS_Store
+*.pem
+npm-debug.log*
+.env*
+!.env.example
+*.tsbuildinfo
+next-env.d.ts
+
+# One-time code challenge store
+/.data/
+
+# Confidential documents: never commit. Provide them on the server through DOCUMENTS_DIR.
+*.pdf
+/private/*
+!/private/documents/
+/private/documents/*
+!/private/documents/README.md
+
+# Credentials and keys
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa*
+id_ed25519*
+credentials*.json
+service-account*.json
+secrets*.json
+.npmrc
+.netrc
+
+# Logs and local tooling
+*.log
+logs/
+.pm2/
+coverage/
+.vercel/
+.claude/
+Thumbs.db
+
+# Unused logo marked unverified by its filename: not for a public repository or the live site.
+/public/media/partners/unverified-*
