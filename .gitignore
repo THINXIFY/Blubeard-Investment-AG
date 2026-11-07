@@ -20,6 +20,8 @@ next-env.d.ts
 /private/documents/*
 !/private/documents/README.md
 !/private/documents/*.pdf
+# The public company registration summary linked from About, Contact and the Impressum.
+!/public/documents/company-registration/*.pdf
 
 # Credentials and keys
 *.key

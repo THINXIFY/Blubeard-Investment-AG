@@ -3,6 +3,7 @@ import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { DocumentsPanel } from "@/components/documents/DocumentsPanel";
+import { RegistrationDocButton } from "@/components/documents/RegistrationDocButton";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -64,7 +65,8 @@ export function ContactCorporate() {
           </div>
         </Reveal>
 
-        <div className="mt-6 flex justify-end">
+        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <RegistrationDocButton className="sm:w-[22rem]" />
           <a
             href={corporate.profile.href}
             target="_blank"

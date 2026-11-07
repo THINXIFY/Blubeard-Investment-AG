@@ -9,6 +9,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Block } from "./LegalPage";
 import { ImpressumCopy } from "./ImpressumCopy";
 import { ImpressumNav } from "./ImpressumNav";
+import { RegistrationDocButton } from "@/components/documents/RegistrationDocButton";
 
 type FactRow = { label: string; value: string; href?: string };
 
@@ -249,7 +250,8 @@ export function ImpressumPage() {
                           {p.text}
                         </p>
                       ))}
-                      <ul className="mt-4 grid gap-2 sm:grid-cols-3 sm:gap-3">
+                      <RegistrationDocButton className="mt-4 sm:max-w-[22rem]" />
+                      <ul className="mt-3 grid gap-2 sm:grid-cols-3 sm:gap-3">
                         {externalRefs.map((r) => (
                           <li key={r.href}>
                             <a

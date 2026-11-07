@@ -32,6 +32,8 @@ export const site = {
     registerEntry: "2013-08-14",
     boardMember: "Robert Albertin",
     profileUrl: "https://www.moneyhouse.ch/de/company/blubeard-investment-ag-17018227861",
+    /** Commercial register summary (Moneyhouse company dossier, PDF), opened in the browser's PDF viewer. */
+    document: "/documents/company-registration/blubeard-investment-ag-company-registration.pdf",
   },
   /** Approximate coordinates of Samedan, used for decorative labelling only. */
   coordinates: { lat: "46.53° N", lng: "9.87° E" },

@@ -8,6 +8,7 @@ import { ImageReveal } from "@/components/motion/ImageReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { ScaleIn } from "@/components/motion/ScaleIn";
+import { RegistrationDocButton } from "@/components/documents/RegistrationDocButton";
 
 /**
  * Swiss foundations — Engadin photograph (region only, not the office) beside a company
@@ -110,6 +111,7 @@ export function AboutFoundations() {
                     ))}
                   </dl>
                 </div>
+                <RegistrationDocButton className="mt-4" />
               </Reveal>
             </div>
           </div>
