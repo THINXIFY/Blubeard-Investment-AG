@@ -7,6 +7,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ScrollWords } from "@/components/motion/ScrollWords";
 
 /**
  * Leadership philosophy — the one Obsidian section. Two towers standing side by side fill the
@@ -57,7 +58,7 @@ export function TeamPhilosophy() {
             lineClassNames={[undefined, "text-platinum"]}
           />
           <Reveal delay={0.15}>
-            <p className="mt-6 max-w-[44ch] text-lead text-white/80">{philosophy.description}</p>
+            <ScrollWords text={philosophy.description} className="mt-6 max-w-[44ch] text-lead text-white/80" />
           </Reveal>
 
           <Reveal as="ol" stagger={0.12} className="mt-10 border-t border-white/12">

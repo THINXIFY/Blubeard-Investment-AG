@@ -17,7 +17,7 @@ export function AboutClosing() {
     <section aria-labelledby="closing-title" data-tone="light" className="bg-white pb-20 md:pb-24 lg:pb-28">
       <Container>
         <div data-tone="dark" className="relative isolate overflow-hidden rounded-md text-white">
-          <ImageReveal className="absolute inset-0 -z-10" drift={10}>
+          <ImageReveal bars className="absolute inset-0 -z-10" drift={10}>
             <Image
               src={img.src}
               alt=""

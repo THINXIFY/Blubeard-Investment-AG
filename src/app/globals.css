@@ -168,7 +168,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   html.js [data-animate] {
-    visibility: hidden;
+    opacity: 0;
   }
 }
 
@@ -793,5 +793,437 @@ a:focus-visible > .pm-logo {
   }
   .hero-bars span:nth-child(3) {
     animation-delay: 220ms;
+  }
+}
+
+/* ==========================================================================
+   Pinned scroll stages (main pages). The hold is CSS sticky, so the browser keeps it perfectly still.
+   The media query mirrors PIN_MEDIA in lib/motion.ts.
+   ========================================================================== */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+@media (min-width: 64rem) and (min-height: 640px) and (prefers-reduced-motion: no-preference) {
+  html.js .pin-track:not([data-pin="off"]) {
+    height: var(--pin-h, 250svh);
+  }
+  html.js .pin-track:not([data-pin="off"]) > .pin-stage {
+    position: sticky;
+    top: 0;
+    display: flex;
+    height: 100svh;
+    flex-direction: column;
+    justify-content: center;
+    overflow: clip;
+  }
+  html.js .pin-track:not([data-pin="off"]) .pin-pad {
+    padding-block: calc(var(--header-h) + 0.5rem) 1rem;
+  }
+  html.js .pin-track:not([data-pin="off"]) .persp-grid {
+    margin-top: 1.5rem;
+  }
+  html.js .pin-track:not([data-pin="off"]) .persp-list button {
+    padding-block: 0.875rem;
+  }
+  html.js .pin-track:not([data-pin="off"]) .persp-bar {
+    display: block;
+  }
+  html.js .pin-track:not([data-pin="off"]) .persp-stage {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+  }
+  html.js .pin-track:not([data-pin="off"]) .persp-grid {
+    min-height: 0;
+    flex: 1;
+    grid-template-rows: minmax(0, 1fr);
+  }
+  html.js .pin-track:not([data-pin="off"]) .persp-figure {
+    min-height: 0;
+  }
+}
+
+/* Homepage: the sector gallery runs sideways while the section holds. */
+@media (min-width: 64rem) and (min-height: 640px) and (prefers-reduced-motion: no-preference) {
+  html.js .rail-track:not([data-pin="off"]) .rail-intro {
+    padding-top: calc(var(--header-h) + 0.5rem);
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-foot {
+    padding-bottom: 1rem;
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-foot > div {
+    margin-top: 1.5rem;
+    justify-content: space-between;
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-meta {
+    display: flex;
+    width: min(26rem, 40%);
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-meta > span:first-child {
+    flex: none;
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-bleed {
+    max-width: none;
+    padding-inline: 0;
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-list {
+    display: flex;
+    width: max-content;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    padding-inline: max(3rem, calc((100vw - 86rem) / 2 + 3rem));
+    will-change: transform;
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-list > li {
+    width: clamp(20rem, 27vw, 26rem);
+    flex: none;
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-list a {
+    height: min(23rem, 44svh);
+    min-height: 0;
+  }
+}
+
+/* Homepage services: rows with a photograph that follows the cursor, for mouse users on large screens. */
+.svc-row-num {
+  display: none;
+}
+
+@media (min-width: 64rem) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.js .svc-rows {
+    display: block;
+    border-top: 1px solid var(--color-line-strong);
+  }
+  html.js .svc-rows > li {
+    border-bottom: 1px solid var(--color-line-strong);
+  }
+  html.js .svc-rows:has(> li:hover) > li:not(:hover) .svc-body {
+    opacity: 0.45;
+  }
+  html.js .svc-media {
+    display: none;
+  }
+  html.js .svc-body {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: baseline;
+    gap: 2rem;
+    padding-block: 1.75rem;
+    transition:
+      padding-left 700ms var(--ease-expo),
+      opacity 500ms var(--ease-expo);
+  }
+  html.js .svc-rows a:hover .svc-body,
+  html.js .svc-rows a:focus-visible .svc-body {
+    padding-left: 1.5rem;
+  }
+  html.js .svc-row-num {
+    display: block;
+  }
+  html.js .svc-body > h3 {
+    min-height: 0;
+    font-size: clamp(1.375rem, 1rem + 0.9vw, 1.875rem);
+  }
+  html.js .svc-body > p {
+    margin-top: 0;
+  }
+}
+
+/* About: value cards that stack as they arrive. */
+@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+  html.js .stack-list {
+    display: block;
+    border-top: 0;
+  }
+  html.js .stack-list > li {
+    position: sticky;
+    top: calc(var(--header-h) + 1rem + var(--stack-i) * 1.25rem);
+    margin-bottom: 1.25rem;
+    border: 0;
+    padding: 0;
+  }
+  html.js .stack-list > li:hover {
+    background: transparent;
+  }
+  html.js .stack-card {
+    display: grid;
+    min-height: 13.5rem;
+    grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1.25fr) auto;
+    align-items: center;
+    gap: 2.5rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    padding: 2.25rem 2.5rem;
+    box-shadow: 0 30px 60px -48px rgb(16 19 32 / 0.5);
+    transform-origin: 50% 0;
+    will-change: transform;
+  }
+  html.js .stack-card > * {
+    margin-top: 0;
+  }
+  html.js .stack-card-head {
+    display: contents;
+  }
+  html.js .stack-card-num {
+    order: 4;
+  }
+}
+
+/* Investments: when one sector is hovered, the rest of the wall recedes. */
+@media (min-width: 64rem) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.js .sector-wall:has([data-card]:hover) [data-card]:not(:hover) [data-assemble] {
+    filter: saturate(0.45) brightness(0.72);
+  }
+}
+
+.sector-wall [data-assemble] {
+  height: 100%;
+  transition: filter 700ms var(--ease-expo);
+}
+
+/* Team: the emblem panel opening. */
+.ceo-cover {
+  display: none;
+}
+
+@media (min-width: 64rem) and (min-height: 640px) and (prefers-reduced-motion: no-preference) {
+  html.js .pin-track:not([data-pin="off"]) .ceo-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: block;
+    background: var(--color-porcelain);
+    will-change: clip-path;
+  }
+}
+
+/* Shorter laptop screens: tighten the held sections so they still fit. */
+@media (min-width: 64rem) and (min-height: 640px) and (max-height: 820px) and (prefers-reduced-motion: no-preference) {
+  html.js .pin-track:not([data-pin="off"]) .proc-copy {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+  }
+  html.js .pin-track:not([data-pin="off"]) .proc-list {
+    margin-top: 1rem;
+  }
+  html.js .pin-track:not([data-pin="off"]) .proc-list button {
+    padding-block: 0.5rem;
+  }
+  html.js .pin-track:not([data-pin="off"]) .proc-list p {
+    padding-bottom: 0.625rem;
+  }
+  html.js .pin-track:not([data-pin="off"]) .persp-grid {
+    margin-top: 1rem;
+  }
+  html.js .pin-track:not([data-pin="off"]) .persp-list button {
+    padding-block: 0.5rem;
+  }
+  html.js .pin-track:not([data-pin="off"]) .persp-list > li:last-child {
+    padding-top: 0.75rem;
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-list {
+    margin-top: 1.25rem;
+  }
+  html.js .rail-track:not([data-pin="off"]) .rail-foot > div {
+    margin-top: 1rem;
+  }
+}
+
+/* ==========================================================================
+   Page transitions (React <ViewTransition>, browser View Transitions API).
+   The old page stays on screen until the new one is ready, so there is never a blank frame. Browsers without
+   support, and reduced motion, simply change page instantly.
+   ========================================================================== */
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+::view-transition {
+  /* Clicks during the short transition reach the page. */
+  pointer-events: none;
+}
+
+::view-transition-group(.page) {
+  animation-duration: 420ms;
+}
+
+::view-transition-old(.page) {
+  animation: page-out 220ms var(--ease-smooth) both;
+}
+
+::view-transition-new(.page) {
+  animation: page-in 400ms var(--ease-expo) 20ms both;
+}
+
+/* The floating header holds perfectly still. */
+header {
+  view-transition-name: site-header;
+}
+
+::view-transition-group(site-header) {
+  z-index: 100;
+  animation: none;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   Phones: shorter pages, with long lists turned into swipe rails, rows or tiles. No content is removed.
+   ========================================================================== */
+@media (max-width: 39.99rem) {
+  /* Tighter rhythm between sections. */
+  main section[class*="py-"],
+  .pin-pad {
+    padding-block: 3.5rem;
+  }
+  .rail-intro {
+    padding-top: 3.5rem;
+  }
+  .rail-foot {
+    padding-bottom: 3.5rem;
+  }
+
+  /* Swipe rail: the next card peeks in to show there is more. */
+  .m-rail {
+    display: flex;
+    gap: 0.75rem;
+    margin-inline: -1.25rem;
+    overflow-x: auto;
+    padding-inline: 1.25rem;
+    padding-bottom: 0.25rem;
+    scroll-padding-inline: 1.25rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .m-rail::-webkit-scrollbar {
+    display: none;
+  }
+  .m-rail > * {
+    min-width: 0;
+    flex: 0 0 84%;
+    scroll-snap-align: start;
+  }
+
+  /* Homepage services: a photo beside each entry. */
+  .svc-rows {
+    gap: 0;
+    border-top: 1px solid var(--color-line-strong);
+    margin-top: 2rem;
+  }
+  .svc-rows > li {
+    border-bottom: 1px solid var(--color-line-strong);
+  }
+  .svc-rows a {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 1rem;
+  }
+  .svc-media {
+    aspect-ratio: 1;
+  }
+  .svc-media > span[aria-hidden] {
+    display: none;
+  }
+  .svc-body {
+    padding-top: 0;
+  }
+  .svc-body > h3 {
+    min-height: 0;
+    font-size: 1rem;
+  }
+  .svc-body > h3 > svg {
+    display: none;
+  }
+  .svc-body > p {
+    margin-top: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Investments: two-column tiles, with full descriptions on each sector's own page and for screen readers. */
+  .sector-wall > li {
+    height: 13.5rem;
+  }
+  .sector-top > span:first-child,
+  .sector-arrow {
+    display: none;
+  }
+  .sector-top {
+    inset-inline: 0.875rem;
+    top: 0.75rem;
+    justify-content: flex-end;
+  }
+  .sector-bottom {
+    inset-inline: 0.875rem;
+    bottom: 0.875rem;
+  }
+  .sector-bottom h3 {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  .sector-desc {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* About: compact team plates and value rows. */
+  .lead-plate {
+    min-height: 6.5rem;
+    padding: 0.875rem;
+  }
+  .lead-plate h3 {
+    font-size: 1rem;
+  }
+  .lead-plate p {
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+  }
+  .stack-list > li {
+    padding-block: 1.5rem;
+  }
+  .stack-card h3 {
+    margin-top: 1rem;
   }
 }

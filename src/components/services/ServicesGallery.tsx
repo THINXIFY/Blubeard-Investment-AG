@@ -10,6 +10,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ScaleIn } from "@/components/motion/ScaleIn";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -35,7 +36,7 @@ function EnquireLink({ title, href, tone = "light" }: { title: string; href?: st
       href={href ?? cta.href}
       aria-label={`${label}: ${title}`}
       className={cn(
-        "group/cta inline-flex items-center gap-2.5 text-sm font-medium transition-colors duration-300",
+        "group/cta inline-flex min-h-11 items-center gap-2.5 text-sm font-medium transition-colors duration-300 sm:min-h-0",
         tone === "dark" ? "text-white hover:text-imperial-300" : "text-imperial hover:text-ink",
       )}
     >
@@ -60,37 +61,39 @@ function ServiceCard({ s, i }: { s: ServiceEntry; i: number }) {
       aria-labelledby={`service-${s.slug}-title`}
       className={cn("group/card scroll-mt-28", l.span)}
     >
-      <div className={cn("relative aspect-[4/3] overflow-hidden rounded-md bg-platinum/40 lg:aspect-auto", l.h)}>
-        <ImageReveal className="absolute inset-0" drift={0}>
-          <Image
-            src={img.src}
-            alt={img.alt}
-            fill
-            sizes={
-              l.size === "lg"
-                ? "(min-width: 1024px) 55vw, (min-width: 768px) 50vw, 100vw"
-                : "(min-width: 1024px) 31vw, (min-width: 768px) 50vw, 100vw"
-            }
-            placeholder="blur"
-            className="object-cover transition-transform duration-[1600ms] ease-expo group-hover/card:scale-[1.06]"
+      <ScaleIn from={0.95}>
+        <div className={cn("relative aspect-[4/3] overflow-hidden rounded-md bg-platinum/40 lg:aspect-auto", l.h)}>
+          <ImageReveal bars className="absolute inset-0" drift={0}>
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              sizes={
+                l.size === "lg"
+                  ? "(min-width: 1024px) 55vw, (min-width: 768px) 50vw, 100vw"
+                  : "(min-width: 1024px) 31vw, (min-width: 768px) 50vw, 100vw"
+              }
+              placeholder="blur"
+              className="object-cover transition-transform duration-[1600ms] ease-expo group-hover/card:scale-[1.06]"
+            />
+          </ImageReveal>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgb(16_19_32/0.35),transparent_40%)] opacity-60 transition-opacity duration-700 group-hover/card:opacity-100"
           />
-        </ImageReveal>
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgb(16_19_32/0.35),transparent_40%)] opacity-60 transition-opacity duration-700 group-hover/card:opacity-100"
-        />
-        <span
-          aria-hidden
-          className="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-ink tabular-nums backdrop-blur"
-        >
-          {pad(i + 1)}
-        </span>
-        {s.href ? <Link href={s.href} tabIndex={-1} aria-hidden className="absolute inset-0 z-[1]" /> : null}
-        <span
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-imperial transition-transform duration-700 ease-expo group-hover/card:scale-x-100"
-        />
-      </div>
+          <span
+            aria-hidden
+            className="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-ink tabular-nums backdrop-blur"
+          >
+            {pad(i + 1)}
+          </span>
+          {s.href ? <Link href={s.href} tabIndex={-1} aria-hidden className="absolute inset-0 z-[1]" /> : null}
+          <span
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-imperial transition-transform duration-700 ease-expo group-hover/card:scale-x-100"
+          />
+        </div>
+      </ScaleIn>
 
       <Reveal className="pt-6">
         <h3
@@ -114,7 +117,7 @@ function ServiceCard({ s, i }: { s: ServiceEntry; i: number }) {
         <p className="mt-4 text-xs leading-relaxed font-medium tracking-[0.12em] text-slate uppercase">
           {s.facets.join(" · ")}
         </p>
-        <div className="mt-5 border-t border-line pt-4">
+        <div className="mt-4 border-t border-line pt-1.5 sm:mt-5 sm:pt-4">
           <EnquireLink title={s.title} href={s.href} />
         </div>
       </Reveal>
@@ -126,55 +129,57 @@ function ServiceCard({ s, i }: { s: ServiceEntry; i: number }) {
 function FeatureCard({ s, i }: { s: ServiceEntry; i: number }) {
   const img = images[s.image];
   return (
-    <article
-      id={`service-${s.slug}`}
-      data-slug={s.slug}
-      aria-labelledby={`service-${s.slug}-title`}
-      className="group/card scroll-mt-28 overflow-hidden rounded-md bg-obsidian text-white md:col-span-2 lg:col-span-12"
-      data-tone="dark"
-    >
-      <div className="grid lg:grid-cols-12">
-        <div className="relative aspect-[16/10] overflow-hidden lg:col-span-7 lg:aspect-auto lg:h-[26rem]">
-          <PhotoNote image={img} />
-          <ImageReveal className="absolute inset-0" from="left" drift={0}>
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              sizes="(min-width: 1024px) 58vw, 100vw"
-              placeholder="blur"
-              className="object-cover transition-transform duration-[1600ms] ease-expo group-hover/card:scale-[1.05]"
-            />
-          </ImageReveal>
-          <span
-            aria-hidden
-            className="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-ink tabular-nums"
-          >
-            {pad(i + 1)}
-          </span>
-        </div>
-        <Reveal className="flex flex-col justify-center p-8 md:p-10 lg:col-span-5 lg:p-12">
-          <p className="text-eyebrow text-imperial-300">Area of expertise · {pad(i + 1)}</p>
-          <h3
-            id={`service-${s.slug}-title`}
-            className="mt-4 font-display text-[clamp(1.6rem,1.2rem+1.1vw,2.25rem)] leading-[1.08] font-medium tracking-[-0.03em]"
-          >
-            {s.title}
-          </h3>
-          <p className="mt-4 text-lg leading-relaxed text-platinum">{s.text}</p>
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {s.facets.map((f) => (
-              <li key={f} className="rounded-full border border-white/15 px-3 py-1 text-sm text-white/85">
-                {f}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8">
-            <EnquireLink title={s.title} href={s.href} tone="dark" />
+    <ScaleIn className="md:col-span-2 lg:col-span-12">
+      <article
+        id={`service-${s.slug}`}
+        data-slug={s.slug}
+        aria-labelledby={`service-${s.slug}-title`}
+        className="group/card scroll-mt-28 overflow-hidden rounded-md bg-obsidian text-white"
+        data-tone="dark"
+      >
+        <div className="grid lg:grid-cols-12">
+          <div className="relative aspect-[16/10] overflow-hidden lg:col-span-7 lg:aspect-auto lg:h-[26rem]">
+            <PhotoNote image={img} />
+            <ImageReveal bars className="absolute inset-0" from="left" drift={0}>
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                placeholder="blur"
+                className="object-cover transition-transform duration-[1600ms] ease-expo group-hover/card:scale-[1.05]"
+              />
+            </ImageReveal>
+            <span
+              aria-hidden
+              className="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-ink tabular-nums"
+            >
+              {pad(i + 1)}
+            </span>
           </div>
-        </Reveal>
-      </div>
-    </article>
+          <Reveal className="flex flex-col justify-center p-5 sm:p-8 md:p-10 lg:col-span-5 lg:p-12">
+            <p className="text-eyebrow text-imperial-300">Area of expertise · {pad(i + 1)}</p>
+            <h3
+              id={`service-${s.slug}-title`}
+              className="mt-4 font-display text-[clamp(1.6rem,1.2rem+1.1vw,2.25rem)] leading-[1.08] font-medium tracking-[-0.03em]"
+            >
+              {s.title}
+            </h3>
+            <p className="mt-4 leading-relaxed text-platinum sm:text-lg">{s.text}</p>
+            <ul className="mt-6 hidden flex-wrap gap-2 sm:flex">
+              {s.facets.map((f) => (
+                <li key={f} className="rounded-full border border-white/15 px-3 py-1 text-sm text-white/85">
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8">
+              <EnquireLink title={s.title} href={s.href} tone="dark" />
+            </div>
+          </Reveal>
+        </div>
+      </article>
+    </ScaleIn>
   );
 }
 
@@ -210,7 +215,7 @@ export function ServicesGallery() {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:mt-16 lg:grid-cols-12 lg:gap-y-16">
+        <div className="m-rail mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:mt-16 lg:grid-cols-12 lg:gap-y-16">
           {serviceEntries.map((s, i) =>
             i === last ? <FeatureCard key={s.slug} s={s} i={i} /> : <ServiceCard key={s.slug} s={s} i={i} />,
           )}

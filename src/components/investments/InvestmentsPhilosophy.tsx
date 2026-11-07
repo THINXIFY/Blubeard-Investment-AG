@@ -10,6 +10,7 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ScrollWords } from "@/components/motion/ScrollWords";
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
 
@@ -89,7 +90,10 @@ export function InvestmentsPhilosophy() {
               delay={0.1}
             />
             <Reveal delay={0.2}>
-              <p className="mt-6 max-w-[44ch] leading-relaxed text-platinum lg:text-lg">{philosophy.description}</p>
+              <ScrollWords
+                text={philosophy.description}
+                className="mt-6 max-w-[44ch] leading-relaxed text-platinum lg:text-lg"
+              />
             </Reveal>
 
             <Reveal delay={0.3} className="mt-10 lg:mt-auto lg:pt-12">

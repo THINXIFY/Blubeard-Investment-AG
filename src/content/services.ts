@@ -1,3 +1,4 @@
+import { site } from "@/lib/site";
 import type { ImageKey } from "./images";
 import { services } from "./home";
 import { isServicePublished } from "./service-pages";
@@ -136,5 +137,51 @@ export const servicesPage = {
     primaryCta: { label: "Contact Us", href: "/contact" },
     secondaryCta: { label: "Our Approach", href: "/approach" },
     image: "peq1" as ImageKey,
+  },
+  faq: {
+    eyebrow: "Questions & Answers",
+    heading: ["Clear Answers.", "Before We Speak."],
+    description: "Some of the questions we are asked most often about our services, partnerships and consultations.",
+    items: [
+      {
+        question: "What services does Blubeard Investment AG offer?",
+        answer:
+          "Our expertise covers eight areas: real estate management, wealth management, asset and portfolio management, venture capital and growth investments, corporate and strategic consulting, mergers and acquisitions, private equity and capital advisory, and investment research and risk advisory.",
+      },
+      {
+        question: "Which industries do you focus on?",
+        answer:
+          "Our investment perspective spans twelve industries across established markets and emerging technologies, including real estate, energy, technology, healthcare and private equity.",
+      },
+      {
+        question: "How does an engagement begin?",
+        answer:
+          "With a conversation. We first seek to understand your objectives and their wider context, then evaluate opportunities, develop a strategy and keep it under review as circumstances evolve.",
+      },
+      {
+        question: "How can I arrange a consultation?",
+        answer: `Email us at ${site.email} with a short description of your enquiry. We will come back to you to discuss the next steps.`,
+      },
+      {
+        question: "Do you consider partnership enquiries?",
+        answer:
+          "We welcome professional discussions about corporate matters and strategic opportunities. Please send a brief outline of your proposal by email so that we can review it.",
+      },
+      {
+        question: "Can I request further documents?",
+        answer:
+          "Yes. Choose Request Private Documents on our Contact page. Once you have verified your email address, the documents are sent to that address.",
+      },
+      {
+        question: "Is the information on this website investment advice?",
+        answer:
+          "No. The content of this website is for general information only and does not constitute investment advice or an offer of regulated financial services.",
+      },
+      {
+        question: "How is my enquiry handled?",
+        answer:
+          "Your enquiry is read by our team and used to respond to you. Our Privacy Policy explains how personal information is handled.",
+      },
+    ],
   },
 } as const;

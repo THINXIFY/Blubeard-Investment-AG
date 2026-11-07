@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ScrollWords } from "@/components/motion/ScrollWords";
 
 /**
  * Advisory philosophy: a boardroom photograph that matches the height of the copy, beside a short statement and
@@ -29,7 +30,7 @@ export function ServicesPhilosophy() {
       <Container>
         <div className="grid gap-9 lg:grid-cols-12 lg:gap-14">
           <div className="relative min-h-[15rem] sm:min-h-[20rem] lg:col-span-5 lg:min-h-0">
-            <ImageReveal className="absolute inset-0 rounded-md" drift={8}>
+            <ImageReveal bars className="absolute inset-0 rounded-md" drift={8}>
               <Image
                 src={img.src}
                 alt={img.alt}
@@ -52,7 +53,10 @@ export function ServicesPhilosophy() {
               lineClassNames={[undefined, "text-platinum"]}
             />
             <Reveal delay={0.15}>
-              <p className="mt-5 max-w-[52ch] leading-relaxed text-platinum md:text-[1.0625rem]">{philosophy.lead}</p>
+              <ScrollWords
+                text={philosophy.lead}
+                className="mt-5 max-w-[52ch] leading-relaxed text-platinum md:text-[1.0625rem]"
+              />
             </Reveal>
 
             <Reveal as="ul" stagger={0.1} className="mt-8 border-b border-white/15">

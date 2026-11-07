@@ -7,6 +7,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ScrollWords } from "@/components/motion/ScrollWords";
 
 /**
  * Investment philosophy: an asymmetric composition. The statement anchors the left; the three principles run
@@ -55,9 +56,12 @@ export function Philosophy() {
               delay={0.1}
             />
             <Reveal stagger className="mt-7 flex flex-col items-start gap-8 lg:mt-8">
-              <p data-reveal-item className="max-w-[46ch] leading-relaxed text-platinum md:text-[1.0625rem]">
-                {philosophy.description}
-              </p>
+              <div data-reveal-item>
+                <ScrollWords
+                  text={philosophy.description}
+                  className="max-w-[46ch] leading-relaxed text-platinum md:text-[1.0625rem]"
+                />
+              </div>
               <div data-reveal-item>
                 <Button href={philosophy.cta.href} tone="dark" size="lg" arrow>
                   {philosophy.cta.label}

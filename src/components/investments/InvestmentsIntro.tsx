@@ -61,7 +61,7 @@ export function InvestmentsIntro() {
           {/* Arch-cropped focal image */}
           <div className="relative mx-auto w-full max-w-[26rem] lg:col-span-4 lg:col-start-9 lg:max-w-none">
             <div aria-hidden className="absolute -inset-4 rounded-t-full border border-line-strong/70" />
-            <ImageReveal className="aspect-[3/4] w-full rounded-t-full rounded-b-md" drift={10}>
+            <ImageReveal bars className="aspect-[3/4] w-full rounded-t-full rounded-b-md" drift={10}>
               <Image
                 src={img.src}
                 alt={img.alt}

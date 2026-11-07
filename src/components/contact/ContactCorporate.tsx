@@ -69,7 +69,7 @@ export function ContactCorporate() {
             href={corporate.profile.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/mh inline-flex shrink-0 items-center gap-2 text-sm font-medium text-imperial transition-colors duration-300 hover:text-ink"
+            className="group/mh inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-medium text-imperial transition-colors duration-300 hover:text-ink sm:min-h-0"
           >
             <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-700 ease-expo group-hover/mh:bg-[length:100%_1px]">
               {corporate.profile.label}

@@ -27,6 +27,17 @@ export const contactPage = {
     lead: "For investment-related inquiries, corporate discussions and strategic opportunities, please write to us directly.",
     topics: ["Investment-related inquiries", "Corporate discussions", "Strategic opportunities"],
   },
+  clocks: {
+    eyebrow: "World Clocks",
+    heading: "Connected Across Time Zones.",
+    note: "Our headquarters is in Switzerland. The other cities are major international markets, shown for reference only.",
+    cities: [
+      { city: "Samedan / Zürich", country: "Switzerland", timeZone: "Europe/Zurich", headquarters: true },
+      { city: "London", country: "United Kingdom", timeZone: "Europe/London", headquarters: false },
+      { city: "New York", country: "United States", timeZone: "America/New_York", headquarters: false },
+      { city: "Tokyo", country: "Japan", timeZone: "Asia/Tokyo", headquarters: false },
+    ],
+  },
   headquarters: {
     eyebrow: "Swiss Headquarters",
     heading: "Rooted in Switzerland.",

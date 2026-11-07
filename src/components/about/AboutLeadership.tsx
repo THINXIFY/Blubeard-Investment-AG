@@ -93,10 +93,14 @@ export function AboutLeadership() {
           </Reveal>
 
           {/* Management */}
-          <Reveal as="ul" stagger={0.07} className="grid gap-4 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-3 lg:gap-5">
+          <Reveal
+            as="ul"
+            stagger={0.07}
+            className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:col-span-7 lg:grid-cols-3 lg:gap-5"
+          >
             {leadership.team.map((person) => (
               <li key={person.name} data-reveal-item>
-                <article className="group/card relative isolate flex h-full min-h-[11.5rem] flex-col justify-end overflow-hidden rounded-md border border-line bg-porcelain p-6 transition-[border-color,box-shadow,transform] duration-700 ease-expo hover:-translate-y-1 hover:border-imperial/40 hover:shadow-[0_24px_50px_-30px_rgb(16_19_32/0.35)]">
+                <article className="lead-plate group/card relative isolate flex h-full min-h-[11.5rem] flex-col justify-end overflow-hidden rounded-md border border-line bg-porcelain p-6 transition-[border-color,box-shadow,transform] duration-700 ease-expo hover:-translate-y-1 hover:border-imperial/40 hover:shadow-[0_24px_50px_-30px_rgb(16_19_32/0.35)]">
                   <div className="-z-10">
                     <Plate />
                   </div>

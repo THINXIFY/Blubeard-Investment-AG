@@ -40,6 +40,27 @@ export function InvestmentsDuality() {
           scrollTrigger: { trigger: el, start: "top 70%", once: true },
         });
       });
+      // The picture opens out from the centre as its text and labels move apart (large screens).
+      mm.add(`(min-width: 1024px) and ${MOTION_OK}`, () => {
+        const scrub = { trigger: el, start: "top 95%", end: "top 40%", scrub: 0.5 };
+        gsap.fromTo(
+          el,
+          { clipPath: "inset(0% 24% 0% 24% round 8px)" },
+          { clipPath: "inset(0% 0% 0% 0% round 8px)", ease: "none", scrollTrigger: scrub },
+        );
+        gsap.fromTo("[data-dual-left]", { x: 70 }, { x: 0, ease: "none", scrollTrigger: scrub });
+        gsap.fromTo("[data-dual-right]", { x: -70 }, { x: 0, ease: "none", scrollTrigger: scrub });
+        gsap.fromTo(
+          document.querySelector("[data-dual-head]"),
+          { x: -36 },
+          { x: 0, ease: "none", scrollTrigger: { ...scrub, start: "top 115%", end: "top 60%" } },
+        );
+        gsap.fromTo(
+          document.querySelector("[data-dual-body]"),
+          { x: 36 },
+          { x: 0, ease: "none", scrollTrigger: { ...scrub, start: "top 115%", end: "top 60%" } },
+        );
+      });
       return () => mm.revert();
     },
     { scope: stageRef },
@@ -55,11 +76,17 @@ export function InvestmentsDuality() {
       <Container>
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
           <Reveal className="lg:col-span-7">
-            <Eyebrow>{duality.eyebrow}</Eyebrow>
-            <MaskedHeading id="duality-title" lines={[duality.heading]} className="mt-6 max-w-[22ch] text-heading-lg" />
+            <div data-dual-head>
+              <Eyebrow>{duality.eyebrow}</Eyebrow>
+              <MaskedHeading
+                id="duality-title"
+                lines={[duality.heading]}
+                className="mt-6 max-w-[22ch] text-heading-lg"
+              />
+            </div>
           </Reveal>
           <Reveal className="lg:col-span-4 lg:col-start-9" delay={0.1}>
-            <p className="leading-relaxed text-slate">
+            <p data-dual-body className="leading-relaxed text-slate">
               {duality.body[0]} {duality.body[1]} <span className="font-medium text-ink">{duality.body[2]}</span>
             </p>
           </Reveal>
@@ -100,13 +127,19 @@ export function InvestmentsDuality() {
             />
 
             {/* Labels */}
-            <div className="pointer-events-none absolute bottom-6 left-6 max-w-[45%] text-white sm:bottom-8 sm:left-8">
+            <div
+              data-dual-left
+              className="pointer-events-none absolute bottom-6 left-6 max-w-[45%] text-white sm:bottom-8 sm:left-8"
+            >
               <p className="hidden text-eyebrow text-platinum sm:block">{duality.established.caption}</p>
               <p className="font-display text-lg leading-tight font-semibold tracking-[-0.02em] sm:mt-2 sm:text-3xl">
                 {duality.established.label}
               </p>
             </div>
-            <div className="pointer-events-none absolute right-6 bottom-6 max-w-[45%] text-right text-white sm:right-8 sm:bottom-8">
+            <div
+              data-dual-right
+              className="pointer-events-none absolute right-6 bottom-6 max-w-[45%] text-right text-white sm:right-8 sm:bottom-8"
+            >
               <p className="hidden text-eyebrow text-platinum sm:block">{duality.emerging.caption}</p>
               <p className="font-display text-lg leading-tight font-semibold tracking-[-0.02em] sm:mt-2 sm:text-3xl">
                 {duality.emerging.label}

@@ -4,6 +4,7 @@ import { site } from "@/lib/site";
 import { ContactHero } from "@/components/contact/ContactHero";
 import { ContactDirect } from "@/components/contact/ContactDirect";
 import { ContactHeadquarters } from "@/components/contact/ContactHeadquarters";
+import { ContactClocks } from "@/components/contact/ContactClocks";
 import { ContactCorporate } from "@/components/contact/ContactCorporate";
 import { ContactClosing } from "@/components/contact/ContactClosing";
 
@@ -70,6 +71,7 @@ export default function ContactPage() {
       <ContactHero />
       <ContactDirect />
       <ContactHeadquarters />
+      <ContactClocks />
       <ContactCorporate />
       <ContactClosing />
       <ContactJsonLd />

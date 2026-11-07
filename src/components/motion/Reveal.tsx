@@ -25,7 +25,8 @@ type RevealProps = {
 
 /**
  * Scroll-triggered fade/translate reveal.
- * - Hidden pre-hydration via `[data-animate]` (see globals.css) to avoid flashes.
+ * - Hidden pre-hydration via `[data-animate]` (see globals.css) to avoid flashes. Transparent rather than
+ *   `visibility: hidden`, so links further down the page stay reachable by keyboard.
  * - Fully disabled for `prefers-reduced-motion: reduce`.
  * - Runs once; cleans up on unmount.
  */
@@ -61,13 +62,13 @@ export function Reveal({
 
         const items = stagger ? el.querySelectorAll<HTMLElement>("[data-reveal-item]") : null;
         const targets = items && items.length > 0 ? items : el;
-        if (targets !== el) gsap.set(el, { autoAlpha: 1 });
+        if (targets !== el) gsap.set(el, { opacity: 1 });
 
         gsap.fromTo(
           targets,
-          { autoAlpha: 0, y },
+          { opacity: 0, y },
           {
-            autoAlpha: 1,
+            opacity: 1,
             y: 0,
             delay,
             duration: motion.duration.slow,

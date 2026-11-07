@@ -94,13 +94,13 @@ export function Button(props: ButtonProps) {
     const isInternal = href.startsWith("/") || href.startsWith("#");
     if (isInternal) {
       return (
-        <Link href={href} className={classes} {...anchorProps}>
+        <Link href={href} data-magnetic className={classes} {...anchorProps}>
           {content}
         </Link>
       );
     }
     return (
-      <a href={href} className={classes} {...anchorProps}>
+      <a href={href} data-magnetic className={classes} {...anchorProps}>
         {content}
       </a>
     );
@@ -108,7 +108,7 @@ export function Button(props: ButtonProps) {
 
   const { type = "button", ...buttonProps } = rest as Omit<ComponentPropsWithoutRef<"button">, keyof CommonProps>;
   return (
-    <button type={type} className={classes} {...buttonProps}>
+    <button type={type} data-magnetic className={classes} {...buttonProps}>
       {content}
     </button>
   );

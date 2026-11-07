@@ -8,10 +8,14 @@ import { ArrowRightIcon } from "@/components/ui/Icons";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ServicesFollower } from "./ServicesFollower";
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
 
-/** Services & expertise — photography-led gallery of the eight areas of expertise. */
+/**
+ * Services & expertise: the eight areas of expertise as photo cards. For mouse users on large screens they become
+ * rows, with a photograph that follows the cursor (see ServicesFollower and globals.css).
+ */
 export function Services() {
   return (
     <Section id="services" tone="porcelain" spacing="md" aria-labelledby="services-title">
@@ -24,62 +28,67 @@ export function Services() {
         </Reveal>
       </div>
 
-      <Reveal
-        stagger={0.06}
-        as="ul"
-        className="mt-12 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-y-12"
-      >
-        {services.items.map((service, i) => {
-          const img = images[service.image];
-          return (
-            <li key={service.title} data-reveal-item>
-              <Link href={services.cta.href} className="group/svc block rounded-sm focus-visible:outline-offset-4">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-sm bg-white sm:aspect-[4/5]">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    sizes="(min-width: 1024px) 23vw, (min-width: 640px) 46vw, 100vw"
-                    placeholder="blur"
-                    className="object-cover transition-transform duration-1200 ease-expo group-hover/svc:scale-[1.05]"
-                  />
-                  <PhotoNote image={img} className="left-3 max-w-[85%] text-left" />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-obsidian/45 via-obsidian/0 to-obsidian/0 opacity-50 transition-opacity duration-700 ease-expo group-hover/svc:opacity-100"
-                  />
-                  <span
-                    aria-hidden
-                    className="absolute top-4 left-4 rounded-full bg-white/90 px-2.5 py-1 text-[0.6875rem] font-semibold text-ink tabular-nums backdrop-blur"
-                  >
-                    {num(i)}
-                  </span>
-                  <span
-                    aria-hidden
-                    className="absolute right-4 bottom-4 grid size-10 translate-y-2 place-items-center rounded-full bg-white text-ink opacity-0 transition-[opacity,transform,background-color,color] duration-700 ease-expo group-hover/svc:translate-y-0 group-hover/svc:bg-imperial group-hover/svc:text-white group-hover/svc:opacity-100 group-focus-visible/svc:translate-y-0 group-focus-visible/svc:opacity-100"
-                  >
-                    <ArrowRightIcon className="size-4" />
-                  </span>
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-imperial transition-transform duration-700 ease-expo group-hover/svc:scale-x-100"
-                  />
-                </div>
-                <div className="pt-5">
-                  <h3 className="flex items-start justify-between gap-3 font-display text-lg leading-snug font-semibold tracking-[-0.015em] text-ink transition-colors duration-300 group-hover/svc:text-imperial sm:min-h-[2.75em]">
-                    {service.title}
-                    <ArrowRightIcon
-                      aria-hidden
-                      className="mt-1.5 size-3.5 shrink-0 -translate-x-1 text-slate/60 transition-[transform,color] duration-700 ease-expo group-hover/svc:translate-x-0 group-hover/svc:text-imperial"
+      <ServicesFollower items={services.items}>
+        <Reveal
+          stagger={0.06}
+          as="ul"
+          className="svc-rows mt-12 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-y-12"
+        >
+          {services.items.map((service, i) => {
+            const img = images[service.image];
+            return (
+              <li key={service.title} data-reveal-item data-follow={i}>
+                <Link href={services.cta.href} className="group/svc block rounded-sm focus-visible:outline-offset-4">
+                  <div className="svc-media relative aspect-[16/10] overflow-hidden rounded-sm bg-white sm:aspect-[4/5]">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      sizes="(min-width: 1024px) 23vw, (min-width: 640px) 46vw, 112px"
+                      placeholder="blur"
+                      className="object-cover transition-transform duration-1200 ease-expo group-hover/svc:scale-[1.05]"
                     />
-                  </h3>
-                  <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-slate">{service.text}</p>
-                </div>
-              </Link>
-            </li>
-          );
-        })}
-      </Reveal>
+                    <PhotoNote image={img} className="left-3 max-w-[85%] text-left" />
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 bg-gradient-to-t from-obsidian/45 via-obsidian/0 to-obsidian/0 opacity-50 transition-opacity duration-700 ease-expo group-hover/svc:opacity-100"
+                    />
+                    <span
+                      aria-hidden
+                      className="absolute top-4 left-4 rounded-full bg-white/90 px-2.5 py-1 text-[0.6875rem] font-semibold text-ink tabular-nums backdrop-blur"
+                    >
+                      {num(i)}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="absolute right-4 bottom-4 grid size-10 translate-y-2 place-items-center rounded-full bg-white text-ink opacity-0 transition-[opacity,transform,background-color,color] duration-700 ease-expo group-hover/svc:translate-y-0 group-hover/svc:bg-imperial group-hover/svc:text-white group-hover/svc:opacity-100 group-focus-visible/svc:translate-y-0 group-focus-visible/svc:opacity-100"
+                    >
+                      <ArrowRightIcon className="size-4" />
+                    </span>
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-imperial transition-transform duration-700 ease-expo group-hover/svc:scale-x-100"
+                    />
+                  </div>
+                  <div className="svc-body pt-5">
+                    <span aria-hidden className="svc-row-num font-display text-sm font-medium text-slate tabular-nums">
+                      {num(i)}
+                    </span>
+                    <h3 className="flex items-start justify-between gap-3 font-display text-lg leading-snug font-semibold tracking-[-0.015em] text-ink transition-colors duration-300 group-hover/svc:text-imperial sm:min-h-[2.75em]">
+                      {service.title}
+                      <ArrowRightIcon
+                        aria-hidden
+                        className="mt-1.5 size-3.5 shrink-0 -translate-x-1 text-slate/60 transition-[transform,color] duration-700 ease-expo group-hover/svc:translate-x-0 group-hover/svc:text-imperial"
+                      />
+                    </h3>
+                    <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-slate">{service.text}</p>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
+        </Reveal>
+      </ServicesFollower>
 
       <div className="mt-12 flex flex-col gap-6 border-t border-line-strong/70 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-14">
         <p className="max-w-xl text-xs leading-relaxed text-slate">

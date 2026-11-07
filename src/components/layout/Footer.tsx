@@ -18,7 +18,7 @@ const groups: { title: string; links: NavItem[] }[] = [
 ];
 
 const linkClass =
-  "group/l inline-flex items-center gap-2 py-1 text-[0.9375rem] text-platinum transition-colors duration-300 hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-imperial-300";
+  "group/l inline-flex items-center gap-2 py-2.5 text-[0.9375rem] sm:py-1 text-platinum transition-colors duration-300 hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-imperial-300";
 
 function FooterLink({ item }: { item: NavItem }) {
   return (
@@ -104,7 +104,7 @@ export function Footer() {
               <p className={label}>Correspondence</p>
               <a
                 href={`mailto:${site.email}`}
-                className="mt-3 inline-block bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-1 font-display text-[clamp(1.25rem,1rem+0.9vw,1.75rem)] leading-tight font-medium tracking-[-0.025em] break-words text-white transition-[background-size] duration-700 ease-expo hover:bg-[length:100%_1px] focus-visible:bg-[length:100%_1px] focus-visible:outline-none"
+                className="mt-1 inline-block bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat py-3 pb-1 font-display text-[clamp(1.25rem,1rem+0.9vw,1.75rem)] leading-tight font-medium tracking-[-0.025em] break-words text-white transition-[background-size] duration-700 ease-expo hover:bg-[length:100%_1px] focus-visible:bg-[length:100%_1px] focus-visible:outline-none sm:mt-3 sm:py-0"
               >
                 {local}
                 <span className="text-imperial-300">@</span>
@@ -115,7 +115,7 @@ export function Footer() {
                 <CopyEmail email={site.email} />
                 <a
                   href={`mailto:${site.email}`}
-                  className="group/w inline-flex h-9 items-center gap-2 px-1 text-xs font-medium tracking-[0.04em] text-platinum transition-colors duration-300 hover:text-white focus-visible:text-white focus-visible:outline-none"
+                  className="group/w inline-flex h-11 items-center gap-2 px-1 text-xs font-medium tracking-[0.04em] text-platinum transition-colors duration-300 hover:text-white focus-visible:text-white focus-visible:outline-none sm:h-9"
                 >
                   Write to us
                   <span
@@ -147,9 +147,13 @@ export function Footer() {
           </div>
           <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:col-span-5 lg:col-start-8">
             {groups.map((g) => (
-              <nav key={g.title} aria-label={g.title === "Legal" ? "Legal" : `Footer — ${g.title}`}>
+              <nav
+                key={g.title}
+                aria-label={g.title === "Legal" ? "Legal" : `Footer — ${g.title}`}
+                className={g.title === "Legal" ? "col-span-2 sm:col-span-1" : undefined}
+              >
                 <p className={label}>{g.title}</p>
-                <ul className="mt-2.5">
+                <ul className={g.title === "Legal" ? "mt-2.5 grid grid-cols-2 gap-x-6 sm:grid-cols-1" : "mt-2.5"}>
                   {g.links.map((item) => (
                     <li key={item.href}>
                       <FooterLink item={item} />
@@ -164,7 +168,7 @@ export function Footer() {
         {/* 3 — Signature base */}
         <div className="flex flex-col gap-4 border-t border-white/10 py-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-            <Logo tone="dark" imageClassName="xl:h-9" />
+            <Logo tone="dark" imageClassName="xl:h-9" className="py-1 sm:py-0" />
             <p className="text-sm text-white">
               <span>{site.name}</span>
               <span aria-hidden className="mx-2.5 text-white/20">

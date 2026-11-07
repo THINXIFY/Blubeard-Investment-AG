@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import type { ReactNode } from "react";
+import { ViewTransition, type ReactNode } from "react";
 import { Inter, Manrope } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MainMotion } from "@/components/motion/MainMotion";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -72,7 +73,12 @@ const jsFlag =
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${inter.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${manrope.variable} ${inter.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
       </head>
@@ -85,10 +91,16 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           Skip to content
         </a>
         <Header />
-        <main id="main" tabIndex={-1} className="outline-none">
-          {children}
-        </main>
-        <Footer />
+        {/* Page transitions (see globals.css): the content cross-fades while the floating header stays put. */}
+        <ViewTransition default="page">
+          <div>
+            <main id="main" tabIndex={-1} className="outline-none">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </ViewTransition>
+        <MainMotion />
         <OrganizationJsonLd />
       </body>
     </html>

@@ -48,7 +48,7 @@ export function About() {
 
           {/* Photograph with Swiss inset */}
           <figure className="relative mb-10 sm:mx-auto sm:w-4/5 md:col-span-5 md:row-start-2 md:mx-0 md:mb-0 md:w-auto lg:col-start-8 lg:row-span-2 lg:row-start-1 lg:mt-20">
-            <ImageReveal className="aspect-[4/5] w-full rounded-sm lg:aspect-[10/12.6]" drift={7}>
+            <ImageReveal bars className="aspect-[4/5] w-full rounded-sm lg:aspect-[10/12.6]" drift={7}>
               <Image
                 src={img.src}
                 alt={img.alt}

@@ -6,6 +6,7 @@ import { ServicesIntro } from "@/components/services/ServicesIntro";
 import { ServicesGallery } from "@/components/services/ServicesGallery";
 import { ServicesPhilosophy } from "@/components/services/ServicesPhilosophy";
 import { ServicesProcess } from "@/components/services/ServicesProcess";
+import { ServicesFaq } from "@/components/services/ServicesFaq";
 import { ServicesClosing } from "@/components/services/ServicesClosing";
 
 const { title, description } = servicesPage.meta;
@@ -77,6 +78,7 @@ export default function ServicesPage() {
       <ServicesGallery />
       <ServicesPhilosophy />
       <ServicesProcess />
+      <ServicesFaq />
       <ServicesClosing />
       <ServicesJsonLd />
     </div>

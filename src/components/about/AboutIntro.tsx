@@ -66,7 +66,7 @@ export function AboutIntro() {
           {/* Layered photographs */}
           <div className="relative lg:col-span-6">
             <figure className="relative ml-auto w-full sm:w-[86%]">
-              <ImageReveal className="aspect-[4/3] w-full rounded-md sm:aspect-[5/6]" drift={8}>
+              <ImageReveal bars className="aspect-[4/3] w-full rounded-md sm:aspect-[5/6]" drift={8}>
                 <Image
                   src={main.src}
                   alt={main.alt}

@@ -43,4 +43,44 @@ export const motion = {
 export const MOTION_OK = "(prefers-reduced-motion: no-preference)";
 export const MOTION_REDUCED = "(prefers-reduced-motion: reduce)";
 
+/**
+ * Pinned scroll stages: tablet-size phones and short screens get the ordinary layout instead.
+ * Mirrors the media query around .pin-track and .pin-stage in globals.css.
+ */
+export const PIN_MEDIA = "(min-width: 1024px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)";
+
+/** The six pages that carry the full motion treatment. */
+const MAIN_ROUTES = new Set(["/", "/about", "/investments", "/services", "/team", "/contact"]);
+export const isMainRoute = (pathname: string) => MAIN_ROUTES.has(pathname);
+
+type SmoothScroller = { scrollTo: (target: number, options?: { duration?: number; immediate?: boolean }) => void };
+let scroller: SmoothScroller | null = null;
+export const setLenis = (next: SmoothScroller | null) => {
+  scroller = next;
+};
+
+/** Moves the page to a position, through smooth scrolling where it is running. */
+export function scrollToY(y: number, immediate = false) {
+  if (scroller) scroller.scrollTo(y, { duration: 1.1, immediate });
+  else window.scrollTo({ top: y, behavior: immediate ? "auto" : "smooth" });
+}
+
+/**
+ * Turns a stage's sticky pin off when its content does not fit the screen, so nothing is ever cut off.
+ * Returns false when off: the section then shows as a normal layout.
+ */
+export function pinFits(track: HTMLElement, stage: HTMLElement) {
+  track.removeAttribute("data-pin");
+  // Layout heights, not scrollHeight: an entrance still waiting to run must not count as overflow.
+  const content = (el: Element) =>
+    Array.from(el.children).reduce((sum, child) => {
+      const node = child as HTMLElement;
+      return getComputedStyle(node).position === "absolute" ? sum : sum + node.offsetHeight;
+    }, 0);
+  const inner = Array.from(stage.querySelectorAll<HTMLElement>(".persp-list"));
+  const fits = content(stage) <= stage.clientHeight + 1 && inner.every((el) => content(el) <= el.offsetHeight + 1);
+  if (!fits) track.setAttribute("data-pin", "off");
+  return fits;
+}
+
 export { gsap, ScrollTrigger, useGSAP };

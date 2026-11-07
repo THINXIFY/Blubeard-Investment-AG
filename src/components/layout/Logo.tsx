@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { site } from "@/lib/site";
+import { LogoProgress } from "./LogoProgress";
 
 type LogoProps = {
   /** Surface the logo sits on: "light" uses the dark-type artwork, "dark" the white-type artwork. */
@@ -10,6 +11,8 @@ type LogoProps = {
   priority?: boolean;
   className?: string;
   imageClassName?: string;
+  /** Fill the emblem's bars with reading progress (header, main pages). */
+  progress?: boolean;
   onClick?: () => void;
 };
 
@@ -20,7 +23,14 @@ const artwork = {
 } as const;
 
 /** Official Blubeard Investment AG logo, linked to the homepage. */
-export function Logo({ tone = "light", priority = false, className, imageClassName, onClick }: LogoProps) {
+export function Logo({
+  tone = "light",
+  priority = false,
+  className,
+  imageClassName,
+  progress = false,
+  onClick,
+}: LogoProps) {
   const art = artwork[tone];
   return (
     <Link
@@ -28,7 +38,7 @@ export function Logo({ tone = "light", priority = false, className, imageClassNa
       onClick={onClick}
       aria-label={`${site.name} — Home`}
       className={cn(
-        "inline-flex items-center rounded-xs outline-none focus-visible:ring-2 focus-visible:ring-imperial focus-visible:ring-offset-2",
+        "relative inline-flex items-center rounded-xs outline-none focus-visible:ring-2 focus-visible:ring-imperial focus-visible:ring-offset-2",
         className,
       )}
     >
@@ -41,6 +51,7 @@ export function Logo({ tone = "light", priority = false, className, imageClassNa
         priority={priority}
         className={cn("h-9 w-auto max-w-none xl:h-10", imageClassName)}
       />
+      {progress ? <LogoProgress /> : null}
     </Link>
   );
 }

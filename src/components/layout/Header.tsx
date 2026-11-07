@@ -266,7 +266,7 @@ export function Header() {
                 : "border-platinum/70 bg-[rgb(247_248_251/0.72)] shadow-[0_18px_44px_-26px_rgb(16_19_32/0.35),0_1px_3px_rgb(16_19_32/0.05),inset_0_1px_0_rgb(255_255_255/0.95)]",
             )}
           >
-            <Logo priority onClick={() => close()} className="shrink-0 justify-self-start" />
+            <Logo priority progress onClick={() => close()} className="shrink-0 justify-self-start" />
 
             {/* Centred navigation pill */}
             <nav aria-label="Main" className="hidden lg:block">

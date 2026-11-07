@@ -186,11 +186,13 @@ export function ContactDirect() {
         </Reveal>
 
         {/* Supporting details */}
-        <Reveal className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:gap-8 lg:mt-7">
-          <p className="text-[0.6875rem] font-medium tracking-[0.2em] text-slate uppercase">Write to us about</p>
+        <Reveal stagger={0.08} className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:gap-8 lg:mt-7">
+          <p data-reveal-item className="text-[0.6875rem] font-medium tracking-[0.2em] text-slate uppercase">
+            Write to us about
+          </p>
           <ul className="flex flex-col gap-1.5 text-ink md:flex-row md:flex-wrap md:gap-x-7">
             {direct.topics.map((t) => (
-              <li key={t} className="flex items-center gap-2.5 text-[0.9375rem]">
+              <li key={t} data-reveal-item className="flex items-center gap-2.5 text-[0.9375rem]">
                 <span aria-hidden className="size-1 rounded-full bg-imperial" />
                 {t}
               </li>

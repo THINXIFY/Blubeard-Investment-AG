@@ -8,7 +8,7 @@ import { investmentsPage, sectors, industryCategories, type Sector } from "@/con
 import type { IndustryCategoryId } from "@/content/home";
 import { images } from "@/content/images";
 import { cn } from "@/lib/cn";
-import { ensureGsap, gsap, motion, ScrollTrigger } from "@/lib/motion";
+import { ensureGsap, gsap, motion, MOTION_OK, ScrollTrigger, useGSAP } from "@/lib/motion";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ArrowRightIcon } from "@/components/ui/Icons";
@@ -79,11 +79,7 @@ function SectorCard({ sector, index, span }: { sector: Sector; index: number; sp
         src={img.src}
         alt={img.alt}
         fill
-        sizes={
-          span >= 7
-            ? "(min-width: 1024px) 58vw, (min-width: 640px) 50vw, 100vw"
-            : "(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
-        }
+        sizes={span >= 7 ? "(min-width: 1024px) 58vw, 50vw" : "(min-width: 1024px) 34vw, 50vw"}
         placeholder="blur"
         className="object-cover transition-transform duration-1200 ease-expo group-hover/card:translate-x-[-1.5%] group-hover/card:scale-[1.07]"
       />
@@ -96,7 +92,7 @@ function SectorCard({ sector, index, span }: { sector: Sector; index: number; sp
         className="absolute inset-0 bg-[linear-gradient(to_top,rgb(18_72_216/0.35),transparent_55%)] opacity-0 transition-opacity duration-700 ease-expo group-hover/card:opacity-100"
       />
 
-      <div className="absolute inset-x-5 top-5 flex items-start justify-between sm:inset-x-6 sm:top-6">
+      <div className="sector-top absolute inset-x-5 top-5 flex items-start justify-between sm:inset-x-6 sm:top-6">
         <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[0.6875rem] font-medium tracking-[0.08em] text-white uppercase backdrop-blur-md">
           {categoryLabel[sector.category]}
         </span>
@@ -105,7 +101,7 @@ function SectorCard({ sector, index, span }: { sector: Sector; index: number; sp
         </span>
       </div>
 
-      <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-5 sm:inset-x-6 sm:bottom-6">
+      <div className="sector-bottom absolute inset-x-5 bottom-5 flex items-end justify-between gap-5 sm:inset-x-6 sm:bottom-6">
         <div className="transition-transform duration-700 ease-expo group-hover/card:-translate-y-1">
           <h3
             id={`sector-${sector.id}`}
@@ -113,11 +109,13 @@ function SectorCard({ sector, index, span }: { sector: Sector; index: number; sp
           >
             {sector.title}
           </h3>
-          <p className="mt-2 max-w-[42ch] text-[0.9375rem] leading-relaxed text-platinum">{sector.description}</p>
+          <p className="sector-desc mt-2 max-w-[42ch] text-[0.9375rem] leading-relaxed text-platinum">
+            {sector.description}
+          </p>
         </div>
         <span
           aria-hidden
-          className="grid size-11 shrink-0 place-items-center rounded-full border border-white/30 text-white transition-[background-color,border-color,color,transform] duration-700 ease-expo group-hover/card:border-white group-hover/card:bg-white group-hover/card:text-ink"
+          className="sector-arrow grid size-11 shrink-0 place-items-center rounded-full border border-white/30 text-white transition-[background-color,border-color,color,transform] duration-700 ease-expo group-hover/card:border-white group-hover/card:bg-white group-hover/card:text-ink"
         >
           <ArrowRightIcon className="size-4 -rotate-45 transition-transform duration-700 ease-expo group-hover/card:rotate-0" />
         </span>
@@ -195,6 +193,35 @@ export function SectorDirectory() {
 
   useLayoutEffect(() => () => void activeFlip.current?.kill(), []);
 
+  // The wall assembles: each card arrives from a scattered position as it scrolls in, tied to the scroll.
+  useGSAP(
+    () => {
+      const grid = gridRef.current;
+      if (!grid) return;
+      const mm = gsap.matchMedia();
+      mm.add(`(min-width: 1024px) and ${MOTION_OK}`, () => {
+        grid.querySelectorAll<HTMLElement>("[data-assemble]").forEach((card, i) => {
+          const side = i % 3 === 0 ? -1 : i % 3 === 1 ? 0.35 : 1;
+          gsap.fromTo(
+            card,
+            { x: side * 130, y: 110 + (i % 3) * 36, rotate: side * 3.5, scale: 0.86, opacity: 0.15 },
+            {
+              x: 0,
+              y: 0,
+              rotate: 0,
+              scale: 1,
+              opacity: 1,
+              ease: "power2.out",
+              scrollTrigger: { trigger: card.parentElement, start: "top 104%", end: "top 62%", scrub: 0.6 },
+            },
+          );
+        });
+      });
+      return () => mm.revert();
+    },
+    { scope: gridRef },
+  );
+
   const activeLabel = filters.find((f) => f.id === filter)?.label ?? "";
 
   return (
@@ -202,7 +229,7 @@ export function SectorDirectory() {
       id="sectors"
       data-tone="light"
       aria-labelledby="sectors-title"
-      className="bg-porcelain py-20 md:py-24 lg:py-28"
+      className="overflow-x-clip bg-porcelain py-20 md:py-24 lg:py-28"
     >
       <Container>
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
@@ -260,7 +287,7 @@ export function SectorDirectory() {
 
         {/* Directory grid */}
         <Reveal className="mt-6 lg:mt-8" y={40}>
-          <ul ref={gridRef} className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:gap-5">
+          <ul ref={gridRef} className="sector-wall relative grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-12 lg:gap-5">
             {sectors.map((s, i) => {
               const shown = s.id in spanById;
               const span = spanById[s.id] ?? 4;
@@ -270,9 +297,17 @@ export function SectorDirectory() {
                   data-card
                   data-flip-id={s.id}
                   hidden={!shown}
-                  className={cn("h-[21rem] sm:h-[22rem] lg:h-[25rem]", span === 12 && "sm:col-span-2", spanClass[span])}
+                  className={cn(
+                    "h-[21rem] sm:h-[22rem] lg:h-[25rem]",
+                    span === 12 && "col-span-2",
+                    // Phones: two tiles to a row, so an odd one out takes the full row.
+                    visible.length % 2 === 1 && visible.at(-1)?.id === s.id && "max-sm:col-span-2",
+                    spanClass[span],
+                  )}
                 >
-                  <SectorCard sector={s} index={i} span={span} />
+                  <div data-assemble>
+                    <SectorCard sector={s} index={i} span={span} />
+                  </div>
                 </li>
               );
             })}

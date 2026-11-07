@@ -60,7 +60,7 @@ export function HeroMotion({ children, className }: { children: ReactNode; class
       mm.add(MOTION_OK, () => {
         // Explicit start states, so nothing shows before its turn in the sequence.
         gsap.set(q('[data-hero="eyebrow"]'), { autoAlpha: 0, y: 14 });
-        gsap.set(q('[data-hero="line"]'), { yPercent: 115, rotate: 5, transformOrigin: "0% 100%" });
+        gsap.set(q('[data-hero="line"]'), { y: 0, yPercent: 115, rotate: 5, transformOrigin: "0% 100%" });
         gsap.set(q('[data-hero="rule"]'), { scaleX: 0 });
         gsap.set(q('[data-hero="lead"]'), { autoAlpha: 0, y: 16 });
         gsap.set(q('[data-hero="actions"] > *'), { autoAlpha: 0, y: 14 });
@@ -137,7 +137,7 @@ export function HeroMotion({ children, className }: { children: ReactNode; class
           .to(q('[data-hero="eyebrow"]'), { autoAlpha: 1, y: 0, duration: motion.duration.base }, textAt)
           .to(
             q('[data-hero="line"]'),
-            { yPercent: 0, rotate: 0, stagger: 0.07, duration: motion.duration.slow },
+            { y: 0, yPercent: 0, rotate: 0, stagger: 0.07, duration: motion.duration.slow },
             textAt + 0.05,
           )
           .to(

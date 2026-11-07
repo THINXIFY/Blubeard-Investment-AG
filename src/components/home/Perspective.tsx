@@ -104,7 +104,7 @@ export function Perspective() {
                   <circle key={r} cx="500" cy="500" r={r} stroke="rgb(197 203 214 / 0.11)" strokeWidth="1.2" />
                 ))}
               </svg>
-              <ImageReveal className="absolute inset-0 rounded-sm" drift={6}>
+              <ImageReveal bars className="absolute inset-0 rounded-sm" drift={6}>
                 <Photo name="ctAerial" sizes="(min-width: 1024px) 44vw, 100vw" className="object-[40%_50%]" />
               </ImageReveal>
               <span
@@ -132,7 +132,7 @@ export function Perspective() {
                 amount={7}
                 className="relative aspect-[4/5] md:absolute md:top-[10%] md:right-0 md:aspect-auto md:h-[64%] md:w-[32%]"
               >
-                <ImageReveal className="absolute inset-0 rounded-sm" drift={0} delay={0.15}>
+                <ImageReveal bars className="absolute inset-0 rounded-sm" drift={0} delay={0.15}>
                   <Photo name="privateEquity" sizes="(min-width: 1024px) 22vw, 50vw" className="object-[50%_40%]" />
                 </ImageReveal>
                 <span
@@ -146,7 +146,7 @@ export function Perspective() {
                 amount={11}
                 className="relative aspect-[4/5] md:absolute md:bottom-0 md:left-[36%] md:aspect-auto md:h-[40%] md:w-[40%] md:border-[10px] md:border-obsidian"
               >
-                <ImageReveal className="absolute inset-0 rounded-sm" drift={0} delay={0.3}>
+                <ImageReveal bars className="absolute inset-0 rounded-sm" drift={0} delay={0.3}>
                   <Photo
                     name="fnWall"
                     sizes="(min-width: 1024px) 26vw, 50vw"

@@ -84,7 +84,7 @@ export function AboutHero() {
             className="group/down inline-flex items-center gap-3 font-medium text-platinum transition-colors duration-300 hover:text-white"
           >
             <span className="hidden sm:inline">Scroll to discover</span>
-            <span className="grid size-9 place-items-center rounded-full border border-white/25 transition-colors duration-700 ease-expo group-hover/down:border-white">
+            <span className="grid size-11 place-items-center rounded-full border border-white/25 transition-colors duration-700 ease-expo group-hover/down:border-white sm:size-9">
               <ArrowDownIcon className="size-3.5 [animation-duration:2.4s] motion-safe:animate-bounce" />
             </span>
             <span className="sr-only sm:hidden">Scroll to discover</span>

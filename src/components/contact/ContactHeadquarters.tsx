@@ -4,9 +4,11 @@ import { images } from "@/content/images";
 import { site } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { CursorDepth } from "@/components/motion/CursorDepth";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ScrollWords } from "@/components/motion/ScrollWords";
 
 /**
  * Swiss headquarters — the Engadin as seen from Samedan (with a smaller aerial of the valley
@@ -29,9 +31,9 @@ export function ContactHeadquarters() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-10">
           {/* Photographs */}
-          <div className="relative pb-[18%] lg:col-span-7 lg:pb-[12%]">
-            <figure>
-              <ImageReveal className="aspect-[4/3] w-full rounded-md lg:aspect-[3/2]" drift={12}>
+          <CursorDepth className="relative pb-[18%] lg:col-span-7 lg:pb-[12%]">
+            <figure data-depth="-9">
+              <ImageReveal bars className="aspect-[4/3] w-full rounded-md lg:aspect-[3/2]" drift={12}>
                 <Image
                   src={main.src}
                   alt={main.alt}
@@ -45,8 +47,9 @@ export function ContactHeadquarters() {
                 {hq.imageCaption}
               </figcaption>
             </figure>
-            <figure className="absolute right-0 bottom-0 w-[46%] sm:w-[40%]">
+            <figure data-depth="20" className="absolute right-0 bottom-0 z-10 w-[46%] sm:w-[40%]">
               <ImageReveal
+                bars
                 className="aspect-[4/3] w-full rounded-md border-[5px] border-porcelain shadow-[0_30px_60px_-30px_rgb(16_19_32/0.55)]"
                 from="left"
                 drift={6}
@@ -63,7 +66,7 @@ export function ContactHeadquarters() {
               </ImageReveal>
               <figcaption className="mt-2 text-right text-xs text-slate">{hq.detailCaption}</figcaption>
             </figure>
-          </div>
+          </CursorDepth>
 
           {/* Address */}
           <div className="lg:col-span-5">
@@ -75,23 +78,29 @@ export function ContactHeadquarters() {
               lines={[hq.heading]}
               className="mt-6 font-display text-[clamp(2.125rem,1.3rem+2.4vw,3.5rem)] leading-[1.04] font-medium tracking-[-0.042em] text-ink"
             />
-            <Reveal delay={0.1}>
-              <p className="mt-6 max-w-[42ch] text-lg leading-relaxed text-slate">{hq.lead}</p>
-
+            <ScrollWords text={hq.lead} className="mt-6 max-w-[42ch] text-lg leading-relaxed text-slate" />
+            <Reveal stagger={0.1} start="top 90%">
               <address className="mt-7 border-t border-line-strong pt-6 not-italic">
-                <span className="block font-display text-[1.5rem] leading-snug font-semibold tracking-[-0.025em] text-ink">
+                <span
+                  data-reveal-item
+                  className="block font-display text-[1.5rem] leading-snug font-semibold tracking-[-0.025em] text-ink"
+                >
                   {site.name}
                 </span>
                 <span className="mt-1 block font-display text-[1.5rem] leading-snug font-light tracking-[-0.025em] text-ink">
-                  {address.street}
-                  <br />
-                  {address.postalCode} {address.locality}
-                  <br />
-                  {address.country}
+                  <span data-reveal-item className="block">
+                    {address.street}
+                  </span>
+                  <span data-reveal-item className="block">
+                    {address.postalCode} {address.locality}
+                  </span>
+                  <span data-reveal-item className="block">
+                    {address.country}
+                  </span>
                 </span>
               </address>
 
-              <dl className="mt-7 grid grid-cols-2 gap-6 border-t border-line pt-5 text-sm">
+              <dl data-reveal-item className="mt-7 grid grid-cols-2 gap-6 border-t border-line pt-5 text-sm">
                 <div>
                   <dt className="text-[0.6875rem] font-medium tracking-[0.18em] text-slate uppercase">Region</dt>
                   <dd className="mt-1.5 text-ink">{hq.region}</dd>
@@ -105,6 +114,7 @@ export function ContactHeadquarters() {
               </dl>
 
               <a
+                data-reveal-item
                 href={hq.directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -4,6 +4,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { LineDraw } from "@/components/motion/LineDraw";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ScrollWords } from "@/components/motion/ScrollWords";
 
 /** Philosophy — compact Obsidian section: statement + three pillars with drawn architectural linework. */
 export function AboutPhilosophy() {
@@ -60,7 +61,7 @@ export function AboutPhilosophy() {
               />
             </div>
             <Reveal className="lg:col-span-5" delay={0.2}>
-              <p className="leading-relaxed text-platinum lg:text-lg">{philosophy.description}</p>
+              <ScrollWords text={philosophy.description} className="leading-relaxed text-platinum lg:text-lg" />
             </Reveal>
           </div>
 

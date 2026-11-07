@@ -20,6 +20,8 @@ type ImageRevealProps = {
   mode?: "clip" | "zoom";
   /** Delay before the entrance (seconds). */
   delay?: number;
+  /** Replaces the clip wipe with three bars rising in turn, after the bars in the emblem. */
+  bars?: boolean;
 };
 
 /**
@@ -34,6 +36,7 @@ export function ImageReveal({
   from = "bottom",
   mode = "clip",
   delay = 0,
+  bars = false,
 }: ImageRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -44,7 +47,31 @@ export function ImageReveal({
       if (!el || !inner) return;
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
-        if (mode === "clip")
+        if (mode === "clip" && bars) {
+          const s = { a: 0, b: 0, c: 0 };
+          const draw = () => {
+            const points = [s.a, s.b, s.c].flatMap((rise, i) => {
+              const left = (i * 100) / 3;
+              const right = ((i + 1) * 100) / 3;
+              const top = 100 - rise * 100;
+              return [`${left}% 100%`, `${left}% ${top}%`, `${right}% ${top}%`, `${right}% 100%`];
+            });
+            el.style.clipPath = `polygon(${points.join(",")})`;
+          };
+          draw();
+          gsap
+            .timeline({
+              delay,
+              defaults: { duration: motion.duration.slow, ease: motion.ease.inOut, onUpdate: draw },
+              scrollTrigger: { trigger: el, start: motion.revealStart, once: true },
+              onComplete: () => {
+                el.style.clipPath = "none";
+              },
+            })
+            .to(s, { a: 1 }, 0)
+            .to(s, { b: 1 }, 0.16)
+            .to(s, { c: 1 }, 0.32);
+        } else if (mode === "clip")
           gsap.fromTo(
             el,
             { clipPath: from === "bottom" ? "inset(100% 0% 0% 0%)" : "inset(0% 100% 0% 0%)" },

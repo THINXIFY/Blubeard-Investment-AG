@@ -1,9 +1,10 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { aboutPage } from "@/content/about";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/motion/Reveal";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
+import { ValueStack } from "./ValueStack";
 
 /* Fine line icons (stroke = currentColor). */
 const icons: Record<string, ReactNode> = {
@@ -34,7 +35,7 @@ const icons: Record<string, ReactNode> = {
   ),
 };
 
-/** Values — four-column editorial row with icons, hairline dividers and hover accents. */
+/** Values: a four-column row with icons and hairlines. On large screens the cards stack up as they arrive. */
 export function AboutValues() {
   const { values } = aboutPage;
 
@@ -53,36 +54,41 @@ export function AboutValues() {
           </div>
         </Reveal>
 
-        <Reveal
-          as="ul"
-          stagger={0.08}
-          className="mt-12 grid border-t border-line-strong/70 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4"
-        >
-          {values.items.map((v, i) => (
-            <li
-              key={v.id}
-              data-reveal-item
-              className="group/value relative border-b border-line-strong/70 py-9 transition-colors duration-700 ease-expo hover:bg-white sm:px-7 sm:even:border-l lg:border-b-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0 lg:hover:first:pl-6"
-            >
-              <span
-                aria-hidden
-                className="absolute -top-px left-0 h-0.5 w-full origin-left scale-x-0 bg-imperial transition-transform duration-700 ease-expo group-hover/value:scale-x-100"
-              />
-              <div className="flex items-start justify-between">
-                <span className="grid size-14 place-items-center rounded-full border border-line-strong bg-white text-imperial transition-[background-color,border-color,color] duration-700 ease-expo group-hover/value:border-imperial group-hover/value:bg-imperial group-hover/value:text-white">
-                  <svg aria-hidden viewBox="0 0 40 40" className="size-6 fill-none stroke-current stroke-[1.5]">
-                    {icons[v.id]}
-                  </svg>
-                </span>
-                <span aria-hidden className="text-xs font-medium text-slate tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <h3 className="mt-8 font-display text-xl font-semibold tracking-[-0.02em] text-ink">{v.title}</h3>
-              <p className="mt-3 text-[0.9375rem] leading-relaxed text-slate">{v.text}</p>
-            </li>
-          ))}
-        </Reveal>
+        <ValueStack>
+          <Reveal
+            as="ul"
+            stagger={0.08}
+            className="stack-list mt-12 grid border-t border-line-strong/70 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4"
+          >
+            {values.items.map((v, i) => (
+              <li
+                key={v.id}
+                data-reveal-item
+                style={{ "--stack-i": i } as CSSProperties}
+                className="group/value relative border-b border-line-strong/70 py-9 transition-colors duration-700 ease-expo hover:bg-white sm:px-7 sm:even:border-l lg:border-b-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0 lg:hover:first:pl-6"
+              >
+                <span
+                  aria-hidden
+                  className="absolute -top-px left-0 h-0.5 w-full origin-left scale-x-0 bg-imperial transition-transform duration-700 ease-expo group-hover/value:scale-x-100"
+                />
+                <div className="stack-card">
+                  <div className="stack-card-head flex items-start justify-between">
+                    <span className="grid size-14 place-items-center rounded-full border border-line-strong bg-white text-imperial transition-[background-color,border-color,color] duration-700 ease-expo group-hover/value:border-imperial group-hover/value:bg-imperial group-hover/value:text-white">
+                      <svg aria-hidden viewBox="0 0 40 40" className="size-6 fill-none stroke-current stroke-[1.5]">
+                        {icons[v.id]}
+                      </svg>
+                    </span>
+                    <span aria-hidden className="stack-card-num text-xs font-medium text-slate tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3 className="mt-8 font-display text-xl font-semibold tracking-[-0.02em] text-ink">{v.title}</h3>
+                  <p className="mt-3 text-[0.9375rem] leading-relaxed text-slate">{v.text}</p>
+                </div>
+              </li>
+            ))}
+          </Reveal>
+        </ValueStack>
       </Container>
     </section>
   );

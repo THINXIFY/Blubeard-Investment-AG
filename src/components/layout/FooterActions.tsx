@@ -26,7 +26,7 @@ export function CopyEmail({ email }: { email: string }) {
         type="button"
         onClick={onCopy}
         className={cn(
-          "inline-flex h-9 items-center gap-2 rounded-full border px-3.5 text-xs font-medium tracking-[0.04em] transition-colors duration-500 outline-none focus-visible:ring-2 focus-visible:ring-imperial-300",
+          "inline-flex h-11 items-center gap-2 rounded-full border px-3.5 text-xs font-medium tracking-[0.04em] transition-colors duration-500 outline-none focus-visible:ring-2 focus-visible:ring-imperial-300 sm:h-9",
           copied
             ? "border-imperial-300/60 bg-imperial/25 text-white"
             : "border-white/15 text-platinum hover:border-white/40 hover:text-white",

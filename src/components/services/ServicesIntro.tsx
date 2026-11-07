@@ -44,7 +44,7 @@ export function ServicesIntro() {
           </div>
 
           <figure className="lg:col-span-7">
-            <ImageReveal className="aspect-[3/2] w-full rounded-md" drift={8}>
+            <ImageReveal bars className="aspect-[3/2] w-full rounded-md" drift={8}>
               <Image
                 src={img.src}
                 alt={img.alt}

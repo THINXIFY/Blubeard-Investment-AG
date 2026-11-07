@@ -9,7 +9,7 @@ import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { HeroBars } from "@/components/motion/HeroBars";
 
-/** Cinematic editorial hero: a Graubünden bridge in slow motion, an oversized headline and a quiet supporting column. */
+/** Cinematic editorial hero: two towers joined by a bridge in slow motion, an oversized headline and a quiet supporting column. */
 export function PartnersHero() {
   const { hero } = partnersPage;
   const img = images[hero.image];
@@ -23,11 +23,23 @@ export function PartnersHero() {
     >
       <HeroBars />
       <KenBurns className="-z-10">
-        <Image src={img.src} alt="" fill priority sizes="100vw" placeholder="blur" className="object-cover" />
+        <Image
+          src={img.src}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          placeholder="blur"
+          className="object-cover object-[52%_58%]"
+        />
       </KenBurns>
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(16_19_32/0.96)_0%,rgb(16_19_32/0.62)_45%,rgb(16_19_32/0.42)_100%)]"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgb(16_19_32/0.62),transparent_68%)]"
       />
       <div
         aria-hidden
