@@ -6,7 +6,7 @@ export const mergersAndAcquisitions: ServicePageData = {
   meta: {
     title: "Mergers & Acquisitions",
     description:
-      "Blubeard Investment AG's perspective on mergers and acquisitions: transaction strategy, target assessment, valuation, due diligence, structuring and integration considerations.",
+      "Our perspective on mergers and acquisitions: transaction strategy, target assessment, valuation, due diligence, structuring and integration.",
   },
   hero: {
     subtitle: "Strategic perspectives on corporate transactions, valuation and due diligence.",

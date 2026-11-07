@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
 import { imageList } from "@/content/images";
+import { socialMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
 export const metadata: Metadata = {
   title: "Image Credits",
   description: "Photography credits and licences for images used on the Blubeard Investment AG website.",
-  robots: { index: false, follow: true },
+  alternates: { canonical: "/image-credits" },
+  ...socialMetadata({
+    path: "/image-credits",
+    title: `Image Credits — ${site.name}`,
+    description: "Photography credits and licences for images used on the Blubeard Investment AG website.",
+  }),
+  robots: { index: true, follow: true },
 };
 
 /** Attribution for openly licensed photography (required by CC BY / CC BY-SA). */

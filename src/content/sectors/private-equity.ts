@@ -7,7 +7,7 @@ export const privateEquity: SectorPageData = {
   meta: {
     title: "Private Equity Investments",
     description:
-      "Blubeard Investment AG's perspective on private equity — growth capital, established enterprises, strategic acquisitions, succession and operational value creation, evaluated with a long-term view.",
+      "Our perspective on private equity: growth capital, established enterprises, strategic acquisitions, succession and operational value creation.",
   },
   hero: {
     eyebrow: "Private Equity Investments",

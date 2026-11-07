@@ -7,7 +7,7 @@ export const realEstate: SectorPageData = {
   meta: {
     title: "Real Estate Investments",
     description:
-      "Blubeard Investment AG's perspective on real estate investment — commercial, residential, industrial, logistics, hospitality and development opportunities, evaluated with a long-term view.",
+      "Our perspective on real estate investment: commercial, residential, industrial, logistics, hospitality and development opportunities, with a long-term view.",
   },
   hero: {
     eyebrow: "Real Estate Investments",

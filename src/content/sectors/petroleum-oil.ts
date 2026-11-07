@@ -7,7 +7,7 @@ export const petroleumOil: SectorPageData = {
   meta: {
     title: "Petroleum & Oil Investments",
     description:
-      "Blubeard Investment AG's perspective on petroleum and oil — upstream infrastructure, pipelines, refining, storage, marine transport and efficiency, evaluated with discipline and a long-term view.",
+      "Our perspective on petroleum and oil: upstream infrastructure, pipelines, refining, storage, marine transport and efficiency, with a long-term view.",
   },
   hero: {
     eyebrow: "Petroleum & Oil Investments",

@@ -23,8 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: 0.6,
   }));
-  // Legal pages (client-approved for publication): Impressum, Privacy Policy, Terms of Use.
-  const legal: MetadataRoute.Sitemap = ["/legal-notice", "/privacy", "/terms"].map((path) => ({
+  // Legal pages (client-approved for publication): Impressum, Privacy Policy, Terms of Use, Image Credits.
+  const legal: MetadataRoute.Sitemap = ["/legal-notice", "/privacy", "/terms", "/image-credits"].map((path) => ({
     url: `${site.url}${path}`,
     changeFrequency: "yearly",
     priority: 0.3,

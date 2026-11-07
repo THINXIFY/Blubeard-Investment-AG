@@ -1,3 +1,4 @@
+import { ogImages } from "@/lib/seo";
 import type { Metadata } from "next";
 import { serviceEntries, servicesPage } from "@/content/services";
 import { site } from "@/lib/site";
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/services" },
   openGraph: {
+    images: ogImages,
     type: "website",
     url: "/services",
     siteName: site.name,
@@ -23,7 +25,12 @@ export const metadata: Metadata = {
     title: `${title} — ${site.name}`,
     description,
   },
-  twitter: { card: "summary_large_image", title: `${title} — ${site.name}`, description },
+  twitter: {
+    images: ogImages,
+    card: "summary_large_image",
+    title: `${title} — ${site.name}`,
+    description,
+  },
 };
 
 /** WebPage + list of areas of expertise + breadcrumb. Informational descriptions only (no offers). */

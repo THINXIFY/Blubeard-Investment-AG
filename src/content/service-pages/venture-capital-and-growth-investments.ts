@@ -6,7 +6,7 @@ export const ventureCapitalAndGrowthInvestments: ServicePageData = {
   meta: {
     title: "Venture Capital & Growth Investments",
     description:
-      "Blubeard Investment AG's perspective on venture and growth investments: evaluating innovative businesses, emerging ventures, business models, markets and growth-stage opportunities.",
+      "Our perspective on venture and growth investments: innovative businesses, emerging ventures, business models, markets and growth-stage opportunities.",
   },
   hero: {
     subtitle: "Evaluating innovative businesses and growth-stage opportunities with long-term potential.",

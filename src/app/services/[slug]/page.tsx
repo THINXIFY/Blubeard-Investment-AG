@@ -1,7 +1,8 @@
+import { site } from "@/lib/site";
+import { fittedTitle, socialMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { publishedServiceSlugs, servicePages } from "@/content/service-pages";
-import { site } from "@/lib/site";
 import { ServicePageTemplate } from "@/components/service-page/ServicePageTemplate";
 
 /** Only published service pages are generated; every other slug returns 404. */
@@ -18,20 +19,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data = servicePages[slug];
   if (!data) return {};
   const path = `/services/${slug}`;
-  const fullTitle = `${data.meta.title} — ${site.name}`;
+  const title = fittedTitle(data.meta.title);
   return {
-    title: data.meta.title,
+    title: { absolute: title },
     description: data.meta.description,
     alternates: { canonical: path },
-    openGraph: {
-      type: "website",
-      url: path,
-      siteName: site.name,
-      locale: site.locale,
-      title: fullTitle,
-      description: data.meta.description,
-    },
-    twitter: { card: "summary_large_image", title: fullTitle, description: data.meta.description },
+    ...socialMetadata({ path, title, description: data.meta.description }),
   };
 }
 

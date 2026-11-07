@@ -7,7 +7,7 @@ export const technology: SectorPageData = {
   meta: {
     title: "Technology Investments",
     description:
-      "Blubeard Investment AG's perspective on technology — enterprise software, cloud and data infrastructure, cybersecurity, semiconductors and connectivity, evaluated with a long-term view.",
+      "Our perspective on technology: enterprise software, cloud and data infrastructure, cybersecurity, semiconductors and connectivity, with a long-term view.",
   },
   hero: {
     eyebrow: "Technology Investments",

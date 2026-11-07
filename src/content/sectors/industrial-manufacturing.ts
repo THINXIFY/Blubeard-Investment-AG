@@ -7,7 +7,7 @@ export const industrialManufacturing: SectorPageData = {
   meta: {
     title: "Industrial & Manufacturing Investments",
     description:
-      "Blubeard Investment AG's perspective on industry and manufacturing — advanced manufacturing, precision engineering, automation, materials and process industries, evaluated with a long-term view.",
+      "Our perspective on industry and manufacturing: advanced manufacturing, precision engineering, automation, materials and process industries.",
   },
   hero: {
     eyebrow: "Industrial & Manufacturing Investments",

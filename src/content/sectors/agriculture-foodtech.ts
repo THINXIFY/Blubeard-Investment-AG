@@ -7,7 +7,7 @@ export const agricultureFoodtech: SectorPageData = {
   meta: {
     title: "Agriculture & Food Technology Investments",
     description:
-      "Blubeard Investment AG's perspective on agriculture and food technology — precision agriculture, controlled-environment farming, machinery, food processing and agricultural biotechnology.",
+      "Our perspective on agriculture and food technology: precision agriculture, controlled-environment farming, machinery, food processing and agri-biotech.",
   },
   hero: {
     eyebrow: "Agriculture & FoodTech Investments",

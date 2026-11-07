@@ -47,6 +47,8 @@ export const metadata: Metadata = {
     description: site.description,
   },
   robots: { index: true, follow: true },
+  // Google Search Console ownership: rendered as <meta name="google-site-verification"> in every page's <head>.
+  verification: { google: "akop3DfBKfiyyxHZbUpmptj8KOx9JfnljrZpqdMatR0" },
   // Stable root-relative paths in /public (Google favicon guidelines: square, crawlable, multiples of 48px).
   icons: {
     icon: [

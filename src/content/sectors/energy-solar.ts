@@ -7,7 +7,7 @@ export const energySolar: SectorPageData = {
   meta: {
     title: "Energy & Solar Investments",
     description:
-      "Blubeard Investment AG's perspective on renewable energy — utility-scale and distributed solar, wind, energy storage and grid infrastructure, evaluated with a long-term view.",
+      "Our perspective on renewable energy: utility-scale and distributed solar, wind, energy storage and grid infrastructure, with a long-term view.",
   },
   hero: {
     eyebrow: "Energy & Solar Investments",

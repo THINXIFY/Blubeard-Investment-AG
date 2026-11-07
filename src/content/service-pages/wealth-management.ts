@@ -6,7 +6,7 @@ export const wealthManagement: ServicePageData = {
   meta: {
     title: "Wealth Management",
     description:
-      "Blubeard Investment AG's perspective on wealth: planning, preservation, structure, long-term objectives and the considerations that shape lasting financial decisions.",
+      "Our perspective on wealth: planning, preservation, structure, long-term objectives and the considerations that shape lasting financial decisions.",
   },
   hero: {
     subtitle: "Individual perspectives on planning, preservation and long-term financial objectives.",

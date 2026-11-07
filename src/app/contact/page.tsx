@@ -1,3 +1,4 @@
+import { ogImages } from "@/lib/seo";
 import type { Metadata } from "next";
 import { contactPage } from "@/content/contact";
 import { site } from "@/lib/site";
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/contact" },
   openGraph: {
+    images: ogImages,
     type: "website",
     url: "/contact",
     siteName: site.name,
@@ -22,7 +24,12 @@ export const metadata: Metadata = {
     title: `${title} — ${site.name}`,
     description,
   },
-  twitter: { card: "summary_large_image", title: `${title} — ${site.name}`, description },
+  twitter: {
+    images: ogImages,
+    card: "summary_large_image",
+    title: `${title} — ${site.name}`,
+    description,
+  },
 };
 
 /** ContactPage + breadcrumb; organisation facts reference the site-wide Organization node. */

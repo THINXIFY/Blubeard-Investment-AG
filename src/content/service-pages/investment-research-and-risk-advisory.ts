@@ -6,7 +6,7 @@ export const investmentResearchAndRiskAdvisory: ServicePageData = {
   meta: {
     title: "Investment Research & Risk Advisory",
     description:
-      "Blubeard Investment AG's perspective on investment research and risk: market evaluation, financial analysis, industry research, due diligence and the assessment of investment-related risks.",
+      "Our perspective on investment research: market evaluation, financial analysis, industry research, due diligence and the assessment of investment risks.",
   },
   hero: {
     subtitle: "Market evaluation, financial analysis and a clear view of investment-related risks.",

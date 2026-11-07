@@ -9,9 +9,16 @@ import { Leadership } from "@/components/home/Leadership";
 import { Perspective } from "@/components/home/Perspective";
 import { ContactCta } from "@/components/home/ContactCta";
 import { HomeJsonLd } from "@/components/seo/HomeJsonLd";
+import { socialMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
+
+const title = "Blubeard Investment AG — Swiss Investment Company in Samedan";
 
 export const metadata: Metadata = {
+  title: { absolute: title },
+  description: site.description,
   alternates: { canonical: "/" },
+  ...socialMetadata({ path: "/", title, description: site.description }),
 };
 
 export default function HomePage() {

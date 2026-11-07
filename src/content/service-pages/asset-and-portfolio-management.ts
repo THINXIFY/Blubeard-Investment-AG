@@ -6,7 +6,7 @@ export const assetAndPortfolioManagement: ServicePageData = {
   meta: {
     title: "Asset & Portfolio Management",
     description:
-      "Blubeard Investment AG's perspective on asset and portfolio management: allocation, portfolio evaluation, diversification, risk considerations and strategic asset oversight.",
+      "Our perspective on asset and portfolio management: allocation, portfolio evaluation, diversification and strategic asset oversight.",
   },
   hero: {
     subtitle: "Structured perspectives on allocation, evaluation and strategic asset oversight.",

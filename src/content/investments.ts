@@ -49,7 +49,7 @@ export const investmentsPage = {
   meta: {
     title: "Investments",
     description:
-      "Explore the investment sectors of Blubeard Investment AG — from real estate, energy and infrastructure to technology, artificial intelligence, biotechnology and healthcare.",
+      "Explore the investment sectors of Blubeard Investment AG, from real estate, energy and infrastructure to technology, AI, biotechnology and healthcare.",
   },
   hero: {
     eyebrow: "Our Investments",

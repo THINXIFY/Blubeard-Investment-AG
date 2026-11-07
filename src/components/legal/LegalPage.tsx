@@ -1,3 +1,4 @@
+import { socialMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { legalUpdated, type LegalBlock, type LegalDocument } from "@/content/legal";
@@ -12,7 +13,7 @@ export function legalMetadata(doc: LegalDocument): Metadata {
     description: doc.description,
     alternates: { canonical: `/${doc.slug}` },
     robots: { index: true, follow: true },
-    openGraph: { type: "website", url: `/${doc.slug}`, title: doc.title, description: doc.description },
+    ...socialMetadata({ path: `/${doc.slug}`, title: `${doc.title} — ${site.name}`, description: doc.description }),
   };
 }
 

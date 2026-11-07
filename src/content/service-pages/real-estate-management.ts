@@ -6,7 +6,7 @@ export const realEstateManagement: ServicePageData = {
   meta: {
     title: "Real Estate Management",
     description:
-      "Blubeard Investment AG's perspective on real estate: property investment assessment, asset positioning, oversight, market and location analysis, development evaluation and risk considerations.",
+      "Our perspective on real estate: investment assessment, asset positioning, oversight, market and location analysis, and development evaluation.",
   },
   hero: {
     subtitle: "Strategic insight for property assets, informed decisions and long-term value.",

@@ -7,7 +7,7 @@ export const aerospaceDefense: SectorPageData = {
   meta: {
     title: "Aerospace & Defense Technology Investments",
     description:
-      "Blubeard Investment AG's perspective on aerospace and defence technology — aerospace engineering, satellites, propulsion, maintenance services and security technology, evaluated responsibly.",
+      "Our perspective on aerospace and defence technology: aerospace engineering, satellites, propulsion, maintenance services and security technology.",
   },
   hero: {
     eyebrow: "Aerospace & Defense Investments",

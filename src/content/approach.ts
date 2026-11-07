@@ -10,7 +10,7 @@ export const approachPage = {
   meta: {
     title: "Our Approach",
     description:
-      "How Blubeard Investment AG considers investment opportunities: disciplined evaluation, strategic perspective, long-term thinking and a structured process from opportunity to oversight.",
+      "How Blubeard Investment AG considers opportunities: disciplined evaluation, strategic perspective, long-term thinking and a structured process.",
   },
   hero: {
     eyebrow: "Our Approach",

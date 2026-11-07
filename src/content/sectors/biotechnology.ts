@@ -7,7 +7,7 @@ export const biotechnology: SectorPageData = {
   meta: {
     title: "Biotechnology Investments",
     description:
-      "Blubeard Investment AG's perspective on biotechnology — pharmaceutical research, genomics, biomanufacturing, diagnostics and computational biology, evaluated with scientific and long-term rigour.",
+      "Our perspective on biotechnology: pharmaceutical research, genomics, biomanufacturing, diagnostics and computational biology, with a long-term view.",
   },
   hero: {
     eyebrow: "Biotechnology Investments",

@@ -31,7 +31,7 @@ export const legalNotice: LegalDocument = {
   slug: "legal-notice",
   eyebrow: "Legal",
   title: "Impressum",
-  description: `Impressum of ${name}, a Swiss investment company in Samedan, Graubünden: company identification, commercial register details and legal information.`,
+  description: `Impressum of ${name}, a Swiss investment company in Samedan, Graubünden: company identification, register details and legal information.`,
   intro: `Information on the operator of this website, as required for Swiss commercial websites.`,
   sections: [
     {
@@ -114,7 +114,7 @@ export const privacyPolicy: LegalDocument = {
   slug: "privacy",
   eyebrow: "Legal",
   title: "Privacy Policy",
-  description: `Privacy Policy of ${name}, Swiss investment company in Samedan: how personal data is processed on this website and in email communication, and your rights under the Swiss FADP.`,
+  description: `Privacy Policy of ${name}: how personal data is processed on this website and in email communication, and your rights under the Swiss FADP.`,
   intro:
     `${name}, a Swiss investment company based in Samedan, Graubünden, is responsible for this website. ` +
     "This policy explains which personal data is processed when you visit this website or contact us, for which purposes, and what rights you have under the Swiss Federal Act on Data Protection (FADP).",
@@ -292,7 +292,7 @@ export const termsOfUse: LegalDocument = {
   slug: "terms",
   eyebrow: "Legal",
   title: "Terms of Use",
-  description: `Terms of Use for the website of ${name}, a Swiss investment company that helps individuals and businesses invest with care: how we work with clients, our long-term perspective, intellectual property and applicable law.`,
+  description: `Terms of Use for the ${name} website: how we work with clients, our long-term perspective, intellectual property and applicable law.`,
   intro:
     `This website is operated by ${name}, a Swiss investment company based in Samedan, Graubünden. We help individuals and businesses invest with care, across investment opportunities, strategic investments and long-term value creation. ` +
     "By using this website you accept the following terms. Please read them, in particular the information on the nature of the content, on how we work with clients and on our investment perspective.",

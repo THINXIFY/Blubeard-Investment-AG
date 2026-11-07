@@ -6,7 +6,7 @@ export const privateEquityAndCapitalAdvisory: ServicePageData = {
   meta: {
     title: "Private Equity & Capital Advisory",
     description:
-      "Blubeard Investment AG's perspective on private equity and capital: private capital opportunities, financing structures, capital requirements and strategic business growth.",
+      "Our perspective on private equity and capital: private capital opportunities, financing structures, capital requirements and strategic business growth.",
   },
   hero: {
     subtitle: "Insights into private capital opportunities, financing structures and strategic growth.",

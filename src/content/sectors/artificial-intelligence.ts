@@ -7,7 +7,7 @@ export const artificialIntelligence: SectorPageData = {
   meta: {
     title: "Artificial Intelligence Investments",
     description:
-      "Blubeard Investment AG's perspective on artificial intelligence — AI infrastructure, robotics, applied machine learning, autonomous systems and enterprise AI, evaluated with care and a long-term view.",
+      "Our perspective on artificial intelligence: AI infrastructure, robotics, applied machine learning, autonomous systems and enterprise AI.",
   },
   hero: {
     eyebrow: "Artificial Intelligence Investments",

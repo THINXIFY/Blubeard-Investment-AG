@@ -6,7 +6,7 @@ export const corporateAndStrategicConsulting: ServicePageData = {
   meta: {
     title: "Corporate & Strategic Consulting",
     description:
-      "Blubeard Investment AG's perspective on corporate strategy: business strategy, organisational development, market expansion, operational review and important corporate decisions.",
+      "Our perspective on corporate strategy: business strategy, organisational development, market expansion, operational review and key corporate decisions.",
   },
   hero: {
     subtitle: "Supporting business strategy, organisational development and important corporate decisions.",

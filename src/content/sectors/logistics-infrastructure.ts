@@ -7,7 +7,7 @@ export const logisticsInfrastructure: SectorPageData = {
   meta: {
     title: "Logistics & Infrastructure Investments",
     description:
-      "Blubeard Investment AG's perspective on logistics and infrastructure — ports, warehousing, rail, air cargo, road transport and transport infrastructure, evaluated with a long-term view.",
+      "Our perspective on logistics and infrastructure: ports, warehousing, rail, air cargo, road transport and transport infrastructure.",
   },
   hero: {
     eyebrow: "Logistics & Infrastructure Investments",

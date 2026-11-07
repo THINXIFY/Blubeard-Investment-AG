@@ -7,7 +7,7 @@ export const healthcareMedtech: SectorPageData = {
   meta: {
     title: "Healthcare & Medical Technology Investments",
     description:
-      "Blubeard Investment AG's perspective on healthcare and medical technology — medical devices, diagnostics and imaging, surgical systems, digital health and laboratory services.",
+      "Our perspective on healthcare and medical technology: medical devices, diagnostics and imaging, surgical systems, digital health and laboratory services.",
   },
   hero: {
     eyebrow: "Healthcare & MedTech Investments",

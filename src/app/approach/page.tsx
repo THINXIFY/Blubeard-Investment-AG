@@ -1,3 +1,4 @@
+import { ogImages } from "@/lib/seo";
 import type { Metadata } from "next";
 import { approachPage } from "@/content/approach";
 import { site } from "@/lib/site";
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/approach" },
   openGraph: {
+    images: ogImages,
     type: "website",
     url: "/approach",
     siteName: site.name,
@@ -21,7 +23,12 @@ export const metadata: Metadata = {
     title: `${title} — ${site.name}`,
     description,
   },
-  twitter: { card: "summary_large_image", title: `${title} — ${site.name}`, description },
+  twitter: {
+    images: ogImages,
+    card: "summary_large_image",
+    title: `${title} — ${site.name}`,
+    description,
+  },
 };
 
 function ApproachJsonLd() {

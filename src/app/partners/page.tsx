@@ -1,3 +1,4 @@
+import { ogImages } from "@/lib/seo";
 import type { Metadata } from "next";
 import { partnersPage, partnersPublished } from "@/content/partners";
 import { site } from "@/lib/site";
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
   // Internal review only until verified partners and approved logos exist (see content/partners.ts).
   robots: partnersPublished ? { index: true, follow: true } : { index: false, follow: false },
   openGraph: {
+    images: ogImages,
     type: "website",
     url: "/partners",
     siteName: site.name,
@@ -23,7 +25,12 @@ export const metadata: Metadata = {
     title: `${title} — ${site.name}`,
     description,
   },
-  twitter: { card: "summary_large_image", title: `${title} — ${site.name}`, description },
+  twitter: {
+    images: ogImages,
+    card: "summary_large_image",
+    title: `${title} — ${site.name}`,
+    description,
+  },
 };
 
 /** WebPage + breadcrumb only: no partner organisations are asserted in structured data. */

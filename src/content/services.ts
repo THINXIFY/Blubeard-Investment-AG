@@ -53,7 +53,7 @@ export const servicesPage = {
   meta: {
     title: "Services",
     description:
-      "The areas of expertise of Blubeard Investment AG — real estate, wealth and portfolio perspectives, venture and growth investments, corporate consulting, M&A, capital advisory and investment research.",
+      "Blubeard Investment AG's areas of expertise: real estate, wealth and portfolios, venture and growth, corporate consulting, M&A, capital advisory and research.",
   },
   hero: {
     eyebrow: "Services & Expertise",

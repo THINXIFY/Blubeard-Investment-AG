@@ -1,3 +1,4 @@
+import { ogImages } from "@/lib/seo";
 import type { Metadata } from "next";
 import { investmentsPage, sectors } from "@/content/investments";
 import { site } from "@/lib/site";
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/investments" },
   openGraph: {
+    images: ogImages,
     type: "website",
     url: "/investments",
     siteName: site.name,
@@ -22,7 +24,12 @@ export const metadata: Metadata = {
     title: `${title} — ${site.name}`,
     description,
   },
-  twitter: { card: "summary_large_image", title: `${title} — ${site.name}`, description },
+  twitter: {
+    images: ogImages,
+    card: "summary_large_image",
+    title: `${title} — ${site.name}`,
+    description,
+  },
 };
 
 /** CollectionPage + sector list + breadcrumb. Sectors are areas of interest, not holdings. */

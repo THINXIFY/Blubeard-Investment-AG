@@ -7,7 +7,7 @@ export const site = {
   shortName: "Blubeard",
   tagline: "Capital with Vision. Value with Purpose.",
   description:
-    "Blubeard Investment AG is a Swiss investment company in Samedan, Switzerland, focused on strategic opportunities across established industries and emerging technologies.",
+    "Blubeard Investment AG is a Swiss investment company in Samedan, focused on strategic opportunities across established industries and emerging technologies.",
   /** Brand statement used in the footer (client-approved). */
   statement:
     "A Swiss investment company focused on strategic opportunities, disciplined thinking, and long-term value.",

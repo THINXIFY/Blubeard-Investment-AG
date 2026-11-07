@@ -9,7 +9,7 @@ export const aboutPage = {
   meta: {
     title: "About Us",
     description:
-      "Blubeard Investment AG is a Swiss investment company in Samedan, Switzerland, focused on strategic opportunities across established industries and emerging technologies.",
+      "About Blubeard Investment AG, a Swiss investment company in Samedan, Graubünden, with a long-term perspective on established and emerging industries.",
   },
 
   hero: {
