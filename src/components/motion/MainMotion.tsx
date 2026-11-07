@@ -8,18 +8,20 @@ import { ensureGsap, gsap, isMainRoute, MOTION_OK, ScrollTrigger, setLenis } fro
 ensureGsap();
 
 /**
- * Site-wide motion for the six main pages only: smooth wheel scrolling (Lenis) and magnetic buttons.
- * Touch scrolling stays native. Reduced motion gets neither, and other pages are untouched.
+ * Smooth wheel scrolling on every page (Lenis), and magnetic buttons on the six main pages.
+ * Touch scrolling stays native, and reduced motion gets neither.
  */
 export function MainMotion() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!isMainRoute(pathname) || !window.matchMedia(MOTION_OK).matches) return;
+    if (!window.matchMedia(MOTION_OK).matches) return;
     const root = document.documentElement;
 
     const lenis = new Lenis({
-      lerp: 0.11,
+      // Lower is a longer glide; under 1 is less distance per wheel notch.
+      lerp: 0.075,
+      wheelMultiplier: 0.85,
       anchors: true,
       // Dialogs and anything marked keep their own native scrolling.
       prevent: (node) => Boolean(node.closest("dialog, [data-lenis-prevent]")),

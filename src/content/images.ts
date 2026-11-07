@@ -802,7 +802,7 @@ const meta: Record<ImageKey, Meta> = {
   },
   ptHero: {
     usage: "Our Partners — hero",
-    alt: "Two glass office towers linked by a skybridge, photographed from below at dusk",
+    alt: "The London skyline at dusk, looking along the River Thames",
   },
   ptPhilosophy: {
     usage: "Our Partners — philosophy",

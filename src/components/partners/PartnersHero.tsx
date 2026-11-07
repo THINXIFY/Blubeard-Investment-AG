@@ -9,7 +9,7 @@ import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { HeroBars } from "@/components/motion/HeroBars";
 
-/** Cinematic editorial hero: two towers joined by a bridge in slow motion, an oversized headline and a quiet supporting column. */
+/** Cinematic editorial hero: the London skyline at dusk in slow motion, an oversized headline and a quiet supporting column. */
 export function PartnersHero() {
   const { hero } = partnersPage;
   const img = images[hero.image];
@@ -30,7 +30,7 @@ export function PartnersHero() {
           priority
           sizes="100vw"
           placeholder="blur"
-          className="object-cover object-[52%_58%]"
+          className="object-cover object-[50%_34%]"
         />
       </KenBurns>
       <div

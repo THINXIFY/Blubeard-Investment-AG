@@ -77,8 +77,7 @@ export function pinFits(track: HTMLElement, stage: HTMLElement) {
       const node = child as HTMLElement;
       return getComputedStyle(node).position === "absolute" ? sum : sum + node.offsetHeight;
     }, 0);
-  const inner = Array.from(stage.querySelectorAll<HTMLElement>(".persp-list"));
-  const fits = content(stage) <= stage.clientHeight + 1 && inner.every((el) => content(el) <= el.offsetHeight + 1);
+  const fits = content(stage) <= stage.clientHeight + 1;
   if (!fits) track.setAttribute("data-pin", "off");
   return fits;
 }

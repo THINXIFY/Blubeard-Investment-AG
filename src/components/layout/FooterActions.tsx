@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
+import { scrollToY } from "@/lib/motion";
 
 /** Copies text to the clipboard with an animated tick and a polite live announcement. */
 export function CopyEmail({ email }: { email: string }) {
@@ -66,7 +67,8 @@ export function CopyEmail({ email }: { email: string }) {
 export function BackToTop() {
   const onClick = () => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    // Through the smooth scroller, so it also works while the page is still gliding.
+    scrollToY(0, reduce);
     document.querySelector<HTMLElement>("header a[href='/']")?.focus({ preventScroll: true });
   };
   return (

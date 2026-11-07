@@ -829,28 +829,6 @@ html.lenis body {
   html.js .pin-track:not([data-pin="off"]) .pin-pad {
     padding-block: calc(var(--header-h) + 0.5rem) 1rem;
   }
-  html.js .pin-track:not([data-pin="off"]) .persp-grid {
-    margin-top: 1.5rem;
-  }
-  html.js .pin-track:not([data-pin="off"]) .persp-list button {
-    padding-block: 0.875rem;
-  }
-  html.js .pin-track:not([data-pin="off"]) .persp-bar {
-    display: block;
-  }
-  html.js .pin-track:not([data-pin="off"]) .persp-stage {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-  }
-  html.js .pin-track:not([data-pin="off"]) .persp-grid {
-    min-height: 0;
-    flex: 1;
-    grid-template-rows: minmax(0, 1fr);
-  }
-  html.js .pin-track:not([data-pin="off"]) .persp-figure {
-    min-height: 0;
-  }
 }
 
 /* Homepage: the sector gallery runs sideways while the section holds. */
@@ -939,47 +917,6 @@ html.lenis body {
   }
 }
 
-/* About: value cards that stack as they arrive. */
-@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
-  html.js .stack-list {
-    display: block;
-    border-top: 0;
-  }
-  html.js .stack-list > li {
-    position: sticky;
-    top: calc(var(--header-h) + 1rem + var(--stack-i) * 1.25rem);
-    margin-bottom: 1.25rem;
-    border: 0;
-    padding: 0;
-  }
-  html.js .stack-list > li:hover {
-    background: transparent;
-  }
-  html.js .stack-card {
-    display: grid;
-    min-height: 13.5rem;
-    grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1.25fr) auto;
-    align-items: center;
-    gap: 2.5rem;
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-white);
-    padding: 2.25rem 2.5rem;
-    box-shadow: 0 30px 60px -48px rgb(16 19 32 / 0.5);
-    transform-origin: 50% 0;
-    will-change: transform;
-  }
-  html.js .stack-card > * {
-    margin-top: 0;
-  }
-  html.js .stack-card-head {
-    display: contents;
-  }
-  html.js .stack-card-num {
-    order: 4;
-  }
-}
-
 /* Investments: when one sector is hovered, the rest of the wall recedes. */
 @media (min-width: 64rem) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   html.js .sector-wall:has([data-card]:hover) [data-card]:not(:hover) [data-assemble] {
@@ -1022,15 +959,6 @@ html.lenis body {
   }
   html.js .pin-track:not([data-pin="off"]) .proc-list p {
     padding-bottom: 0.625rem;
-  }
-  html.js .pin-track:not([data-pin="off"]) .persp-grid {
-    margin-top: 1rem;
-  }
-  html.js .pin-track:not([data-pin="off"]) .persp-list button {
-    padding-block: 0.5rem;
-  }
-  html.js .pin-track:not([data-pin="off"]) .persp-list > li:last-child {
-    padding-top: 0.75rem;
   }
   html.js .rail-track:not([data-pin="off"]) .rail-list {
     margin-top: 1.25rem;
@@ -1207,7 +1135,7 @@ header {
     white-space: nowrap;
   }
 
-  /* About: compact team plates and value rows. */
+  /* About: compact team plates. */
   .lead-plate {
     min-height: 6.5rem;
     padding: 0.875rem;
@@ -1220,10 +1148,252 @@ header {
     font-size: 0.8125rem;
     line-height: 1.35;
   }
-  .stack-list > li {
-    padding-block: 1.5rem;
+}
+
+/* ==========================================================================
+   About: Investment Perspective, a full-screen stage (see AboutPerspective.tsx).
+   ========================================================================== */
+@media (min-width: 64rem) and (min-height: 640px) and (prefers-reduced-motion: no-preference) {
+  html.js .persp-track:not([data-pin="off"]) {
+    --persp-gutter: max(3rem, calc((100vw - 86rem) / 2 + 3rem));
+    --persp-foot: 6.25rem;
+    background: var(--color-white);
   }
-  .stack-card h3 {
+  html.js .persp-track:not([data-pin="off"]) > .pin-stage {
+    display: block;
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-frame {
+    position: absolute;
+    inset: 0;
+    will-change: clip-path;
+  }
+
+  /* Intro across the top */
+  html.js .persp-track:not([data-pin="off"]) .persp-intro {
+    position: absolute;
+    inset: calc(var(--header-h) + 0.5rem) 0 auto;
+    z-index: 30;
+    padding-top: 0;
+    pointer-events: none;
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-heading {
+    margin-top: 0.75rem;
+    font-size: clamp(1.375rem, 1rem + 1vw, 1.875rem);
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-lead {
+    max-width: 44ch;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  /* Slides stacked to fill the screen */
+  html.js .persp-track:not([data-pin="off"]) .persp-list-wrap {
+    position: absolute;
+    inset: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-list-wrap > div,
+  html.js .persp-track:not([data-pin="off"]) .persp-slides {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-slide {
+    position: absolute;
+    inset: 0;
+    display: block;
+    min-height: 0;
+    border-radius: 0;
+    padding: 0;
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-slide > [data-depth] {
+    inset: -2%;
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-grade {
+    background:
+      linear-gradient(
+        to top,
+        rgb(16 19 32 / 0.97) 0%,
+        rgb(16 19 32 / 0.62) 34%,
+        rgb(16 19 32 / 0.12) 62%,
+        rgb(16 19 32 / 0.78) 100%
+      ),
+      linear-gradient(to right, rgb(16 19 32 / 0.72) 0%, rgb(16 19 32 / 0.22) 58%, transparent 80%);
+  }
+
+  /* Oversized outlined numeral */
+  html.js .persp-track:not([data-pin="off"]) .persp-ghost {
+    position: absolute;
+    top: 50%;
+    right: calc(var(--persp-gutter) - 1rem);
+    z-index: 1;
+    display: block;
+    transform: translateY(-50%);
+    color: transparent;
+    font-family: var(--font-display);
+    font-size: min(30vw, 58svh);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.06em;
+    line-height: 1;
+    -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.28);
+    user-select: none;
+  }
+
+  /* Editorial type above the foot */
+  html.js .persp-track:not([data-pin="off"]) .persp-copy {
+    position: absolute;
+    right: var(--persp-gutter);
+    bottom: calc(var(--persp-foot) + 1.5rem);
+    left: var(--persp-gutter);
+    z-index: 2;
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-title {
     margin-top: 1rem;
+    font-size: clamp(2.5rem, min(6.2vw, 11svh), 6.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-text {
+    max-width: 52ch;
+    margin-top: 1.25rem;
+    font-size: 1.0625rem;
+  }
+
+  /* Progress and action along the foot */
+  html.js .persp-track:not([data-pin="off"]) .persp-foot {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 30;
+    padding-block: 0 1.75rem;
+  }
+  html.js .persp-track:not([data-pin="off"]) .persp-nav {
+    display: flex;
+  }
+}
+
+/* Phones: the rail's cards keep a comfortable reading width. */
+@media (max-width: 39.99rem) {
+  .persp-slide {
+    min-height: 27rem;
+  }
+}
+
+/* ==========================================================================
+   About: Our Values, an editorial index (see AboutValues.tsx).
+   ========================================================================== */
+.value-list {
+  border-bottom: 1px solid var(--color-line-strong);
+}
+
+.value-bars > span {
+  flex: 1;
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  background: var(--color-white);
+  transition: transform 600ms var(--ease-expo);
+}
+
+.value-bars > span:nth-child(2) {
+  transition-delay: 50ms;
+}
+
+.value-bars > span:nth-child(3) {
+  transition-delay: 100ms;
+}
+
+/* Words settle from a soft tint to ink with a feathered edge, moved by ValuesMotion. Solid text otherwise. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .value-word {
+    background: linear-gradient(90deg, var(--color-ink) 42%, rgb(16 19 32 / 0.22) 58%) 100% 0 / 240% 100% no-repeat;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+@media (min-width: 64rem) {
+  .value-list {
+    border-bottom: 0;
+  }
+  .value-row:last-child::after {
+    content: "";
+    position: absolute;
+    inset: auto 1.5rem 0;
+    height: 1px;
+    background: var(--color-line-strong);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .value-row:hover .value-bars > span {
+    transform: scaleY(1);
+  }
+  .value-num,
+  .value-text,
+  .value-word {
+    transition:
+      color 300ms var(--ease-expo),
+      -webkit-text-fill-color 300ms var(--ease-expo);
+  }
+  .value-icon {
+    transition:
+      color 400ms var(--ease-expo),
+      background-color 400ms var(--ease-expo),
+      border-color 400ms var(--ease-expo);
+  }
+  .value-row:hover .value-num {
+    color: var(--color-imperial);
+  }
+  .value-row:hover .value-text {
+    color: var(--color-ink);
+  }
+  html.js .value-row:hover .value-word,
+  .value-row:hover .value-word {
+    color: var(--color-imperial);
+    -webkit-text-fill-color: var(--color-imperial);
+  }
+  .value-row:hover .value-icon {
+    border-color: var(--color-imperial);
+    background: var(--color-imperial);
+    color: var(--color-white);
+  }
+}
+
+/* ==========================================================================
+   Scrollbar: thin and quiet. Touch devices keep their native overlay scrollbar.
+   Chromium ignores the ::-webkit rules once the standard properties are set, so these are kept apart.
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  @supports selector(::-webkit-scrollbar) {
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    html::-webkit-scrollbar-track {
+      background: var(--color-porcelain);
+    }
+    ::-webkit-scrollbar-thumb {
+      border: 2px solid transparent;
+      border-radius: 999px;
+      background: rgb(16 19 32 / 0.32) padding-box;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-imperial) padding-box;
+    }
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+  }
+  @supports not selector(::-webkit-scrollbar) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgb(16 19 32 / 0.32) var(--color-porcelain);
+    }
   }
 }

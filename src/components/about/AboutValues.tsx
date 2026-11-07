@@ -1,10 +1,10 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { aboutPage } from "@/content/about";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/motion/Reveal";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
-import { ValueStack } from "./ValueStack";
+import { ValuesMotion } from "./ValuesMotion";
 
 /* Fine line icons (stroke = currentColor). */
 const icons: Record<string, ReactNode> = {
@@ -35,7 +35,11 @@ const icons: Record<string, ReactNode> = {
   ),
 };
 
-/** Values: a four-column row with icons and hairlines. On large screens the cards stack up as they arrive. */
+/**
+ * Values as an editorial index: each is a word at display scale beside its description, which is always legible. Words
+ * settle from a soft tint to solid ink as they arrive (ValuesMotion). Hover is a quiet highlight that rises in three
+ * bars, after the bars in the emblem; nothing moves, so the text being read stays still.
+ */
 export function AboutValues() {
   const { values } = aboutPage;
 
@@ -44,51 +48,54 @@ export function AboutValues() {
       id="values"
       data-tone="light"
       aria-labelledby="values-title"
-      className="bg-porcelain py-20 md:py-24 lg:py-28"
+      className="overflow-x-clip bg-porcelain py-20 md:py-24 lg:py-28"
     >
       <Container>
-        <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <Eyebrow>{values.eyebrow}</Eyebrow>
-            <MaskedHeading id="values-title" lines={[values.heading]} className="mt-6 max-w-[18ch] text-heading-lg" />
-          </div>
+        <Reveal>
+          <Eyebrow>{values.eyebrow}</Eyebrow>
+          <MaskedHeading id="values-title" lines={[values.heading]} className="mt-6 max-w-[18ch] text-heading-lg" />
         </Reveal>
 
-        <ValueStack>
-          <Reveal
-            as="ul"
-            stagger={0.08}
-            className="stack-list mt-12 grid border-t border-line-strong/70 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4"
-          >
+        <ValuesMotion>
+          <ol className="value-list mt-10 lg:mt-12">
             {values.items.map((v, i) => (
-              <li
-                key={v.id}
-                data-reveal-item
-                style={{ "--stack-i": i } as CSSProperties}
-                className="group/value relative border-b border-line-strong/70 py-9 transition-colors duration-700 ease-expo hover:bg-white sm:px-7 sm:even:border-l lg:border-b-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0 lg:hover:first:pl-6"
-              >
+              <li key={v.id} className="value-row relative isolate lg:-mx-6">
                 <span
                   aria-hidden
-                  className="absolute -top-px left-0 h-0.5 w-full origin-left scale-x-0 bg-imperial transition-transform duration-700 ease-expo group-hover/value:scale-x-100"
+                  data-rule
+                  className="value-rule absolute inset-x-0 top-0 block h-px origin-left bg-line-strong lg:inset-x-6"
                 />
-                <div className="stack-card">
-                  <div className="stack-card-head flex items-start justify-between">
-                    <span className="grid size-14 place-items-center rounded-full border border-line-strong bg-white text-imperial transition-[background-color,border-color,color] duration-700 ease-expo group-hover/value:border-imperial group-hover/value:bg-imperial group-hover/value:text-white">
-                      <svg aria-hidden viewBox="0 0 40 40" className="size-6 fill-none stroke-current stroke-[1.5]">
-                        {icons[v.id]}
-                      </svg>
-                    </span>
-                    <span aria-hidden className="stack-card-num text-xs font-medium text-slate tabular-nums">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <h3 className="mt-8 font-display text-xl font-semibold tracking-[-0.02em] text-ink">{v.title}</h3>
-                  <p className="mt-3 text-[0.9375rem] leading-relaxed text-slate">{v.text}</p>
+                <span aria-hidden className="value-bars absolute inset-0 -z-10 flex overflow-hidden rounded-md">
+                  <span />
+                  <span />
+                  <span />
+                </span>
+                <div className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2.5 py-6 sm:py-7 lg:grid-cols-[3rem_minmax(0,1fr)_minmax(0,26rem)_3.5rem] lg:gap-x-8 lg:px-6 lg:py-7">
+                  <span aria-hidden className="value-num text-sm font-medium text-slate tabular-nums">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="value-icon grid size-11 place-items-center justify-self-end rounded-full border border-line-strong bg-white text-imperial lg:order-4 lg:size-14"
+                  >
+                    <svg viewBox="0 0 40 40" className="size-5 fill-none stroke-current stroke-[1.75] lg:size-6">
+                      {icons[v.id]}
+                    </svg>
+                  </span>
+                  <h3
+                    data-value-word
+                    className="value-word col-span-2 pb-[0.1em] font-display text-[clamp(2rem,9.6vw,3rem)] leading-[1.05] font-medium tracking-[-0.04em] text-ink lg:col-span-1 lg:text-[clamp(2.5rem,4.4vw,4.5rem)]"
+                  >
+                    {v.title}
+                  </h3>
+                  <p className="value-text col-span-2 leading-relaxed text-slate lg:col-span-1 lg:text-[1.0625rem]">
+                    {v.text}
+                  </p>
                 </div>
               </li>
             ))}
-          </Reveal>
-        </ValueStack>
+          </ol>
+        </ValuesMotion>
       </Container>
     </section>
   );

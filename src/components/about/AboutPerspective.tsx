@@ -1,30 +1,55 @@
 "use client";
 
 import Image from "next/image";
-import { useId, useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { aboutPage } from "@/content/about";
 import { images } from "@/content/images";
 import { cn } from "@/lib/cn";
-import { ensureGsap, gsap, PIN_MEDIA, pinFits, ScrollTrigger, scrollToY, useGSAP } from "@/lib/motion";
+import {
+  ensureGsap,
+  gsap,
+  motion,
+  MOTION_OK,
+  PIN_MEDIA,
+  pinFits,
+  ScrollTrigger,
+  scrollToY,
+  useGSAP,
+} from "@/lib/motion";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { Reveal } from "@/components/motion/Reveal";
+import { CursorDepth } from "@/components/motion/CursorDepth";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
+import { Reveal } from "@/components/motion/Reveal";
 
 ensureGsap();
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
+/** Three bars rising in turn, after the bars in the emblem. Each value runs from 0 (closed) to 1 (fully risen). */
+function barsClip(rise: readonly number[]) {
+  if (rise.every((r) => r >= 1)) return "none";
+  const points = rise.flatMap((r, i) => {
+    const left = (i * 100) / rise.length;
+    const right = ((i + 1) * 100) / rise.length;
+    const top = 100 - r * 100;
+    return [`${left}% 100%`, `${left}% ${top}%`, `${right}% ${top}%`, `${right}% 100%`];
+  });
+  return `polygon(${points.join(",")})`;
+}
+
 /**
- * Investment perspective — sector list (left) controls a large cross-fading photograph (right).
- * Large screens: the section holds and scrolling walks through the sectors, while a line tracks progress and the photo
- * settles at its own depth. Choosing a sector scrolls to it. Without the hold, hover or focus selects.
- * Small screens: an accordion, with the chosen sector's text and photo inline.
+ * Investment perspective as a full-screen stage on large screens. A window opens onto the first sector; scrolling then
+ * brings each sector up through three rising bars while its title climbs out of a mask, and a large outlined numeral
+ * drifts behind. The bar along the foot tracks progress, and choosing a sector scrolls to it.
+ * Phones get a swipe rail of photo cards, and other screens, reduced motion and no JavaScript a grid of the same cards.
  */
 export function AboutPerspective() {
   const { perspective } = aboutPage;
+  const { sectors } = perspective;
+  const n = sectors.length;
   const [active, setActive] = useState(0);
-  const uid = useId();
-  const n = perspective.sectors.length;
   const track = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const pin = useRef<ScrollTrigger | null>(null);
@@ -36,39 +61,114 @@ export function AboutPerspective() {
       if (!trackEl || !stageEl) return;
       const q = gsap.utils.selector(stageEl);
       const mm = gsap.matchMedia();
+
       mm.add(PIN_MEDIA, () => {
         if (!pinFits(trackEl, stageEl)) return;
-        pin.current = ScrollTrigger.create({
-          trigger: trackEl,
-          start: "top top",
-          end: "bottom bottom",
-          onUpdate: (self) => {
-            setActive(Math.min(n - 1, Math.floor(self.progress * n)));
-            gsap.set(q("[data-persp-bar]"), { scaleY: self.progress });
+        const slides = q("[data-p-slide]") as HTMLElement[];
+        const part = (slide: HTMLElement, name: string) => slide.querySelectorAll(`[data-p-${name}]`);
+
+        // The window opens as the section arrives.
+        gsap.fromTo(
+          q("[data-p-frame]"),
+          { clipPath: "inset(7% 5% 7% 5% round 14px)" },
+          {
+            clipPath: "inset(0% 0% 0% 0% round 0px)",
+            ease: "none",
+            scrollTrigger: { trigger: trackEl, start: "top 85%", end: "top top", scrub: 0.5 },
+          },
+        );
+
+        // Explicit start states: a staggered tween only applies its start when it begins.
+        slides.forEach((slide, i) => {
+          if (i === 0) return;
+          slide.style.clipPath = barsClip([0, 0, 0]);
+          gsap.set(part(slide, "img"), { scale: 1.2 });
+          gsap.set(part(slide, "line"), { y: 0, yPercent: 112 });
+          gsap.set(part(slide, "fade"), { opacity: 0, y: 24 });
+          gsap.set(part(slide, "ghost"), { xPercent: 12, opacity: 0 });
+        });
+        gsap.set(q("[data-p-bar]"), { scaleX: 0 });
+
+        const STEP = 0.5;
+        const tl = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: trackEl,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.6,
+            onUpdate: (self) => {
+              setActive(Math.min(n - 1, Math.floor(self.progress * n)));
+              (q("[data-p-bar]") as HTMLElement[]).forEach((bar, i) => {
+                gsap.set(bar, { scaleX: Math.min(Math.max(self.progress * n - i, 0), 1) });
+              });
+            },
           },
         });
-        gsap.fromTo(
-          q("[data-persp-img]"),
-          { scale: 1.16 },
-          {
-            scale: 1,
-            ease: "none",
-            scrollTrigger: { trigger: trackEl, start: "top top", end: "bottom bottom", scrub: 0.6 },
-          },
-        );
-        gsap.fromTo(
-          q("[data-persp-caption]"),
-          { y: 26 },
-          {
-            y: -14,
-            ease: "none",
-            scrollTrigger: { trigger: trackEl, start: "top top", end: "bottom bottom", scrub: 0.6 },
-          },
-        );
+
+        slides.forEach((slide, i) => {
+          // Every sector holds, then the next rises over it. The stage rests on the first and last.
+          const at = i - 1 + STEP;
+          gsap.fromTo(
+            part(slide, "ghost"),
+            { x: 0 },
+            {
+              x: -70,
+              ease: "none",
+              scrollTrigger: {
+                trigger: trackEl,
+                start: () => `top+=${(i / n) * 100}% top`,
+                end: () => `top+=${((i + 1) / n) * 100}% top`,
+                scrub: 0.6,
+              },
+            },
+          );
+          if (i === 0) return;
+          const prev = slides[i - 1];
+          const rise = { a: 0, b: 0, c: 0 };
+          const paint = () => {
+            slide.style.clipPath = barsClip([rise.a, rise.b, rise.c]);
+          };
+          tl.to(rise, { a: 1, duration: 0.3, ease: "power2.inOut", onUpdate: paint }, at)
+            .to(rise, { b: 1, duration: 0.3, ease: "power2.inOut", onUpdate: paint }, at + 0.06)
+            .to(rise, { c: 1, duration: 0.3, ease: "power2.inOut", onUpdate: paint }, at + 0.12)
+            .to(part(slide, "img"), { scale: 1, duration: 0.5, ease: "power2.out" }, at)
+            .to(part(prev, "img"), { scale: 1.08, duration: 0.45 }, at)
+            .to(part(prev, "line"), { yPercent: -112, duration: 0.2, stagger: 0.03, ease: "power2.in" }, at)
+            .to(part(prev, "fade"), { opacity: 0, duration: 0.14 }, at)
+            .to(part(prev, "ghost"), { opacity: 0, duration: 0.14 }, at)
+            .to(part(slide, "line"), { yPercent: 0, duration: 0.26, stagger: 0.04, ease: "power3.out" }, at + 0.2)
+            .to(part(slide, "fade"), { opacity: 1, y: 0, duration: 0.2, stagger: 0.03, ease: "power2.out" }, at + 0.28)
+            .to(part(slide, "ghost"), { xPercent: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, at + 0.16);
+        });
+        // The last sector holds as long as the others.
+        tl.to({}, { duration: STEP }, n - 1 - 1 + STEP + 0.5);
+        pin.current = tl.scrollTrigger ?? null;
+
         return () => {
           pin.current = null;
+          slides.forEach((slide) => {
+            slide.style.clipPath = "";
+          });
         };
       });
+
+      // Without the stage: the cards simply rise into view.
+      mm.add(`${MOTION_OK} and (max-width: 1023.98px), ${MOTION_OK} and (max-height: 639.98px)`, () => {
+        gsap.fromTo(
+          q("[data-p-slide]"),
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: motion.duration.slow,
+            ease: motion.ease.out,
+            stagger: 0.08,
+            scrollTrigger: { trigger: q("[data-p-slides]")[0], start: "top 88%", once: true },
+          },
+        );
+      });
+
       return () => mm.revert();
     },
     { scope: track },
@@ -76,182 +176,143 @@ export function AboutPerspective() {
 
   const choose = (i: number) => {
     const st = pin.current;
-    if (st) scrollToY(st.start + ((i + 0.5) / n) * (st.end - st.start));
-    else setActive(i);
+    if (st) scrollToY(st.start + ((i + 0.3) / n) * (st.end - st.start));
   };
 
   return (
-    <section id="perspective" data-tone="light" aria-labelledby="perspective-title" className="bg-white">
-      <div ref={track} className="pin-track" style={{ "--pin-h": `calc(100svh + ${n * 65}vh)` } as React.CSSProperties}>
+    <section
+      id="perspective"
+      data-tone="dark"
+      aria-labelledby="perspective-title"
+      className="persp bg-obsidian text-white"
+    >
+      <div
+        ref={track}
+        className="persp-track pin-track"
+        style={{ "--pin-h": `calc(100svh + ${n * 85}vh)` } as CSSProperties}
+      >
         <div ref={stage} className="pin-stage">
-          <Container className="persp-stage pin-pad py-20 md:py-24 lg:py-28">
-            <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
-              <Reveal className="lg:col-span-6">
-                <Eyebrow>{perspective.eyebrow}</Eyebrow>
-                <MaskedHeading id="perspective-title" lines={[perspective.heading]} className="mt-6 text-heading-lg" />
-              </Reveal>
-              <Reveal className="lg:col-span-5 lg:col-start-8" delay={0.1}>
-                <p className="leading-relaxed text-slate">{perspective.description}</p>
-              </Reveal>
-            </div>
+          <div data-p-frame className="persp-frame bg-obsidian">
+            <Container className="persp-intro pt-14 md:pt-20">
+              <div className="grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-8">
+                <div className="lg:col-span-7">
+                  <Reveal>
+                    <Eyebrow tone="dark">{perspective.eyebrow}</Eyebrow>
+                  </Reveal>
+                  <MaskedHeading
+                    id="perspective-title"
+                    lines={[perspective.heading]}
+                    className="persp-heading mt-5 font-display text-[clamp(2rem,1.3rem+2.4vw,3.25rem)] leading-[1.05] font-medium tracking-[-0.038em]"
+                  />
+                </div>
+                <Reveal className="lg:col-span-4 lg:col-start-9" delay={0.1}>
+                  <p className="persp-lead leading-relaxed text-platinum">{perspective.description}</p>
+                </Reveal>
+              </div>
+            </Container>
 
-            <div className="persp-grid mt-12 grid gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-8">
-              {/* Sector list */}
-              <Reveal as="ul" stagger={0.08} className="persp-list relative border-t border-line lg:col-span-5">
-                <li aria-hidden className="persp-bar absolute inset-y-0 -left-4 hidden w-px bg-line">
-                  <span data-persp-bar className="absolute inset-0 origin-top scale-y-0 bg-imperial" />
-                </li>
-                {perspective.sectors.map((s, i) => {
-                  const selected = i === active;
-                  const img = images[s.image];
-                  return (
-                    <li key={s.id} data-reveal-item className="border-b border-line">
-                      <button
-                        type="button"
-                        aria-pressed={selected}
-                        aria-controls={`${uid}-visual`}
-                        onClick={() => choose(i)}
-                        onMouseEnter={() => {
-                          if (!pin.current) setActive(i);
-                        }}
-                        onFocus={() => choose(i)}
-                        className="group/sector relative w-full py-6 text-left lg:py-7"
-                      >
-                        <span
-                          aria-hidden
-                          className={cn(
-                            "absolute top-0 bottom-0 left-0 w-0.5 origin-top bg-imperial transition-transform duration-700 ease-expo",
-                            selected ? "scale-y-100" : "scale-y-0",
-                          )}
-                        />
-                        <span
-                          className={cn(
-                            "flex items-center justify-between gap-6 transition-[padding] duration-700 ease-expo",
-                            selected && "lg:pl-6",
-                          )}
-                        >
-                          <span className="flex items-baseline gap-4">
-                            <span
-                              aria-hidden
-                              className={cn(
-                                "text-xs font-medium tabular-nums transition-colors duration-300",
-                                selected ? "text-imperial" : "text-slate",
-                              )}
-                            >
-                              {String(i + 1).padStart(2, "0")}
-                            </span>
-                            <span
-                              className={cn(
-                                "font-display text-xl font-semibold tracking-[-0.02em] transition-colors duration-300 lg:text-[1.375rem]",
-                                selected ? "text-ink" : "text-slate group-hover/sector:text-ink",
-                              )}
-                            >
-                              {s.title}
-                            </span>
-                          </span>
-                          <span
-                            aria-hidden
-                            className={cn(
-                              "hidden size-2 shrink-0 rounded-full transition-colors duration-300 lg:block",
-                              selected ? "bg-imperial" : "bg-line-strong",
-                            )}
-                          />
-                        </span>
-                        <span
-                          className={cn(
-                            "grid transition-[grid-template-rows,opacity] duration-700 ease-expo",
-                            selected ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
-                          )}
-                        >
-                          <span className="overflow-hidden">
-                            <span
-                              className={cn(
-                                "block pt-3 pl-8 text-[0.9375rem] leading-relaxed text-slate",
-                                selected && "lg:pl-14",
-                              )}
-                            >
-                              {s.text}
-                            </span>
-                            {/* Mobile/tablet: inline photograph per sector */}
-                            <span className="relative mt-5 ml-8 block aspect-[16/10] overflow-hidden rounded-md lg:hidden">
-                              <Image
-                                src={img.src}
-                                alt={img.alt}
-                                fill
-                                sizes="(min-width: 640px) 80vw, 90vw"
-                                placeholder="blur"
-                                className="object-cover"
-                              />
-                            </span>
-                          </span>
-                        </span>
-                      </button>
-                    </li>
-                  );
-                })}
-                <li className="pt-8">
-                  <Button href={perspective.cta.href} size="lg" arrow>
-                    {perspective.cta.label}
-                  </Button>
-                </li>
-              </Reveal>
-
-              {/* Visual stage (desktop) */}
-              <Reveal className="hidden lg:col-span-7 lg:block" delay={0.1}>
-                <figure
-                  id={`${uid}-visual`}
-                  aria-live="polite"
-                  className="persp-figure relative h-full min-h-[34rem] overflow-hidden rounded-md bg-obsidian"
-                >
-                  {perspective.sectors.map((s, i) => {
+            <Container className="persp-list-wrap mt-8 md:mt-10">
+              <CursorDepth>
+                <ul data-p-slides className="persp-slides m-rail grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {sectors.map((s, i) => {
                     const img = images[s.image];
-                    const on = i === active;
+                    const [first, second] = s.title.split(" & ");
                     return (
-                      <div
+                      <li
                         key={s.id}
-                        aria-hidden={!on}
-                        className={cn(
-                          "absolute inset-0 transition-[opacity,transform] duration-1200 ease-expo",
-                          on ? "scale-100 opacity-100" : "scale-[1.06] opacity-0",
-                        )}
+                        data-p-slide
+                        style={{ zIndex: i + 1 }}
+                        className="persp-slide relative isolate flex min-h-[29rem] flex-col justify-end overflow-hidden rounded-md bg-obsidian p-6"
                       >
-                        <Image
-                          data-persp-img
-                          src={img.src}
-                          alt={on ? img.alt : ""}
-                          fill
-                          sizes="55vw"
-                          placeholder="blur"
-                          className="object-cover"
+                        <div aria-hidden className="absolute inset-0 -z-20" data-depth="-14">
+                          <Image
+                            data-p-img
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            sizes="(min-width: 1024px) 100vw, (min-width: 640px) 50vw, 84vw"
+                            placeholder="blur"
+                            className="persp-img object-cover"
+                          />
+                        </div>
+                        <div
+                          aria-hidden
+                          className="persp-grade absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(16_19_32/0.96)_0%,rgb(16_19_32/0.72)_42%,rgb(16_19_32/0.12)_78%)]"
                         />
-                      </div>
+                        <span aria-hidden data-p-ghost className="persp-ghost hidden">
+                          {pad(i + 1)}
+                        </span>
+                        <div className="persp-copy">
+                          <p
+                            data-p-fade
+                            className="flex items-center gap-3 text-xs font-medium tracking-[0.18em] text-platinum tabular-nums"
+                          >
+                            <span aria-hidden className="h-px w-8 bg-imperial-300" />
+                            {pad(i + 1)} / {pad(n)}
+                          </p>
+                          <h3 className="persp-title mt-4 font-display text-[1.75rem] leading-[1.06] font-medium tracking-[-0.03em]">
+                            <span className="-mb-[0.14em] block overflow-hidden pb-[0.14em]">
+                              <span data-p-line className="block">
+                                {first}
+                                {second ? " &" : null}
+                              </span>
+                            </span>
+                            {second ? (
+                              <span className="-mb-[0.14em] block overflow-hidden pb-[0.14em]">
+                                <span data-p-line className="block text-platinum">
+                                  {" "}
+                                  {second}
+                                </span>
+                              </span>
+                            ) : null}
+                          </h3>
+                          <p data-p-fade className="persp-text mt-4 leading-relaxed text-white/85">
+                            {s.text}
+                          </p>
+                        </div>
+                      </li>
                     );
                   })}
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-obsidian/75 via-obsidian/5 to-transparent"
-                  />
-                  <figcaption
-                    data-persp-caption
-                    className="absolute right-8 bottom-8 left-8 flex items-end justify-between gap-6 text-white"
-                  >
-                    <span>
-                      <span className="text-eyebrow text-platinum">Sector focus</span>
-                      <span
-                        key={active}
-                        className="mt-2 block font-display text-2xl font-semibold tracking-[-0.02em] motion-safe:animate-[fade-up_0.7s_var(--ease-expo)]"
-                      >
-                        {perspective.sectors[active].title}
+                </ul>
+              </CursorDepth>
+            </Container>
+
+            <Container className="persp-foot pt-8 pb-14 md:pb-20">
+              <div className="flex items-end gap-10">
+                {/* Follows the scroll on the stage; hidden where every card is already on view. */}
+                <div role="group" aria-label="Choose a sector" className="persp-nav hidden min-w-0 flex-1 gap-3">
+                  {sectors.map((s, i) => (
+                    <button
+                      key={s.id}
+                      type="button"
+                      aria-pressed={i === active}
+                      onClick={() => choose(i)}
+                      onFocus={() => choose(i)}
+                      className="group/n min-w-0 flex-1 pb-1 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    >
+                      <span aria-hidden className="relative block h-px bg-white/25">
+                        <span data-p-bar className="absolute inset-x-0 -top-px h-0.5 origin-left bg-white" />
                       </span>
-                    </span>
-                    <span aria-hidden className="text-sm text-platinum tabular-nums">
-                      {String(active + 1).padStart(2, "0")} / {String(perspective.sectors.length).padStart(2, "0")}
-                    </span>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            </div>
-          </Container>
+                      <span
+                        className={cn(
+                          "mt-3 block text-[0.8125rem] leading-snug transition-colors duration-300",
+                          i === active ? "text-white" : "text-white/60 group-hover/n:text-white",
+                        )}
+                      >
+                        <span aria-hidden className="mr-2 tabular-nums">
+                          {pad(i + 1)}
+                        </span>
+                        {s.title}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                <Button href={perspective.cta.href} tone="dark" size="lg" arrow className="shrink-0">
+                  {perspective.cta.label}
+                </Button>
+              </div>
+            </Container>
+          </div>
         </div>
       </div>
     </section>
