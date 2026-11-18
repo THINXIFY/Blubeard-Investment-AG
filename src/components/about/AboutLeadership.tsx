@@ -96,7 +96,11 @@ export function AboutLeadership() {
           <Reveal
             as="ul"
             stagger={0.07}
-            className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:col-span-7 lg:grid-cols-3 lg:gap-5"
+            className={
+              "grid grid-cols-2 gap-2.5 sm:gap-4 lg:col-span-7 lg:grid-cols-3 lg:gap-5 " +
+              // An odd last plate spans the rest of its row instead of leaving a gap.
+              "max-lg:[&>li:last-child:nth-child(odd)]:col-span-2 lg:[&>li:last-child:nth-child(3n+1)]:col-span-3"
+            }
           >
             {leadership.team.map((person) => (
               <li key={person.name} data-reveal-item>

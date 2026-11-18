@@ -9,7 +9,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { TeamEmail } from "./TeamEmail";
 
 /**
- * Management — six individual cards (3 columns from 1280px, then 2, then 1) with equal heights per row: name, role,
+ * Management — individual cards (3 columns from 1280px, then 2, then a swipe rail) with equal heights per row: name, role,
  * introduction, and the email anchored to the base. Hover lifts the card slightly, warms the
  * platinum border and draws an Imperial rule. An official portrait appears when supplied.
  */
@@ -44,7 +44,11 @@ export function TeamManagement() {
           <Reveal
             as="ul"
             stagger={0.07}
-            className="m-rail mt-9 grid gap-4 md:grid-cols-2 lg:mt-11 lg:gap-5 xl:grid-cols-3"
+            className={
+              "m-rail mt-9 grid gap-4 md:grid-cols-2 lg:mt-11 lg:gap-5 xl:grid-cols-3 " +
+              // An odd last card fills its row at two columns and sits centred alone at three.
+              "md:max-xl:[&>li:last-child:nth-child(odd)]:col-span-2 xl:[&>li:last-child:nth-child(3n+1)]:col-start-2"
+            }
           >
             {management.people.map((p) => {
               const portrait = p.portrait ? images[p.portrait] : null;

@@ -31,6 +31,13 @@ export const management: Person[] = [
       "Albert Rubens oversees financial planning, resource allocation, and financial operations, supporting disciplined decision-making and maintaining a structured approach to the company’s financial management.",
   },
   {
+    name: "Hu Wensi",
+    role: "Investment Manager",
+    email: "hu.wensi@blubeard-investment.com",
+    intro:
+      "Hu Wensi manages the evaluation and oversight of investment opportunities, supporting market analysis, portfolio monitoring, and structured decision-making in line with the company’s long-term investment perspective.",
+  },
+  {
     name: "Silvia Garcia",
     role: "Investment Coordinator",
     email: "silvia.garcia@blubeard-investment.com",
